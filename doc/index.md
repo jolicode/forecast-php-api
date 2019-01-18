@@ -3,7 +3,7 @@
 ## Hunder the hood
 
 This library mostly contains automatically generated code from a
-[Forecast OpenAPI specification](Resources/forecast-openapi.yaml). As
+[Forecast OpenAPI specification](../Resources/forecast-openapi.yaml). As
 Forecast's API is not official nor documented, some API options might be
 missing or incomplete.
 
