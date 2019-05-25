@@ -39,7 +39,7 @@ $clients = $client->listClients()->getClients();
 $assignments = $client->listAssignments([
   'start_date' => '2019-01-01',
   'end_date' => '2019-01-31',
-])->getAssignments()
+])->getAssignments();
 
 dump($clients);
 dump($assignments);
