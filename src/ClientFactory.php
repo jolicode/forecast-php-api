@@ -13,27 +13,25 @@ namespace JoliCode\Forecast;
 
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\AddPathPlugin;
-use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use JoliCode\Forecast\Api\Client;
+use Psr\Http\Client\ClientInterface;
 
 class ClientFactory
 {
-    public static function create(string $token, string $accountId, HttpClient $httpClient = null): Client
+    public static function create(string $token, string $accountId, ClientInterface $httpClient = null): Client
     {
         // Find a default HTTP client if none provided
         if (null === $httpClient) {
-            $httpClient = HttpClientDiscovery::find();
+            $httpClient = Psr18ClientDiscovery::find();
         }
 
         // Decorates the HTTP client with some plugins
-        $uri = UriFactoryDiscovery::find()->createUri('https://api.forecastapp.com/');
+        $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri('https://api.forecastapp.com/');
         $pluginClient = new PluginClient($httpClient, [
-            new ErrorPlugin(),
             new AddPathPlugin($uri),
             new AddHostPlugin($uri),
             new HeaderAppendPlugin([
