@@ -1,169 +1,134 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Model;
 
 class Placeholder
 {
     /**
-     * 
-     *
      * @var bool|null
      */
     protected $archived;
     /**
-     * 
-     *
      * @var int|null
      */
     protected $id;
     /**
-     * 
-     *
      * @var string|null
      */
     protected $name;
     /**
-     * 
-     *
      * @var string[]|null
      */
     protected $roles;
     /**
-     * date when the Placeholder was last updated
+     * date when the Placeholder was last updated.
      *
      * @var string|null
      */
     protected $updatedAt;
     /**
-     * id of the user who last updated this Placeholder
+     * id of the user who last updated this Placeholder.
      *
      * @var int|null
      */
     protected $updatedById;
-    /**
-     * 
-     *
-     * @return bool|null
-     */
-    public function getArchived() : ?bool
+
+    public function getArchived(): ?bool
     {
         return $this->archived;
     }
-    /**
-     * 
-     *
-     * @param bool|null $archived
-     *
-     * @return self
-     */
-    public function setArchived(?bool $archived) : self
+
+    public function setArchived(?bool $archived): self
     {
         $this->archived = $archived;
+
         return $this;
     }
-    /**
-     * 
-     *
-     * @return int|null
-     */
-    public function getId() : ?int
+
+    public function getId(): ?int
     {
         return $this->id;
     }
-    /**
-     * 
-     *
-     * @param int|null $id
-     *
-     * @return self
-     */
-    public function setId(?int $id) : self
+
+    public function setId(?int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
-    /**
-     * 
-     *
-     * @return string|null
-     */
-    public function getName() : ?string
+
+    public function getName(): ?string
     {
         return $this->name;
     }
-    /**
-     * 
-     *
-     * @param string|null $name
-     *
-     * @return self
-     */
-    public function setName(?string $name) : self
+
+    public function setName(?string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
+
     /**
-     * 
-     *
      * @return string[]|null
      */
-    public function getRoles() : ?array
+    public function getRoles(): ?array
     {
         return $this->roles;
     }
+
     /**
-     * 
-     *
      * @param string[]|null $roles
-     *
-     * @return self
      */
-    public function setRoles(?array $roles) : self
+    public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
+
         return $this;
     }
+
     /**
-     * date when the Placeholder was last updated
-     *
-     * @return string|null
+     * date when the Placeholder was last updated.
      */
-    public function getUpdatedAt() : ?string
+    public function getUpdatedAt(): ?string
     {
         return $this->updatedAt;
     }
+
     /**
-     * date when the Placeholder was last updated
-     *
-     * @param string|null $updatedAt
-     *
-     * @return self
+     * date when the Placeholder was last updated.
      */
-    public function setUpdatedAt(?string $updatedAt) : self
+    public function setUpdatedAt(?string $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
+
     /**
-     * id of the user who last updated this Placeholder
-     *
-     * @return int|null
+     * id of the user who last updated this Placeholder.
      */
-    public function getUpdatedById() : ?int
+    public function getUpdatedById(): ?int
     {
         return $this->updatedById;
     }
+
     /**
-     * id of the user who last updated this Placeholder
-     *
-     * @param int|null $updatedById
-     *
-     * @return self
+     * id of the user who last updated this Placeholder.
      */
-    public function setUpdatedById(?int $updatedById) : self
+    public function setUpdatedById(?int $updatedById): self
     {
         $this->updatedById = $updatedById;
+
         return $this;
     }
 }

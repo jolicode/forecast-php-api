@@ -1,60 +1,77 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Endpoint;
 
 class ListAssignments extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7Endpoint
 {
+    use \Jane\OpenApiRuntime\Client\Psr7EndpointTrait;
+
     /**
      * Returns a list of assignments.
      *
      * @param array $queryParameters {
+     *
      *     @var string $start_date Only return assignments after this date
      *     @var string $end_date Only return assignments before this date
      * }
      */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
-    use \Jane\OpenApiRuntime\Client\Psr7EndpointTrait;
-    public function getMethod() : string
+
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+
+    public function getUri(): string
     {
         return '/assignments';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('start_date', 'end_date'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->setAllowedTypes('start_date', array('string'));
-        $optionsResolver->setAllowedTypes('end_date', array('string'));
+        $optionsResolver->setDefined(['start_date', 'end_date']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->setAllowedTypes('start_date', ['string']);
+        $optionsResolver->setAllowedTypes('end_date', ['string']);
+
         return $optionsResolver;
     }
+
     /**
      * {@inheritdoc}
      *
-     *
-     * @return null|\JoliCode\Forecast\Api\Model\Assignments|\JoliCode\Forecast\Api\Model\Error
+     * @return \JoliCode\Forecast\Api\Model\Assignments|\JoliCode\Forecast\Api\Model\Error|null
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status && false !== mb_strpos($contentType, 'application/json')) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\Assignments', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (false !== mb_strpos($contentType, 'application/json')) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\Error', 'json');
         }
     }

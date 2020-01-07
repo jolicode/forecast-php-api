@@ -1,30 +1,42 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\JsonSchemaRuntime\Reference;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 class PlaceholderNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type === 'JoliCode\\Forecast\\Api\\Model\\Placeholder';
+        return 'JoliCode\\Forecast\\Api\\Model\\Placeholder' === $type;
     }
+
     public function supportsNormalization($data, $format = null)
     {
-        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\Placeholder';
+        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Placeholder' === \get_class($data);
     }
-    public function denormalize($data, $class, $format = null, array $context = array())
+
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!is_object($data)) {
+        if (!\is_object($data)) {
             return null;
         }
         if (isset($data->{'$ref'})) {
@@ -34,31 +46,33 @@ class PlaceholderNormalizer implements DenormalizerInterface, NormalizerInterfac
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Placeholder();
-        if (property_exists($data, 'archived') && $data->{'archived'} !== null) {
+        if (property_exists($data, 'archived') && null !== $data->{'archived'}) {
             $object->setArchived($data->{'archived'});
         }
-        if (property_exists($data, 'id') && $data->{'id'} !== null) {
+        if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'name') && $data->{'name'} !== null) {
+        if (property_exists($data, 'name') && null !== $data->{'name'}) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'roles') && $data->{'roles'} !== null) {
-            $values = array();
+        if (property_exists($data, 'roles') && null !== $data->{'roles'}) {
+            $values = [];
             foreach ($data->{'roles'} as $value) {
                 $values[] = $value;
             }
             $object->setRoles($values);
         }
-        if (property_exists($data, 'updated_at') && $data->{'updated_at'} !== null) {
+        if (property_exists($data, 'updated_at') && null !== $data->{'updated_at'}) {
             $object->setUpdatedAt($data->{'updated_at'});
         }
-        if (property_exists($data, 'updated_by_id') && $data->{'updated_by_id'} !== null) {
+        if (property_exists($data, 'updated_by_id') && null !== $data->{'updated_by_id'}) {
             $object->setUpdatedById($data->{'updated_by_id'});
         }
+
         return $object;
     }
-    public function normalize($object, $format = null, array $context = array())
+
+    public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
         if (null !== $object->getArchived()) {
@@ -71,7 +85,7 @@ class PlaceholderNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data->{'name'} = $object->getName();
         }
         if (null !== $object->getRoles()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRoles() as $value) {
                 $values[] = $value;
             }
@@ -83,6 +97,7 @@ class PlaceholderNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (null !== $object->getUpdatedById()) {
             $data->{'updated_by_id'} = $object->getUpdatedById();
         }
+
         return $data;
     }
 }

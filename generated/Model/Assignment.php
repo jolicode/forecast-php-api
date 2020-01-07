@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Model;
 
 class Assignment
@@ -11,321 +20,285 @@ class Assignment
      */
     protected $activeOnDaysOff;
     /**
-     * Number of seconds assigned
+     * Number of seconds assigned.
      *
      * @var int|null
      */
     protected $allocation;
     /**
-     * end date
+     * end date.
      *
      * @var string|null
      */
     protected $endDate;
     /**
-     * Id of the assignement
+     * Id of the assignement.
      *
      * @var int|null
      */
     protected $id;
     /**
-     * literature about the assignement
+     * literature about the assignement.
      *
      * @var string|null
      */
     protected $notes;
     /**
-     * id of the user who is assigned
+     * id of the user who is assigned.
      *
      * @var int|null
      */
     protected $personId;
     /**
-     * id of the placeholder who is assigned
+     * id of the placeholder who is assigned.
      *
      * @var int|null
      */
     protected $placeholderId;
     /**
-     * id of the project which is assigned
+     * id of the project which is assigned.
      *
      * @var int|null
      */
     protected $projectId;
     /**
-     * if the assignment belongs to a repeated_assignment_set, its id
+     * if the assignment belongs to a repeated_assignment_set, its id.
      *
      * @var int|null
      */
     protected $repeatedAssignmentSetId;
     /**
-     * start date
+     * start date.
      *
      * @var string|null
      */
     protected $startDate;
     /**
-     * date when the assignment was last updated
+     * date when the assignment was last updated.
      *
      * @var string|null
      */
     protected $updatedAt;
     /**
-     * id of the user who last updated this assignment
+     * id of the user who last updated this assignment.
      *
      * @var int|null
      */
     protected $updatedBy;
+
     /**
      * should the assignement be also active on days off?
-     *
-     * @return bool|null
      */
-    public function getActiveOnDaysOff() : ?bool
+    public function getActiveOnDaysOff(): ?bool
     {
         return $this->activeOnDaysOff;
     }
+
     /**
      * should the assignement be also active on days off?
-     *
-     * @param bool|null $activeOnDaysOff
-     *
-     * @return self
      */
-    public function setActiveOnDaysOff(?bool $activeOnDaysOff) : self
+    public function setActiveOnDaysOff(?bool $activeOnDaysOff): self
     {
         $this->activeOnDaysOff = $activeOnDaysOff;
+
         return $this;
     }
+
     /**
-     * Number of seconds assigned
-     *
-     * @return int|null
+     * Number of seconds assigned.
      */
-    public function getAllocation() : ?int
+    public function getAllocation(): ?int
     {
         return $this->allocation;
     }
+
     /**
-     * Number of seconds assigned
-     *
-     * @param int|null $allocation
-     *
-     * @return self
+     * Number of seconds assigned.
      */
-    public function setAllocation(?int $allocation) : self
+    public function setAllocation(?int $allocation): self
     {
         $this->allocation = $allocation;
+
         return $this;
     }
+
     /**
-     * end date
-     *
-     * @return string|null
+     * end date.
      */
-    public function getEndDate() : ?string
+    public function getEndDate(): ?string
     {
         return $this->endDate;
     }
+
     /**
-     * end date
-     *
-     * @param string|null $endDate
-     *
-     * @return self
+     * end date.
      */
-    public function setEndDate(?string $endDate) : self
+    public function setEndDate(?string $endDate): self
     {
         $this->endDate = $endDate;
+
         return $this;
     }
+
     /**
-     * Id of the assignement
-     *
-     * @return int|null
+     * Id of the assignement.
      */
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
+
     /**
-     * Id of the assignement
-     *
-     * @param int|null $id
-     *
-     * @return self
+     * Id of the assignement.
      */
-    public function setId(?int $id) : self
+    public function setId(?int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
+
     /**
-     * literature about the assignement
-     *
-     * @return string|null
+     * literature about the assignement.
      */
-    public function getNotes() : ?string
+    public function getNotes(): ?string
     {
         return $this->notes;
     }
+
     /**
-     * literature about the assignement
-     *
-     * @param string|null $notes
-     *
-     * @return self
+     * literature about the assignement.
      */
-    public function setNotes(?string $notes) : self
+    public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
+
         return $this;
     }
+
     /**
-     * id of the user who is assigned
-     *
-     * @return int|null
+     * id of the user who is assigned.
      */
-    public function getPersonId() : ?int
+    public function getPersonId(): ?int
     {
         return $this->personId;
     }
+
     /**
-     * id of the user who is assigned
-     *
-     * @param int|null $personId
-     *
-     * @return self
+     * id of the user who is assigned.
      */
-    public function setPersonId(?int $personId) : self
+    public function setPersonId(?int $personId): self
     {
         $this->personId = $personId;
+
         return $this;
     }
+
     /**
-     * id of the placeholder who is assigned
-     *
-     * @return int|null
+     * id of the placeholder who is assigned.
      */
-    public function getPlaceholderId() : ?int
+    public function getPlaceholderId(): ?int
     {
         return $this->placeholderId;
     }
+
     /**
-     * id of the placeholder who is assigned
-     *
-     * @param int|null $placeholderId
-     *
-     * @return self
+     * id of the placeholder who is assigned.
      */
-    public function setPlaceholderId(?int $placeholderId) : self
+    public function setPlaceholderId(?int $placeholderId): self
     {
         $this->placeholderId = $placeholderId;
+
         return $this;
     }
+
     /**
-     * id of the project which is assigned
-     *
-     * @return int|null
+     * id of the project which is assigned.
      */
-    public function getProjectId() : ?int
+    public function getProjectId(): ?int
     {
         return $this->projectId;
     }
+
     /**
-     * id of the project which is assigned
-     *
-     * @param int|null $projectId
-     *
-     * @return self
+     * id of the project which is assigned.
      */
-    public function setProjectId(?int $projectId) : self
+    public function setProjectId(?int $projectId): self
     {
         $this->projectId = $projectId;
+
         return $this;
     }
+
     /**
-     * if the assignment belongs to a repeated_assignment_set, its id
-     *
-     * @return int|null
+     * if the assignment belongs to a repeated_assignment_set, its id.
      */
-    public function getRepeatedAssignmentSetId() : ?int
+    public function getRepeatedAssignmentSetId(): ?int
     {
         return $this->repeatedAssignmentSetId;
     }
+
     /**
-     * if the assignment belongs to a repeated_assignment_set, its id
-     *
-     * @param int|null $repeatedAssignmentSetId
-     *
-     * @return self
+     * if the assignment belongs to a repeated_assignment_set, its id.
      */
-    public function setRepeatedAssignmentSetId(?int $repeatedAssignmentSetId) : self
+    public function setRepeatedAssignmentSetId(?int $repeatedAssignmentSetId): self
     {
         $this->repeatedAssignmentSetId = $repeatedAssignmentSetId;
+
         return $this;
     }
+
     /**
-     * start date
-     *
-     * @return string|null
+     * start date.
      */
-    public function getStartDate() : ?string
+    public function getStartDate(): ?string
     {
         return $this->startDate;
     }
+
     /**
-     * start date
-     *
-     * @param string|null $startDate
-     *
-     * @return self
+     * start date.
      */
-    public function setStartDate(?string $startDate) : self
+    public function setStartDate(?string $startDate): self
     {
         $this->startDate = $startDate;
+
         return $this;
     }
+
     /**
-     * date when the assignment was last updated
-     *
-     * @return string|null
+     * date when the assignment was last updated.
      */
-    public function getUpdatedAt() : ?string
+    public function getUpdatedAt(): ?string
     {
         return $this->updatedAt;
     }
+
     /**
-     * date when the assignment was last updated
-     *
-     * @param string|null $updatedAt
-     *
-     * @return self
+     * date when the assignment was last updated.
      */
-    public function setUpdatedAt(?string $updatedAt) : self
+    public function setUpdatedAt(?string $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
+
     /**
-     * id of the user who last updated this assignment
-     *
-     * @return int|null
+     * id of the user who last updated this assignment.
      */
-    public function getUpdatedBy() : ?int
+    public function getUpdatedBy(): ?int
     {
         return $this->updatedBy;
     }
+
     /**
-     * id of the user who last updated this assignment
-     *
-     * @param int|null $updatedBy
-     *
-     * @return self
+     * id of the user who last updated this assignment.
      */
-    public function setUpdatedBy(?int $updatedBy) : self
+    public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
         return $this;
     }
 }

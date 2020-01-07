@@ -1,223 +1,212 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Model;
 
 class AccountAccount
 {
     /**
-     * Id of the account
+     * Id of the account.
      *
      * @var int|null
      */
     protected $id;
     /**
-     * Name of the account
+     * Name of the account.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Number of seconds of capacity in each week
+     * Number of seconds of capacity in each week.
      *
      * @var int|null
      */
     protected $weeklyCapacity;
     /**
-     * Available color labels
+     * Available color labels.
      *
      * @var AccountAccountColorLabelsItem[]|null
      */
     protected $colorLabels;
     /**
-     * harvest subdomain associated with this forecast account
+     * harvest subdomain associated with this forecast account.
      *
      * @var string|null
      */
     protected $harvestSubdomain;
     /**
-     * harvest account name associated with this forecast account
+     * harvest account name associated with this forecast account.
      *
      * @var string|null
      */
     protected $harvestName;
     /**
-     * whether or not the grid shows weekends
+     * whether or not the grid shows weekends.
      *
      * @var bool|null
      */
     protected $weekendsEnabled;
     /**
-     * creation date
+     * creation date.
      *
      * @var string|null
      */
     protected $createdAt;
+
     /**
-     * Id of the account
-     *
-     * @return int|null
+     * Id of the account.
      */
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
+
     /**
-     * Id of the account
-     *
-     * @param int|null $id
-     *
-     * @return self
+     * Id of the account.
      */
-    public function setId(?int $id) : self
+    public function setId(?int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
+
     /**
-     * Name of the account
-     *
-     * @return string|null
+     * Name of the account.
      */
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
+
     /**
-     * Name of the account
-     *
-     * @param string|null $name
-     *
-     * @return self
+     * Name of the account.
      */
-    public function setName(?string $name) : self
+    public function setName(?string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
+
     /**
-     * Number of seconds of capacity in each week
-     *
-     * @return int|null
+     * Number of seconds of capacity in each week.
      */
-    public function getWeeklyCapacity() : ?int
+    public function getWeeklyCapacity(): ?int
     {
         return $this->weeklyCapacity;
     }
+
     /**
-     * Number of seconds of capacity in each week
-     *
-     * @param int|null $weeklyCapacity
-     *
-     * @return self
+     * Number of seconds of capacity in each week.
      */
-    public function setWeeklyCapacity(?int $weeklyCapacity) : self
+    public function setWeeklyCapacity(?int $weeklyCapacity): self
     {
         $this->weeklyCapacity = $weeklyCapacity;
+
         return $this;
     }
+
     /**
-     * Available color labels
+     * Available color labels.
      *
      * @return AccountAccountColorLabelsItem[]|null
      */
-    public function getColorLabels() : ?array
+    public function getColorLabels(): ?array
     {
         return $this->colorLabels;
     }
+
     /**
-     * Available color labels
+     * Available color labels.
      *
      * @param AccountAccountColorLabelsItem[]|null $colorLabels
-     *
-     * @return self
      */
-    public function setColorLabels(?array $colorLabels) : self
+    public function setColorLabels(?array $colorLabels): self
     {
         $this->colorLabels = $colorLabels;
+
         return $this;
     }
+
     /**
-     * harvest subdomain associated with this forecast account
-     *
-     * @return string|null
+     * harvest subdomain associated with this forecast account.
      */
-    public function getHarvestSubdomain() : ?string
+    public function getHarvestSubdomain(): ?string
     {
         return $this->harvestSubdomain;
     }
+
     /**
-     * harvest subdomain associated with this forecast account
-     *
-     * @param string|null $harvestSubdomain
-     *
-     * @return self
+     * harvest subdomain associated with this forecast account.
      */
-    public function setHarvestSubdomain(?string $harvestSubdomain) : self
+    public function setHarvestSubdomain(?string $harvestSubdomain): self
     {
         $this->harvestSubdomain = $harvestSubdomain;
+
         return $this;
     }
+
     /**
-     * harvest account name associated with this forecast account
-     *
-     * @return string|null
+     * harvest account name associated with this forecast account.
      */
-    public function getHarvestName() : ?string
+    public function getHarvestName(): ?string
     {
         return $this->harvestName;
     }
+
     /**
-     * harvest account name associated with this forecast account
-     *
-     * @param string|null $harvestName
-     *
-     * @return self
+     * harvest account name associated with this forecast account.
      */
-    public function setHarvestName(?string $harvestName) : self
+    public function setHarvestName(?string $harvestName): self
     {
         $this->harvestName = $harvestName;
+
         return $this;
     }
+
     /**
-     * whether or not the grid shows weekends
-     *
-     * @return bool|null
+     * whether or not the grid shows weekends.
      */
-    public function getWeekendsEnabled() : ?bool
+    public function getWeekendsEnabled(): ?bool
     {
         return $this->weekendsEnabled;
     }
+
     /**
-     * whether or not the grid shows weekends
-     *
-     * @param bool|null $weekendsEnabled
-     *
-     * @return self
+     * whether or not the grid shows weekends.
      */
-    public function setWeekendsEnabled(?bool $weekendsEnabled) : self
+    public function setWeekendsEnabled(?bool $weekendsEnabled): self
     {
         $this->weekendsEnabled = $weekendsEnabled;
+
         return $this;
     }
+
     /**
-     * creation date
-     *
-     * @return string|null
+     * creation date.
      */
-    public function getCreatedAt() : ?string
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
+
     /**
-     * creation date
-     *
-     * @param string|null $createdAt
-     *
-     * @return self
+     * creation date.
      */
-    public function setCreatedAt(?string $createdAt) : self
+    public function setCreatedAt(?string $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 }

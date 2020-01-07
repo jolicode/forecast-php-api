@@ -1,30 +1,42 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\JsonSchemaRuntime\Reference;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type === 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionDiscounts';
+        return 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionDiscounts' === $type;
     }
+
     public function supportsNormalization($data, $format = null)
     {
-        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionDiscounts';
+        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionDiscounts' === \get_class($data);
     }
-    public function denormalize($data, $class, $format = null, array $context = array())
+
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!is_object($data)) {
+        if (!\is_object($data)) {
             return null;
         }
         if (isset($data->{'$ref'})) {
@@ -34,15 +46,17 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionDiscounts();
-        if (property_exists($data, 'monthly_percentage') && $data->{'monthly_percentage'} !== null) {
+        if (property_exists($data, 'monthly_percentage') && null !== $data->{'monthly_percentage'}) {
             $object->setMonthlyPercentage($data->{'monthly_percentage'});
         }
-        if (property_exists($data, 'yearly_percentage') && $data->{'yearly_percentage'} !== null) {
+        if (property_exists($data, 'yearly_percentage') && null !== $data->{'yearly_percentage'}) {
             $object->setYearlyPercentage($data->{'yearly_percentage'});
         }
+
         return $object;
     }
-    public function normalize($object, $format = null, array $context = array())
+
+    public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
         if (null !== $object->getMonthlyPercentage()) {
@@ -51,6 +65,7 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
         if (null !== $object->getYearlyPercentage()) {
             $data->{'yearly_percentage'} = $object->getYearlyPercentage();
         }
+
         return $data;
     }
 }

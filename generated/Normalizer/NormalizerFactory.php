@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Normalizer;
 
 class NormalizerFactory
 {
     public static function create()
     {
-        $normalizers = array();
+        $normalizers = [];
         $normalizers[] = new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer();
         $normalizers[] = new \Jane\JsonSchemaRuntime\Normalizer\ReferenceNormalizer();
         $normalizers[] = new AccountNormalizer();
@@ -50,6 +59,7 @@ class NormalizerFactory
         $normalizers[] = new ProjectsIdGetResponse200Normalizer();
         $normalizers[] = new RolesIdGetResponse200Normalizer();
         $normalizers[] = new RepeatedAssignmentSetsIdGetResponse200Normalizer();
+
         return $normalizers;
     }
 }
