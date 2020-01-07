@@ -1,0 +1,1102 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: forecastapp API
+  license:
+    name: MIT
+security:
+  - BearerAuth: []
+    AccountAuth: []
+paths:
+  "/accounts/{id}":
+    get:
+      summary: Get an account details
+      operationId: getAccount
+      description: Returns an account details.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the account
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Account informations
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Account"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/aggregate/future_scheduled_hours/{date}":
+    get:
+      summary: Counts scheduled hours per person and project
+      operationId: countScheduledHours
+      description: Returns the number of scheduled hours.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: date
+          description: The date after which to lookup
+          required: true
+          in: path
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Future scheduled hours list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/FutureScheduledHours"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /aggregate/remaining_budgeted_hours:
+    get:
+      summary: Returns the remaining budgeted hours, project by project
+      operationId: getRemainingBudgetedHours
+      description: Returns the remaining budgeted hours, project by project.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: Remaining budgeted hour
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/RemainingBudgetedHours"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/assignments/{id}":
+    get:
+      summary: Get an Assignment's details
+      operationId: getAssignment
+      description: Returns an Assignment.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Assignment
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Assignment details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - assignment
+                properties:
+                  assignment:
+                    $ref: "#/components/schemas/Assignment"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /assignments:
+    get:
+      summary: List assignments
+      operationId: listAssignments
+      description: Returns a list of assignments.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: start_date
+          description: Only return assignments after this date
+          required: false
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          description: Only return assignments before this date
+          required: false
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Assignments list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Assignments"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create an assignment
+      operationId: createAssignment
+      description: Creates an assignment.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - assignment
+              properties:
+                assignment:
+                  $ref: "#/components/schemas/Assignment"
+        description: an objectif representing the assignment to create
+        required: true
+      responses:
+        "200":
+          description: Assignment details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - assignment
+                properties:
+                  assignment:
+                    $ref: "#/components/schemas/Assignment"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/clients/{id}":
+    get:
+      summary: Get a Client's details
+      operationId: getClient
+      description: Returns a Client.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Client
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Client details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - client
+                properties:
+                  client:
+                    $ref: "#/components/schemas/Client"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /clients:
+    get:
+      summary: List clients
+      operationId: listClients
+      description: Returns a list of clients.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: Clients list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Clients"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/people/{id}":
+    get:
+      summary: Get a Person's details
+      operationId: getPerson
+      description: Returns a Person.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Person
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Person details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - person
+                properties:
+                  person:
+                    $ref: "#/components/schemas/Person"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /people:
+    get:
+      summary: List people
+      operationId: listPeople
+      description: Returns a list of people.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: People list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/People"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/placeholders/{id}":
+    get:
+      summary: Get a Placeholder's details
+      operationId: getPlaceholder
+      description: Returns a Placeholder.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Placeholder
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Placeholder details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - placeholder
+                properties:
+                  placeholder:
+                    $ref: "#/components/schemas/Placeholder"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /placeholders:
+    get:
+      summary: List placeholders
+      operationId: listPlaceholders
+      description: Returns a list of placeholders.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: Placeholders list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Placeholders"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/projects/{id}":
+    get:
+      summary: Get a Project's details
+      operationId: getProject
+      description: Returns a Project.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Project
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Project details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - project
+                properties:
+                  project:
+                    $ref: "#/components/schemas/Project"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /projects:
+    get:
+      summary: List projects
+      operationId: listProjects
+      description: Returns a list of projects.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: Projects list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Projects"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/roles/{id}":
+    get:
+      summary: Get a Role's details
+      operationId: getRole
+      description: Returns a Role.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Role
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Role details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - role
+                properties:
+                  role:
+                    $ref: "#/components/schemas/Role"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /roles:
+    get:
+      summary: List roles
+      operationId: listRoles
+      description: Returns a list of roles.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: Roles list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Roles"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/repeated_assignment_sets/{id}":
+    get:
+      summary: Get a Repeated Assignment Set's details
+      operationId: getRepeatedAssignmentSet
+      description: Returns a RepeatedAssignmentSet.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the RepeatedAssignmentSet
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: RepeatedAssignmentSet details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - repeated_assignment_set
+                properties:
+                  repeated_assignment_set:
+                    $ref: "#/components/schemas/RepeatedAssignmentSet"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /repeated_assignment_sets:
+    get:
+      summary: List repeated assignment sets
+      operationId: listRepeatedAssignmentSets
+      description: Returns a list of repeated assignment sets.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: Repeated assignment sets list
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/RepeatedAssignmentSets"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+  /whoami:
+    get:
+      summary: Get user profile
+      operationId: whoAmI
+      description: Returns the user profile.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      responses:
+        "200":
+          description: User's profile
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+servers:
+  - url: https://api.forecastapp.com/
+components:
+  securitySchemes:
+    BearerAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+    AccountAuth:
+      type: apiKey
+      in: header
+      name: Forecast-Account-Id
+  schemas:
+    Account:
+      type: object
+      required:
+        - account
+      properties:
+        account:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: integer
+              description: Id of the account
+              format: int32
+            name:
+              type: string
+              description: Name of the account
+            weekly_capacity:
+              type: integer
+              description: Number of seconds of capacity in each week
+              format: int32
+            color_labels:
+              type: array
+              description: Available color labels
+              items:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                    description: Name of the color
+                  label:
+                    type: string
+                    description: Label associated to the color
+            harvest_subdomain:
+              type: string
+              description: harvest subdomain associated with this forecast account
+            harvest_name:
+              type: string
+              description: harvest account name associated with this forecast account
+            weekends_enabled:
+              type: boolean
+              description: whether or not the grid shows weekends
+            created_at:
+              type: string
+              format: datetime
+              description: creation date
+    Assignment:
+      type: object
+      required:
+        - start_date
+        - end_date
+        - allocation
+      properties:
+        active_on_days_off:
+          type: boolean
+          description: should the assignement be also active on days off?
+        allocation:
+          type: integer
+          description: Number of seconds assigned
+          format: int32
+        end_date:
+          type: string
+          format: date
+          description: end date
+        id:
+          type: integer
+          description: Id of the assignement
+          format: int32
+        notes:
+          type: string
+          description: literature about the assignement
+        person_id:
+          type: integer
+          description: id of the user who is assigned
+          format: int32
+        placeholder_id:
+          type: integer
+          description: id of the placeholder who is assigned
+          format: int32
+        project_id:
+          type: integer
+          description: id of the project which is assigned
+          format: int32
+        repeated_assignment_set_id:
+          type: integer
+          description: if the assignment belongs to a repeated_assignment_set, its id
+          format: int32
+        start_date:
+          type: string
+          format: date
+          description: start date
+        updated_at:
+          type: string
+          format: datetime
+          description: date when the assignment was last updated
+        updated_by:
+          type: integer
+          description: id of the user who last updated this assignment
+          format: int32
+    Assignments:
+      type: object
+      required:
+        - assignments
+      properties:
+        assignments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Assignment"
+    Client:
+      type: object
+      required:
+        - name
+      properties:
+        archived:
+          type: boolean
+          description: Is this client archived?
+        harvest_id:
+          type: integer
+          description: id of this client in Harvest
+          format: int32
+        id:
+          type: integer
+          description: id of this client
+          format: int32
+        name:
+          type: string
+          description: Name of the client
+        updated_at:
+          type: string
+          format: datetime
+          description: date when the client was last updated
+        updated_by_id:
+          type: integer
+          description: id of the user who last updated this client
+          format: int32
+    Clients:
+      type: object
+      required:
+        - clients
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: "#/components/schemas/Client"
+    FutureScheduledHour:
+      type: object
+      required:
+        - allocation
+        - project_id
+      properties:
+        allocation:
+          type: integer
+          description: Number of hours allocated
+        person_id:
+          type: integer
+          format: int32
+          description: Id of the Person
+        placeholder_id:
+          type: integer
+          format: int32
+          description: Id of the Placeholder
+        project_id:
+          type: integer
+          format: int32
+          description: Id of the Project
+    FutureScheduledHours:
+      type: object
+      required:
+        - future_scheduled_hours
+      properties:
+        future_scheduled_hours:
+          type: array
+          items:
+            $ref: "#/components/schemas/FutureScheduledHour"
+    People:
+      type: object
+      required:
+        - people
+      properties:
+        people:
+          type: array
+          items:
+            $ref: "#/components/schemas/Person"
+    Person:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+      properties:
+        id:
+          type: integer
+          format: int32
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        login:
+          type: string
+          description: If the user is allowed to login, contains "enabled". Else, contains
+            "disabled".
+        admin:
+          type: boolean
+          description: Is the user an admin?
+        archived:
+          type: boolean
+          description: Is the user an admin?
+        subscribed:
+          type: boolean
+          description: Did the user subscribe?
+        avatar_url:
+          type: string
+          description: URL of the user's avatar image
+        roles:
+          type: array
+          items:
+            description: Name of the role
+            type: string
+        updated_at:
+          type: string
+          format: datetime
+          description: date when the Person was last updated
+        updated_by_id:
+          type: integer
+          description: id of the user who last updated this Person
+          format: int32
+        harvest_user_id:
+          type: integer
+          description: Id of the user in Harvest
+          format: int32
+        weekly_capacity:
+          type: integer
+          description: Number of seconds of capacity in each week
+        working_days:
+          type: object
+          properties:
+            monday:
+              type: boolean
+            tuesday:
+              type: boolean
+            wednesday:
+              type: boolean
+            thursday:
+              type: boolean
+            friday:
+              type: boolean
+            saturday:
+              type: boolean
+            sunday:
+              type: boolean
+        color_blind:
+          type: boolean
+        personal_feed_token_id:
+          type: integer
+          format: int32
+    Placeholder:
+      type: object
+      required:
+        - name
+      properties:
+        archived:
+          type: boolean
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            description: Name of the role
+            type: string
+        updated_at:
+          type: string
+          format: datetime
+          description: date when the Placeholder was last updated
+        updated_by_id:
+          type: integer
+          description: id of the user who last updated this Placeholder
+          format: int32
+    Placeholders:
+      type: object
+      required:
+        - placeholders
+      properties:
+        placeholders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Placeholder"
+    Project:
+      type: object
+      required:
+        - name
+      properties:
+        archived:
+          type: boolean
+        client_id:
+          type: integer
+          format: int32
+        code:
+          type: string
+        color:
+          type: string
+        end_date:
+          type: string
+          format: date
+        harvest_id:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        notes:
+          type: string
+          description: literature
+        start_date:
+          type: string
+          format: date
+        tags:
+          type: array
+          items:
+            description: Name of the tag
+            type: string
+        updated_at:
+          type: string
+          format: datetime
+          description: date when the Project was last updated
+        updated_by_id:
+          type: integer
+          description: id of the user who last updated this Project
+          format: int32
+    Projects:
+      type: object
+      required:
+        - projects
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Project"
+    RemainingBudgetedHour:
+      type: object
+      required:
+        - hours
+        - project_id
+      properties:
+        budget_by:
+          type: string
+        budget_is_monthly:
+          type: boolean
+        hours:
+          type: integer
+        project_id:
+          type: integer
+          format: int32
+        response_code:
+          type: integer
+    RemainingBudgetedHours:
+      type: object
+      required:
+        - remaining_budgeted_hours
+      properties:
+        remaining_budgeted_hours:
+          type: array
+          items:
+            $ref: "#/components/schemas/RemainingBudgetedHour"
+    RepeatedAssignmentSet:
+      type: object
+      required:
+        - first_start_date
+        - last_end_date
+        - assignment_ids
+      properties:
+        assignment_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+        first_start_date:
+          type: string
+          format: date
+        id:
+          type: integer
+          format: int32
+        last_end_date:
+          type: string
+          format: date
+    RepeatedAssignmentSets:
+      type: object
+      required:
+        - repeated_assignment_sets
+      properties:
+        repeated_assignment_sets:
+          type: array
+          items:
+            $ref: "#/components/schemas/RepeatedAssignmentSet"
+    Role:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        placeholder_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+        person_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+        harvest_role_id:
+          type: integer
+          format: int32
+    Roles:
+      type: object
+      required:
+        - roles
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+    Subscription:
+      type: object
+      required:
+        - subscription
+      properties:
+        subscription:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            next_billing_date:
+              type: string
+              format: date
+            days_until_next_billing_date:
+              type: integer
+            amount:
+              type: integer
+              description: Subscription price, in cents
+            amount_per_person:
+              type: integer
+              description: Subscription price per Person, in cents
+            receipt_recipient:
+              type: string
+              format: email
+            status:
+              type: string
+            purchased_people:
+              type: integer
+            interval:
+              type: string
+            paid_by_invoice:
+              type: boolean
+            discounts:
+              type: object
+              properties:
+                monthly_percentage:
+                  type: integer
+                yearly_percentage:
+                  type: integer
+            placeholder_limit:
+              type: integer
+            card:
+              type: object
+              properties:
+                brand:
+                  type: string
+                last_four:
+                  type: string
+                expiry_month:
+                  type: integer
+                expiry_year:
+                  type: integer
+            address:
+              type: object
+              properties:
+                line_1:
+                  type: string
+                line_2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                postal_code:
+                  type: string
+                country:
+                  type: string
+    User:
+      type: object
+      required:
+        - current_user
+      properties:
+        current_user:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            account_ids:
+              type: array
+              items:
+                type: integer
+    UserConnection:
+      type: object
+      required:
+        - last_active_at
+        - person_id
+      properties:
+        id:
+          type: integer
+          format: int32
+        last_active_at:
+          type: string
+          format: datetime
+        person_id:
+          type: integer
+          format: int32
+    UserConnections:
+      type: object
+      required:
+        - user_connections
+      properties:
+        user_connections:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserConnection"
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
