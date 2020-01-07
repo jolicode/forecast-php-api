@@ -7,26 +7,26 @@ class UserConnections
     /**
      * 
      *
-     * @var UserConnection[]
+     * @var UserConnection[]|null
      */
     protected $userConnections;
     /**
      * 
      *
-     * @return UserConnection[]
+     * @return UserConnection[]|null
      */
-    public function getUserConnections() : array
+    public function getUserConnections() : ?array
     {
         return $this->userConnections;
     }
     /**
      * 
      *
-     * @param UserConnection[] $userConnections
+     * @param UserConnection[]|null $userConnections
      *
      * @return self
      */
-    public function setUserConnections(array $userConnections) : self
+    public function setUserConnections(?array $userConnections) : self
     {
         $this->userConnections = $userConnections;
         return $this;

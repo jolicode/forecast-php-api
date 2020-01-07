@@ -25,7 +25,7 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,16 +34,16 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\FutureScheduledHour();
-        if (property_exists($data, 'allocation')) {
+        if (property_exists($data, 'allocation') && $data->{'allocation'} !== null) {
             $object->setAllocation($data->{'allocation'});
         }
-        if (property_exists($data, 'person_id')) {
+        if (property_exists($data, 'person_id') && $data->{'person_id'} !== null) {
             $object->setPersonId($data->{'person_id'});
         }
-        if (property_exists($data, 'placeholder_id')) {
+        if (property_exists($data, 'placeholder_id') && $data->{'placeholder_id'} !== null) {
             $object->setPlaceholderId($data->{'placeholder_id'});
         }
-        if (property_exists($data, 'project_id')) {
+        if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
             $object->setProjectId($data->{'project_id'});
         }
         return $object;

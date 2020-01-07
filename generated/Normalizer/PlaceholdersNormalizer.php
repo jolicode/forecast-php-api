@@ -25,7 +25,7 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Placeholders();
-        if (property_exists($data, 'placeholders')) {
+        if (property_exists($data, 'placeholders') && $data->{'placeholders'} !== null) {
             $values = array();
             foreach ($data->{'placeholders'} as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Placeholder', 'json', $context);

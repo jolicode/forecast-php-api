@@ -25,7 +25,7 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetsIdGetResponse200();
-        if (property_exists($data, 'repeated_assignment_set')) {
+        if (property_exists($data, 'repeated_assignment_set') && $data->{'repeated_assignment_set'} !== null) {
             $object->setRepeatedAssignmentSet($this->denormalizer->denormalize($data->{'repeated_assignment_set'}, 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context));
         }
         return $object;

@@ -7,26 +7,26 @@ class Assignments
     /**
      * 
      *
-     * @var Assignment[]
+     * @var Assignment[]|null
      */
     protected $assignments;
     /**
      * 
      *
-     * @return Assignment[]
+     * @return Assignment[]|null
      */
-    public function getAssignments() : array
+    public function getAssignments() : ?array
     {
         return $this->assignments;
     }
     /**
      * 
      *
-     * @param Assignment[] $assignments
+     * @param Assignment[]|null $assignments
      *
      * @return self
      */
-    public function setAssignments(array $assignments) : self
+    public function setAssignments(?array $assignments) : self
     {
         $this->assignments = $assignments;
         return $this;

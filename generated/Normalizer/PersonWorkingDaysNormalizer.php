@@ -25,7 +25,7 @@ class PersonWorkingDaysNormalizer implements DenormalizerInterface, NormalizerIn
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,25 +34,25 @@ class PersonWorkingDaysNormalizer implements DenormalizerInterface, NormalizerIn
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\PersonWorkingDays();
-        if (property_exists($data, 'monday')) {
+        if (property_exists($data, 'monday') && $data->{'monday'} !== null) {
             $object->setMonday($data->{'monday'});
         }
-        if (property_exists($data, 'tuesday')) {
+        if (property_exists($data, 'tuesday') && $data->{'tuesday'} !== null) {
             $object->setTuesday($data->{'tuesday'});
         }
-        if (property_exists($data, 'wednesday')) {
+        if (property_exists($data, 'wednesday') && $data->{'wednesday'} !== null) {
             $object->setWednesday($data->{'wednesday'});
         }
-        if (property_exists($data, 'thursday')) {
+        if (property_exists($data, 'thursday') && $data->{'thursday'} !== null) {
             $object->setThursday($data->{'thursday'});
         }
-        if (property_exists($data, 'friday')) {
+        if (property_exists($data, 'friday') && $data->{'friday'} !== null) {
             $object->setFriday($data->{'friday'});
         }
-        if (property_exists($data, 'saturday')) {
+        if (property_exists($data, 'saturday') && $data->{'saturday'} !== null) {
             $object->setSaturday($data->{'saturday'});
         }
-        if (property_exists($data, 'sunday')) {
+        if (property_exists($data, 'sunday') && $data->{'sunday'} !== null) {
             $object->setSunday($data->{'sunday'});
         }
         return $object;
@@ -75,8 +75,12 @@ class PersonWorkingDaysNormalizer implements DenormalizerInterface, NormalizerIn
         if (null !== $object->getFriday()) {
             $data->{'friday'} = $object->getFriday();
         }
-        $data->{'saturday'} = $object->getSaturday();
-        $data->{'sunday'} = $object->getSunday();
+        if (null !== $object->getSaturday()) {
+            $data->{'saturday'} = $object->getSaturday();
+        }
+        if (null !== $object->getSunday()) {
+            $data->{'sunday'} = $object->getSunday();
+        }
         return $data;
     }
 }

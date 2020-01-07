@@ -25,7 +25,7 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,13 +34,13 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserConnection();
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'last_active_at')) {
+        if (property_exists($data, 'last_active_at') && $data->{'last_active_at'} !== null) {
             $object->setLastActiveAt($data->{'last_active_at'});
         }
-        if (property_exists($data, 'person_id')) {
+        if (property_exists($data, 'person_id') && $data->{'person_id'} !== null) {
             $object->setPersonId($data->{'person_id'});
         }
         return $object;

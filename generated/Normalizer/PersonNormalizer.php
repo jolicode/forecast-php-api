@@ -25,7 +25,7 @@ class PersonNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,59 +34,59 @@ class PersonNormalizer implements DenormalizerInterface, NormalizerInterface, De
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Person();
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'first_name')) {
+        if (property_exists($data, 'first_name') && $data->{'first_name'} !== null) {
             $object->setFirstName($data->{'first_name'});
         }
-        if (property_exists($data, 'last_name')) {
+        if (property_exists($data, 'last_name') && $data->{'last_name'} !== null) {
             $object->setLastName($data->{'last_name'});
         }
-        if (property_exists($data, 'email')) {
+        if (property_exists($data, 'email') && $data->{'email'} !== null) {
             $object->setEmail($data->{'email'});
         }
-        if (property_exists($data, 'login')) {
+        if (property_exists($data, 'login') && $data->{'login'} !== null) {
             $object->setLogin($data->{'login'});
         }
-        if (property_exists($data, 'admin')) {
+        if (property_exists($data, 'admin') && $data->{'admin'} !== null) {
             $object->setAdmin($data->{'admin'});
         }
-        if (property_exists($data, 'archived')) {
+        if (property_exists($data, 'archived') && $data->{'archived'} !== null) {
             $object->setArchived($data->{'archived'});
         }
-        if (property_exists($data, 'subscribed')) {
+        if (property_exists($data, 'subscribed') && $data->{'subscribed'} !== null) {
             $object->setSubscribed($data->{'subscribed'});
         }
-        if (property_exists($data, 'avatar_url')) {
+        if (property_exists($data, 'avatar_url') && $data->{'avatar_url'} !== null) {
             $object->setAvatarUrl($data->{'avatar_url'});
         }
-        if (property_exists($data, 'roles')) {
+        if (property_exists($data, 'roles') && $data->{'roles'} !== null) {
             $values = array();
             foreach ($data->{'roles'} as $value) {
                 $values[] = $value;
             }
             $object->setRoles($values);
         }
-        if (property_exists($data, 'updated_at')) {
+        if (property_exists($data, 'updated_at') && $data->{'updated_at'} !== null) {
             $object->setUpdatedAt($data->{'updated_at'});
         }
-        if (property_exists($data, 'updated_by_id')) {
+        if (property_exists($data, 'updated_by_id') && $data->{'updated_by_id'} !== null) {
             $object->setUpdatedById($data->{'updated_by_id'});
         }
-        if (property_exists($data, 'harvest_user_id')) {
+        if (property_exists($data, 'harvest_user_id') && $data->{'harvest_user_id'} !== null) {
             $object->setHarvestUserId($data->{'harvest_user_id'});
         }
-        if (property_exists($data, 'weekly_capacity')) {
+        if (property_exists($data, 'weekly_capacity') && $data->{'weekly_capacity'} !== null) {
             $object->setWeeklyCapacity($data->{'weekly_capacity'});
         }
-        if (property_exists($data, 'working_days')) {
+        if (property_exists($data, 'working_days') && $data->{'working_days'} !== null) {
             $object->setWorkingDays($this->denormalizer->denormalize($data->{'working_days'}, 'JoliCode\\Forecast\\Api\\Model\\PersonWorkingDays', 'json', $context));
         }
-        if (property_exists($data, 'color_blind')) {
+        if (property_exists($data, 'color_blind') && $data->{'color_blind'} !== null) {
             $object->setColorBlind($data->{'color_blind'});
         }
-        if (property_exists($data, 'personal_feed_token_id')) {
+        if (property_exists($data, 'personal_feed_token_id') && $data->{'personal_feed_token_id'} !== null) {
             $object->setPersonalFeedTokenId($data->{'personal_feed_token_id'});
         }
         return $object;
@@ -131,7 +131,9 @@ class PersonNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (null !== $object->getUpdatedAt()) {
             $data->{'updated_at'} = $object->getUpdatedAt();
         }
-        $data->{'updated_by_id'} = $object->getUpdatedById();
+        if (null !== $object->getUpdatedById()) {
+            $data->{'updated_by_id'} = $object->getUpdatedById();
+        }
         if (null !== $object->getHarvestUserId()) {
             $data->{'harvest_user_id'} = $object->getHarvestUserId();
         }
@@ -144,7 +146,9 @@ class PersonNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (null !== $object->getColorBlind()) {
             $data->{'color_blind'} = $object->getColorBlind();
         }
-        $data->{'personal_feed_token_id'} = $object->getPersonalFeedTokenId();
+        if (null !== $object->getPersonalFeedTokenId()) {
+            $data->{'personal_feed_token_id'} = $object->getPersonalFeedTokenId();
+        }
         return $data;
     }
 }

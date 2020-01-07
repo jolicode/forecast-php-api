@@ -7,50 +7,50 @@ class Role
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * 
      *
-     * @var int[]
+     * @var int[]|null
      */
     protected $placeholderIds;
     /**
      * 
      *
-     * @var int[]
+     * @var int[]|null
      */
     protected $personIds;
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $harvestRoleId;
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * 
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -58,20 +58,20 @@ class Role
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
      * 
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(?string $name) : self
     {
         $this->name = $name;
         return $this;
@@ -79,20 +79,20 @@ class Role
     /**
      * 
      *
-     * @return int[]
+     * @return int[]|null
      */
-    public function getPlaceholderIds() : array
+    public function getPlaceholderIds() : ?array
     {
         return $this->placeholderIds;
     }
     /**
      * 
      *
-     * @param int[] $placeholderIds
+     * @param int[]|null $placeholderIds
      *
      * @return self
      */
-    public function setPlaceholderIds(array $placeholderIds) : self
+    public function setPlaceholderIds(?array $placeholderIds) : self
     {
         $this->placeholderIds = $placeholderIds;
         return $this;
@@ -100,20 +100,20 @@ class Role
     /**
      * 
      *
-     * @return int[]
+     * @return int[]|null
      */
-    public function getPersonIds() : array
+    public function getPersonIds() : ?array
     {
         return $this->personIds;
     }
     /**
      * 
      *
-     * @param int[] $personIds
+     * @param int[]|null $personIds
      *
      * @return self
      */
-    public function setPersonIds(array $personIds) : self
+    public function setPersonIds(?array $personIds) : self
     {
         $this->personIds = $personIds;
         return $this;
@@ -121,20 +121,20 @@ class Role
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getHarvestRoleId() : int
+    public function getHarvestRoleId() : ?int
     {
         return $this->harvestRoleId;
     }
     /**
      * 
      *
-     * @param int $harvestRoleId
+     * @param int|null $harvestRoleId
      *
      * @return self
      */
-    public function setHarvestRoleId(int $harvestRoleId) : self
+    public function setHarvestRoleId(?int $harvestRoleId) : self
     {
         $this->harvestRoleId = $harvestRoleId;
         return $this;

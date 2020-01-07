@@ -7,26 +7,26 @@ class ProjectsIdGetResponse200
     /**
      * 
      *
-     * @var Project
+     * @var Project|null
      */
     protected $project;
     /**
      * 
      *
-     * @return Project
+     * @return Project|null
      */
-    public function getProject() : Project
+    public function getProject() : ?Project
     {
         return $this->project;
     }
     /**
      * 
      *
-     * @param Project $project
+     * @param Project|null $project
      *
      * @return self
      */
-    public function setProject(Project $project) : self
+    public function setProject(?Project $project) : self
     {
         $this->project = $project;
         return $this;

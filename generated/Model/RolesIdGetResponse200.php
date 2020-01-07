@@ -7,26 +7,26 @@ class RolesIdGetResponse200
     /**
      * 
      *
-     * @var Role
+     * @var Role|null
      */
     protected $role;
     /**
      * 
      *
-     * @return Role
+     * @return Role|null
      */
-    public function getRole() : Role
+    public function getRole() : ?Role
     {
         return $this->role;
     }
     /**
      * 
      *
-     * @param Role $role
+     * @param Role|null $role
      *
      * @return self
      */
-    public function setRole(Role $role) : self
+    public function setRole(?Role $role) : self
     {
         $this->role = $role;
         return $this;

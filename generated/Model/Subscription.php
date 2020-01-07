@@ -7,26 +7,26 @@ class Subscription
     /**
      * 
      *
-     * @var SubscriptionSubscription
+     * @var SubscriptionSubscription|null
      */
     protected $subscription;
     /**
      * 
      *
-     * @return SubscriptionSubscription
+     * @return SubscriptionSubscription|null
      */
-    public function getSubscription() : SubscriptionSubscription
+    public function getSubscription() : ?SubscriptionSubscription
     {
         return $this->subscription;
     }
     /**
      * 
      *
-     * @param SubscriptionSubscription $subscription
+     * @param SubscriptionSubscription|null $subscription
      *
      * @return self
      */
-    public function setSubscription(SubscriptionSubscription $subscription) : self
+    public function setSubscription(?SubscriptionSubscription $subscription) : self
     {
         $this->subscription = $subscription;
         return $this;

@@ -7,7 +7,7 @@ class Client
     /**
      * Is this client archived?
      *
-     * @var bool
+     * @var bool|null
      */
     protected $archived;
     /**
@@ -19,19 +19,19 @@ class Client
     /**
      * id of this client
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * Name of the client
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * date when the client was last updated
      *
-     * @var string
+     * @var string|null
      */
     protected $updatedAt;
     /**
@@ -43,20 +43,20 @@ class Client
     /**
      * Is this client archived?
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getArchived() : bool
+    public function getArchived() : ?bool
     {
         return $this->archived;
     }
     /**
      * Is this client archived?
      *
-     * @param bool $archived
+     * @param bool|null $archived
      *
      * @return self
      */
-    public function setArchived(bool $archived) : self
+    public function setArchived(?bool $archived) : self
     {
         $this->archived = $archived;
         return $this;
@@ -85,20 +85,20 @@ class Client
     /**
      * id of this client
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * id of this client
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -106,20 +106,20 @@ class Client
     /**
      * Name of the client
      *
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
      * Name of the client
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(?string $name) : self
     {
         $this->name = $name;
         return $this;
@@ -127,20 +127,20 @@ class Client
     /**
      * date when the client was last updated
      *
-     * @return string
+     * @return string|null
      */
-    public function getUpdatedAt() : string
+    public function getUpdatedAt() : ?string
     {
         return $this->updatedAt;
     }
     /**
      * date when the client was last updated
      *
-     * @param string $updatedAt
+     * @param string|null $updatedAt
      *
      * @return self
      */
-    public function setUpdatedAt(string $updatedAt) : self
+    public function setUpdatedAt(?string $updatedAt) : self
     {
         $this->updatedAt = $updatedAt;
         return $this;

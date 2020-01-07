@@ -7,7 +7,7 @@ class Project
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $archived;
     /**
@@ -25,7 +25,7 @@ class Project
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $color;
     /**
@@ -43,13 +43,13 @@ class Project
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
@@ -67,13 +67,13 @@ class Project
     /**
      * 
      *
-     * @var string[]
+     * @var string[]|null
      */
     protected $tags;
     /**
      * date when the Project was last updated
      *
-     * @var string
+     * @var string|null
      */
     protected $updatedAt;
     /**
@@ -85,20 +85,20 @@ class Project
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getArchived() : bool
+    public function getArchived() : ?bool
     {
         return $this->archived;
     }
     /**
      * 
      *
-     * @param bool $archived
+     * @param bool|null $archived
      *
      * @return self
      */
-    public function setArchived(bool $archived) : self
+    public function setArchived(?bool $archived) : self
     {
         $this->archived = $archived;
         return $this;
@@ -148,20 +148,20 @@ class Project
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getColor() : string
+    public function getColor() : ?string
     {
         return $this->color;
     }
     /**
      * 
      *
-     * @param string $color
+     * @param string|null $color
      *
      * @return self
      */
-    public function setColor(string $color) : self
+    public function setColor(?string $color) : self
     {
         $this->color = $color;
         return $this;
@@ -211,20 +211,20 @@ class Project
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * 
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -232,20 +232,20 @@ class Project
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
      * 
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(?string $name) : self
     {
         $this->name = $name;
         return $this;
@@ -295,20 +295,20 @@ class Project
     /**
      * 
      *
-     * @return string[]
+     * @return string[]|null
      */
-    public function getTags() : array
+    public function getTags() : ?array
     {
         return $this->tags;
     }
     /**
      * 
      *
-     * @param string[] $tags
+     * @param string[]|null $tags
      *
      * @return self
      */
-    public function setTags(array $tags) : self
+    public function setTags(?array $tags) : self
     {
         $this->tags = $tags;
         return $this;
@@ -316,20 +316,20 @@ class Project
     /**
      * date when the Project was last updated
      *
-     * @return string
+     * @return string|null
      */
-    public function getUpdatedAt() : string
+    public function getUpdatedAt() : ?string
     {
         return $this->updatedAt;
     }
     /**
      * date when the Project was last updated
      *
-     * @param string $updatedAt
+     * @param string|null $updatedAt
      *
      * @return self
      */
-    public function setUpdatedAt(string $updatedAt) : self
+    public function setUpdatedAt(?string $updatedAt) : self
     {
         $this->updatedAt = $updatedAt;
         return $this;

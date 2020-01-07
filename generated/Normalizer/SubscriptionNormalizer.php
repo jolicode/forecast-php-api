@@ -25,7 +25,7 @@ class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterfa
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Subscription();
-        if (property_exists($data, 'subscription')) {
+        if (property_exists($data, 'subscription') && $data->{'subscription'} !== null) {
             $object->setSubscription($this->denormalizer->denormalize($data->{'subscription'}, 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription', 'json', $context));
         }
         return $object;

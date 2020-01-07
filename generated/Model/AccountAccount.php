@@ -7,68 +7,68 @@ class AccountAccount
     /**
      * Id of the account
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * Name of the account
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
     /**
      * Number of seconds of capacity in each week
      *
-     * @var int
+     * @var int|null
      */
     protected $weeklyCapacity;
     /**
      * Available color labels
      *
-     * @var AccountAccountColorLabelsItem[]
+     * @var AccountAccountColorLabelsItem[]|null
      */
     protected $colorLabels;
     /**
      * harvest subdomain associated with this forecast account
      *
-     * @var string
+     * @var string|null
      */
     protected $harvestSubdomain;
     /**
      * harvest account name associated with this forecast account
      *
-     * @var string
+     * @var string|null
      */
     protected $harvestName;
     /**
      * whether or not the grid shows weekends
      *
-     * @var bool
+     * @var bool|null
      */
     protected $weekendsEnabled;
     /**
      * creation date
      *
-     * @var string
+     * @var string|null
      */
     protected $createdAt;
     /**
      * Id of the account
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * Id of the account
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -76,20 +76,20 @@ class AccountAccount
     /**
      * Name of the account
      *
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
      * Name of the account
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(?string $name) : self
     {
         $this->name = $name;
         return $this;
@@ -97,20 +97,20 @@ class AccountAccount
     /**
      * Number of seconds of capacity in each week
      *
-     * @return int
+     * @return int|null
      */
-    public function getWeeklyCapacity() : int
+    public function getWeeklyCapacity() : ?int
     {
         return $this->weeklyCapacity;
     }
     /**
      * Number of seconds of capacity in each week
      *
-     * @param int $weeklyCapacity
+     * @param int|null $weeklyCapacity
      *
      * @return self
      */
-    public function setWeeklyCapacity(int $weeklyCapacity) : self
+    public function setWeeklyCapacity(?int $weeklyCapacity) : self
     {
         $this->weeklyCapacity = $weeklyCapacity;
         return $this;
@@ -118,20 +118,20 @@ class AccountAccount
     /**
      * Available color labels
      *
-     * @return AccountAccountColorLabelsItem[]
+     * @return AccountAccountColorLabelsItem[]|null
      */
-    public function getColorLabels() : array
+    public function getColorLabels() : ?array
     {
         return $this->colorLabels;
     }
     /**
      * Available color labels
      *
-     * @param AccountAccountColorLabelsItem[] $colorLabels
+     * @param AccountAccountColorLabelsItem[]|null $colorLabels
      *
      * @return self
      */
-    public function setColorLabels(array $colorLabels) : self
+    public function setColorLabels(?array $colorLabels) : self
     {
         $this->colorLabels = $colorLabels;
         return $this;
@@ -139,20 +139,20 @@ class AccountAccount
     /**
      * harvest subdomain associated with this forecast account
      *
-     * @return string
+     * @return string|null
      */
-    public function getHarvestSubdomain() : string
+    public function getHarvestSubdomain() : ?string
     {
         return $this->harvestSubdomain;
     }
     /**
      * harvest subdomain associated with this forecast account
      *
-     * @param string $harvestSubdomain
+     * @param string|null $harvestSubdomain
      *
      * @return self
      */
-    public function setHarvestSubdomain(string $harvestSubdomain) : self
+    public function setHarvestSubdomain(?string $harvestSubdomain) : self
     {
         $this->harvestSubdomain = $harvestSubdomain;
         return $this;
@@ -160,20 +160,20 @@ class AccountAccount
     /**
      * harvest account name associated with this forecast account
      *
-     * @return string
+     * @return string|null
      */
-    public function getHarvestName() : string
+    public function getHarvestName() : ?string
     {
         return $this->harvestName;
     }
     /**
      * harvest account name associated with this forecast account
      *
-     * @param string $harvestName
+     * @param string|null $harvestName
      *
      * @return self
      */
-    public function setHarvestName(string $harvestName) : self
+    public function setHarvestName(?string $harvestName) : self
     {
         $this->harvestName = $harvestName;
         return $this;
@@ -181,20 +181,20 @@ class AccountAccount
     /**
      * whether or not the grid shows weekends
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getWeekendsEnabled() : bool
+    public function getWeekendsEnabled() : ?bool
     {
         return $this->weekendsEnabled;
     }
     /**
      * whether or not the grid shows weekends
      *
-     * @param bool $weekendsEnabled
+     * @param bool|null $weekendsEnabled
      *
      * @return self
      */
-    public function setWeekendsEnabled(bool $weekendsEnabled) : self
+    public function setWeekendsEnabled(?bool $weekendsEnabled) : self
     {
         $this->weekendsEnabled = $weekendsEnabled;
         return $this;
@@ -202,20 +202,20 @@ class AccountAccount
     /**
      * creation date
      *
-     * @return string
+     * @return string|null
      */
-    public function getCreatedAt() : string
+    public function getCreatedAt() : ?string
     {
         return $this->createdAt;
     }
     /**
      * creation date
      *
-     * @param string $createdAt
+     * @param string|null $createdAt
      *
      * @return self
      */
-    public function setCreatedAt(string $createdAt) : self
+    public function setCreatedAt(?string $createdAt) : self
     {
         $this->createdAt = $createdAt;
         return $this;

@@ -7,26 +7,26 @@ class RemainingBudgetedHours
     /**
      * 
      *
-     * @var RemainingBudgetedHour[]
+     * @var RemainingBudgetedHour[]|null
      */
     protected $remainingBudgetedHours;
     /**
      * 
      *
-     * @return RemainingBudgetedHour[]
+     * @return RemainingBudgetedHour[]|null
      */
-    public function getRemainingBudgetedHours() : array
+    public function getRemainingBudgetedHours() : ?array
     {
         return $this->remainingBudgetedHours;
     }
     /**
      * 
      *
-     * @param RemainingBudgetedHour[] $remainingBudgetedHours
+     * @param RemainingBudgetedHour[]|null $remainingBudgetedHours
      *
      * @return self
      */
-    public function setRemainingBudgetedHours(array $remainingBudgetedHours) : self
+    public function setRemainingBudgetedHours(?array $remainingBudgetedHours) : self
     {
         $this->remainingBudgetedHours = $remainingBudgetedHours;
         return $this;

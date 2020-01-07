@@ -7,50 +7,50 @@ class RemainingBudgetedHour
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $budgetBy;
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $budgetIsMonthly;
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $hours;
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $projectId;
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $responseCode;
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getBudgetBy() : string
+    public function getBudgetBy() : ?string
     {
         return $this->budgetBy;
     }
     /**
      * 
      *
-     * @param string $budgetBy
+     * @param string|null $budgetBy
      *
      * @return self
      */
-    public function setBudgetBy(string $budgetBy) : self
+    public function setBudgetBy(?string $budgetBy) : self
     {
         $this->budgetBy = $budgetBy;
         return $this;
@@ -58,20 +58,20 @@ class RemainingBudgetedHour
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getBudgetIsMonthly() : bool
+    public function getBudgetIsMonthly() : ?bool
     {
         return $this->budgetIsMonthly;
     }
     /**
      * 
      *
-     * @param bool $budgetIsMonthly
+     * @param bool|null $budgetIsMonthly
      *
      * @return self
      */
-    public function setBudgetIsMonthly(bool $budgetIsMonthly) : self
+    public function setBudgetIsMonthly(?bool $budgetIsMonthly) : self
     {
         $this->budgetIsMonthly = $budgetIsMonthly;
         return $this;
@@ -79,20 +79,20 @@ class RemainingBudgetedHour
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getHours() : int
+    public function getHours() : ?int
     {
         return $this->hours;
     }
     /**
      * 
      *
-     * @param int $hours
+     * @param int|null $hours
      *
      * @return self
      */
-    public function setHours(int $hours) : self
+    public function setHours(?int $hours) : self
     {
         $this->hours = $hours;
         return $this;
@@ -100,20 +100,20 @@ class RemainingBudgetedHour
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getProjectId() : int
+    public function getProjectId() : ?int
     {
         return $this->projectId;
     }
     /**
      * 
      *
-     * @param int $projectId
+     * @param int|null $projectId
      *
      * @return self
      */
-    public function setProjectId(int $projectId) : self
+    public function setProjectId(?int $projectId) : self
     {
         $this->projectId = $projectId;
         return $this;
@@ -121,20 +121,20 @@ class RemainingBudgetedHour
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getResponseCode() : int
+    public function getResponseCode() : ?int
     {
         return $this->responseCode;
     }
     /**
      * 
      *
-     * @param int $responseCode
+     * @param int|null $responseCode
      *
      * @return self
      */
-    public function setResponseCode(int $responseCode) : self
+    public function setResponseCode(?int $responseCode) : self
     {
         $this->responseCode = $responseCode;
         return $this;

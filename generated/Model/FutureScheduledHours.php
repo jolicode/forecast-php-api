@@ -7,26 +7,26 @@ class FutureScheduledHours
     /**
      * 
      *
-     * @var FutureScheduledHour[]
+     * @var FutureScheduledHour[]|null
      */
     protected $futureScheduledHours;
     /**
      * 
      *
-     * @return FutureScheduledHour[]
+     * @return FutureScheduledHour[]|null
      */
-    public function getFutureScheduledHours() : array
+    public function getFutureScheduledHours() : ?array
     {
         return $this->futureScheduledHours;
     }
     /**
      * 
      *
-     * @param FutureScheduledHour[] $futureScheduledHours
+     * @param FutureScheduledHour[]|null $futureScheduledHours
      *
      * @return self
      */
-    public function setFutureScheduledHours(array $futureScheduledHours) : self
+    public function setFutureScheduledHours(?array $futureScheduledHours) : self
     {
         $this->futureScheduledHours = $futureScheduledHours;
         return $this;

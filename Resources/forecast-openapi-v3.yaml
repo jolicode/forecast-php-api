@@ -624,27 +624,22 @@ components:
         notes:
           type: string
           description: literature about the assignement
-          nullable: true
         person_id:
           type: integer
           description: id of the user who is assigned
           format: int32
-          nullable: true
         placeholder_id:
           type: integer
           description: id of the placeholder who is assigned
           format: int32
-          nullable: true
         project_id:
           type: integer
           description: id of the project which is assigned
           format: int32
-          nullable: true
         repeated_assignment_set_id:
           type: integer
           description: if the assignment belongs to a repeated_assignment_set, its id
           format: int32
-          nullable: true
         start_date:
           type: string
           format: date
@@ -678,7 +673,6 @@ components:
           type: integer
           description: id of this client in Harvest
           format: int32
-          nullable: true
         id:
           type: integer
           description: id of this client
@@ -694,7 +688,6 @@ components:
           type: integer
           description: id of the user who last updated this client
           format: int32
-          nullable: true
     Clients:
       type: object
       required:
@@ -789,7 +782,6 @@ components:
           type: integer
           description: id of the user who last updated this Person
           format: int32
-          nullable: true
         harvest_user_id:
           type: integer
           description: Id of the user in Harvest
@@ -812,16 +804,13 @@ components:
               type: boolean
             saturday:
               type: boolean
-              nullable: true
             sunday:
               type: boolean
-              nullable: true
         color_blind:
           type: boolean
         personal_feed_token_id:
           type: integer
           format: int32
-          nullable: true
     Placeholder:
       type: object
       required:
@@ -866,20 +855,16 @@ components:
         client_id:
           type: integer
           format: int32
-          nullable: true
         code:
           type: string
-          nullable: true
         color:
           type: string
         end_date:
           type: string
           format: date
-          nullable: true
         harvest_id:
           type: integer
           format: int32
-          nullable: true
         id:
           type: integer
           format: int32
@@ -888,11 +873,9 @@ components:
         notes:
           type: string
           description: literature
-          nullable: true
         start_date:
           type: string
           format: date
-          nullable: true
         tags:
           type: array
           items:
@@ -906,7 +889,6 @@ components:
           type: integer
           description: id of the user who last updated this Project
           format: int32
-          nullable: true
     Projects:
       type: object
       required:

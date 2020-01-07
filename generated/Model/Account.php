@@ -7,26 +7,26 @@ class Account
     /**
      * 
      *
-     * @var AccountAccount
+     * @var AccountAccount|null
      */
     protected $account;
     /**
      * 
      *
-     * @return AccountAccount
+     * @return AccountAccount|null
      */
-    public function getAccount() : AccountAccount
+    public function getAccount() : ?AccountAccount
     {
         return $this->account;
     }
     /**
      * 
      *
-     * @param AccountAccount $account
+     * @param AccountAccount|null $account
      *
      * @return self
      */
-    public function setAccount(AccountAccount $account) : self
+    public function setAccount(?AccountAccount $account) : self
     {
         $this->account = $account;
         return $this;

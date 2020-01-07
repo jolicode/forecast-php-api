@@ -25,7 +25,7 @@ class PlaceholderNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,26 +34,26 @@ class PlaceholderNormalizer implements DenormalizerInterface, NormalizerInterfac
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Placeholder();
-        if (property_exists($data, 'archived')) {
+        if (property_exists($data, 'archived') && $data->{'archived'} !== null) {
             $object->setArchived($data->{'archived'});
         }
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'name')) {
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'roles')) {
+        if (property_exists($data, 'roles') && $data->{'roles'} !== null) {
             $values = array();
             foreach ($data->{'roles'} as $value) {
                 $values[] = $value;
             }
             $object->setRoles($values);
         }
-        if (property_exists($data, 'updated_at')) {
+        if (property_exists($data, 'updated_at') && $data->{'updated_at'} !== null) {
             $object->setUpdatedAt($data->{'updated_at'});
         }
-        if (property_exists($data, 'updated_by_id')) {
+        if (property_exists($data, 'updated_by_id') && $data->{'updated_by_id'} !== null) {
             $object->setUpdatedById($data->{'updated_by_id'});
         }
         return $object;

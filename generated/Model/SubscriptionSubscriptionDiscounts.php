@@ -7,32 +7,32 @@ class SubscriptionSubscriptionDiscounts
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $monthlyPercentage;
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $yearlyPercentage;
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getMonthlyPercentage() : int
+    public function getMonthlyPercentage() : ?int
     {
         return $this->monthlyPercentage;
     }
     /**
      * 
      *
-     * @param int $monthlyPercentage
+     * @param int|null $monthlyPercentage
      *
      * @return self
      */
-    public function setMonthlyPercentage(int $monthlyPercentage) : self
+    public function setMonthlyPercentage(?int $monthlyPercentage) : self
     {
         $this->monthlyPercentage = $monthlyPercentage;
         return $this;
@@ -40,20 +40,20 @@ class SubscriptionSubscriptionDiscounts
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getYearlyPercentage() : int
+    public function getYearlyPercentage() : ?int
     {
         return $this->yearlyPercentage;
     }
     /**
      * 
      *
-     * @param int $yearlyPercentage
+     * @param int|null $yearlyPercentage
      *
      * @return self
      */
-    public function setYearlyPercentage(int $yearlyPercentage) : self
+    public function setYearlyPercentage(?int $yearlyPercentage) : self
     {
         $this->yearlyPercentage = $yearlyPercentage;
         return $this;

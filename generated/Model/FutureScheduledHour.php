@@ -7,44 +7,44 @@ class FutureScheduledHour
     /**
      * Number of hours allocated
      *
-     * @var int
+     * @var int|null
      */
     protected $allocation;
     /**
      * Id of the Person
      *
-     * @var int
+     * @var int|null
      */
     protected $personId;
     /**
      * Id of the Placeholder
      *
-     * @var int
+     * @var int|null
      */
     protected $placeholderId;
     /**
      * Id of the Project
      *
-     * @var int
+     * @var int|null
      */
     protected $projectId;
     /**
      * Number of hours allocated
      *
-     * @return int
+     * @return int|null
      */
-    public function getAllocation() : int
+    public function getAllocation() : ?int
     {
         return $this->allocation;
     }
     /**
      * Number of hours allocated
      *
-     * @param int $allocation
+     * @param int|null $allocation
      *
      * @return self
      */
-    public function setAllocation(int $allocation) : self
+    public function setAllocation(?int $allocation) : self
     {
         $this->allocation = $allocation;
         return $this;
@@ -52,20 +52,20 @@ class FutureScheduledHour
     /**
      * Id of the Person
      *
-     * @return int
+     * @return int|null
      */
-    public function getPersonId() : int
+    public function getPersonId() : ?int
     {
         return $this->personId;
     }
     /**
      * Id of the Person
      *
-     * @param int $personId
+     * @param int|null $personId
      *
      * @return self
      */
-    public function setPersonId(int $personId) : self
+    public function setPersonId(?int $personId) : self
     {
         $this->personId = $personId;
         return $this;
@@ -73,20 +73,20 @@ class FutureScheduledHour
     /**
      * Id of the Placeholder
      *
-     * @return int
+     * @return int|null
      */
-    public function getPlaceholderId() : int
+    public function getPlaceholderId() : ?int
     {
         return $this->placeholderId;
     }
     /**
      * Id of the Placeholder
      *
-     * @param int $placeholderId
+     * @param int|null $placeholderId
      *
      * @return self
      */
-    public function setPlaceholderId(int $placeholderId) : self
+    public function setPlaceholderId(?int $placeholderId) : self
     {
         $this->placeholderId = $placeholderId;
         return $this;
@@ -94,20 +94,20 @@ class FutureScheduledHour
     /**
      * Id of the Project
      *
-     * @return int
+     * @return int|null
      */
-    public function getProjectId() : int
+    public function getProjectId() : ?int
     {
         return $this->projectId;
     }
     /**
      * Id of the Project
      *
-     * @param int $projectId
+     * @param int|null $projectId
      *
      * @return self
      */
-    public function setProjectId(int $projectId) : self
+    public function setProjectId(?int $projectId) : self
     {
         $this->projectId = $projectId;
         return $this;

@@ -25,7 +25,7 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,27 +34,27 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Role();
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'name')) {
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'placeholder_ids')) {
+        if (property_exists($data, 'placeholder_ids') && $data->{'placeholder_ids'} !== null) {
             $values = array();
             foreach ($data->{'placeholder_ids'} as $value) {
                 $values[] = $value;
             }
             $object->setPlaceholderIds($values);
         }
-        if (property_exists($data, 'person_ids')) {
+        if (property_exists($data, 'person_ids') && $data->{'person_ids'} !== null) {
             $values_1 = array();
             foreach ($data->{'person_ids'} as $value_1) {
                 $values_1[] = $value_1;
             }
             $object->setPersonIds($values_1);
         }
-        if (property_exists($data, 'harvest_role_id')) {
+        if (property_exists($data, 'harvest_role_id') && $data->{'harvest_role_id'} !== null) {
             $object->setHarvestRoleId($data->{'harvest_role_id'});
         }
         return $object;

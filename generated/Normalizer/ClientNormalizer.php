@@ -25,7 +25,7 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,22 +34,22 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Client();
-        if (property_exists($data, 'archived')) {
+        if (property_exists($data, 'archived') && $data->{'archived'} !== null) {
             $object->setArchived($data->{'archived'});
         }
-        if (property_exists($data, 'harvest_id')) {
+        if (property_exists($data, 'harvest_id') && $data->{'harvest_id'} !== null) {
             $object->setHarvestId($data->{'harvest_id'});
         }
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'name')) {
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'updated_at')) {
+        if (property_exists($data, 'updated_at') && $data->{'updated_at'} !== null) {
             $object->setUpdatedAt($data->{'updated_at'});
         }
-        if (property_exists($data, 'updated_by_id')) {
+        if (property_exists($data, 'updated_by_id') && $data->{'updated_by_id'} !== null) {
             $object->setUpdatedById($data->{'updated_by_id'});
         }
         return $object;
@@ -60,7 +60,9 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (null !== $object->getArchived()) {
             $data->{'archived'} = $object->getArchived();
         }
-        $data->{'harvest_id'} = $object->getHarvestId();
+        if (null !== $object->getHarvestId()) {
+            $data->{'harvest_id'} = $object->getHarvestId();
+        }
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
         }
@@ -70,7 +72,9 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (null !== $object->getUpdatedAt()) {
             $data->{'updated_at'} = $object->getUpdatedAt();
         }
-        $data->{'updated_by_id'} = $object->getUpdatedById();
+        if (null !== $object->getUpdatedById()) {
+            $data->{'updated_by_id'} = $object->getUpdatedById();
+        }
         return $data;
     }
 }

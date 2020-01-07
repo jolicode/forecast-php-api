@@ -25,7 +25,7 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,10 +34,10 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Error();
-        if (property_exists($data, 'code')) {
+        if (property_exists($data, 'code') && $data->{'code'} !== null) {
             $object->setCode($data->{'code'});
         }
-        if (property_exists($data, 'message')) {
+        if (property_exists($data, 'message') && $data->{'message'} !== null) {
             $object->setMessage($data->{'message'});
         }
         return $object;

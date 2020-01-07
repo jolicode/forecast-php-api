@@ -7,44 +7,44 @@ class RepeatedAssignmentSet
     /**
      * 
      *
-     * @var int[]
+     * @var int[]|null
      */
     protected $assignmentIds;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $firstStartDate;
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $lastEndDate;
     /**
      * 
      *
-     * @return int[]
+     * @return int[]|null
      */
-    public function getAssignmentIds() : array
+    public function getAssignmentIds() : ?array
     {
         return $this->assignmentIds;
     }
     /**
      * 
      *
-     * @param int[] $assignmentIds
+     * @param int[]|null $assignmentIds
      *
      * @return self
      */
-    public function setAssignmentIds(array $assignmentIds) : self
+    public function setAssignmentIds(?array $assignmentIds) : self
     {
         $this->assignmentIds = $assignmentIds;
         return $this;
@@ -52,20 +52,20 @@ class RepeatedAssignmentSet
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getFirstStartDate() : string
+    public function getFirstStartDate() : ?string
     {
         return $this->firstStartDate;
     }
     /**
      * 
      *
-     * @param string $firstStartDate
+     * @param string|null $firstStartDate
      *
      * @return self
      */
-    public function setFirstStartDate(string $firstStartDate) : self
+    public function setFirstStartDate(?string $firstStartDate) : self
     {
         $this->firstStartDate = $firstStartDate;
         return $this;
@@ -73,20 +73,20 @@ class RepeatedAssignmentSet
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * 
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -94,20 +94,20 @@ class RepeatedAssignmentSet
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getLastEndDate() : string
+    public function getLastEndDate() : ?string
     {
         return $this->lastEndDate;
     }
     /**
      * 
      *
-     * @param string $lastEndDate
+     * @param string|null $lastEndDate
      *
      * @return self
      */
-    public function setLastEndDate(string $lastEndDate) : self
+    public function setLastEndDate(?string $lastEndDate) : self
     {
         $this->lastEndDate = $lastEndDate;
         return $this;

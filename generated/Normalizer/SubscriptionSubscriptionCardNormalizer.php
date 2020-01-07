@@ -25,7 +25,7 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,16 +34,16 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionCard();
-        if (property_exists($data, 'brand')) {
+        if (property_exists($data, 'brand') && $data->{'brand'} !== null) {
             $object->setBrand($data->{'brand'});
         }
-        if (property_exists($data, 'last_four')) {
+        if (property_exists($data, 'last_four') && $data->{'last_four'} !== null) {
             $object->setLastFour($data->{'last_four'});
         }
-        if (property_exists($data, 'expiry_month')) {
+        if (property_exists($data, 'expiry_month') && $data->{'expiry_month'} !== null) {
             $object->setExpiryMonth($data->{'expiry_month'});
         }
-        if (property_exists($data, 'expiry_year')) {
+        if (property_exists($data, 'expiry_year') && $data->{'expiry_year'} !== null) {
             $object->setExpiryYear($data->{'expiry_year'});
         }
         return $object;

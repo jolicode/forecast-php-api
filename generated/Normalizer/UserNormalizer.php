@@ -25,7 +25,7 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\User();
-        if (property_exists($data, 'current_user')) {
+        if (property_exists($data, 'current_user') && $data->{'current_user'} !== null) {
             $object->setCurrentUser($this->denormalizer->denormalize($data->{'current_user'}, 'JoliCode\\Forecast\\Api\\Model\\UserCurrentUser', 'json', $context));
         }
         return $object;

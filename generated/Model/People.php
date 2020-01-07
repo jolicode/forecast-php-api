@@ -7,26 +7,26 @@ class People
     /**
      * 
      *
-     * @var Person[]
+     * @var Person[]|null
      */
     protected $people;
     /**
      * 
      *
-     * @return Person[]
+     * @return Person[]|null
      */
-    public function getPeople() : array
+    public function getPeople() : ?array
     {
         return $this->people;
     }
     /**
      * 
      *
-     * @param Person[] $people
+     * @param Person[]|null $people
      *
      * @return self
      */
-    public function setPeople(array $people) : self
+    public function setPeople(?array $people) : self
     {
         $this->people = $people;
         return $this;

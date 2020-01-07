@@ -25,7 +25,7 @@ class ClientsNormalizer implements DenormalizerInterface, NormalizerInterface, D
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class ClientsNormalizer implements DenormalizerInterface, NormalizerInterface, D
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Clients();
-        if (property_exists($data, 'clients')) {
+        if (property_exists($data, 'clients') && $data->{'clients'} !== null) {
             $values = array();
             foreach ($data->{'clients'} as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Client', 'json', $context);

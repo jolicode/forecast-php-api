@@ -7,67 +7,67 @@ class Person
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $firstName;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $lastName;
     /**
      * 
      *
-     * @var string
+     * @var string|null
      */
     protected $email;
     /**
      * If the user is allowed to login, contains "enabled". Else, contains "disabled".
      *
-     * @var string
+     * @var string|null
      */
     protected $login;
     /**
      * Is the user an admin?
      *
-     * @var bool
+     * @var bool|null
      */
     protected $admin;
     /**
      * Is the user an admin?
      *
-     * @var bool
+     * @var bool|null
      */
     protected $archived;
     /**
      * Did the user subscribe?
      *
-     * @var bool
+     * @var bool|null
      */
     protected $subscribed;
     /**
      * URL of the user's avatar image
      *
-     * @var string
+     * @var string|null
      */
     protected $avatarUrl;
     /**
      * 
      *
-     * @var string[]
+     * @var string[]|null
      */
     protected $roles;
     /**
      * date when the Person was last updated
      *
-     * @var string
+     * @var string|null
      */
     protected $updatedAt;
     /**
@@ -79,25 +79,25 @@ class Person
     /**
      * Id of the user in Harvest
      *
-     * @var int
+     * @var int|null
      */
     protected $harvestUserId;
     /**
      * Number of seconds of capacity in each week
      *
-     * @var int
+     * @var int|null
      */
     protected $weeklyCapacity;
     /**
      * 
      *
-     * @var PersonWorkingDays
+     * @var PersonWorkingDays|null
      */
     protected $workingDays;
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $colorBlind;
     /**
@@ -109,20 +109,20 @@ class Person
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * 
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -130,20 +130,20 @@ class Person
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getFirstName() : string
+    public function getFirstName() : ?string
     {
         return $this->firstName;
     }
     /**
      * 
      *
-     * @param string $firstName
+     * @param string|null $firstName
      *
      * @return self
      */
-    public function setFirstName(string $firstName) : self
+    public function setFirstName(?string $firstName) : self
     {
         $this->firstName = $firstName;
         return $this;
@@ -151,20 +151,20 @@ class Person
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getLastName() : string
+    public function getLastName() : ?string
     {
         return $this->lastName;
     }
     /**
      * 
      *
-     * @param string $lastName
+     * @param string|null $lastName
      *
      * @return self
      */
-    public function setLastName(string $lastName) : self
+    public function setLastName(?string $lastName) : self
     {
         $this->lastName = $lastName;
         return $this;
@@ -172,20 +172,20 @@ class Person
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getEmail() : string
+    public function getEmail() : ?string
     {
         return $this->email;
     }
     /**
      * 
      *
-     * @param string $email
+     * @param string|null $email
      *
      * @return self
      */
-    public function setEmail(string $email) : self
+    public function setEmail(?string $email) : self
     {
         $this->email = $email;
         return $this;
@@ -193,20 +193,20 @@ class Person
     /**
      * If the user is allowed to login, contains "enabled". Else, contains "disabled".
      *
-     * @return string
+     * @return string|null
      */
-    public function getLogin() : string
+    public function getLogin() : ?string
     {
         return $this->login;
     }
     /**
      * If the user is allowed to login, contains "enabled". Else, contains "disabled".
      *
-     * @param string $login
+     * @param string|null $login
      *
      * @return self
      */
-    public function setLogin(string $login) : self
+    public function setLogin(?string $login) : self
     {
         $this->login = $login;
         return $this;
@@ -214,20 +214,20 @@ class Person
     /**
      * Is the user an admin?
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getAdmin() : bool
+    public function getAdmin() : ?bool
     {
         return $this->admin;
     }
     /**
      * Is the user an admin?
      *
-     * @param bool $admin
+     * @param bool|null $admin
      *
      * @return self
      */
-    public function setAdmin(bool $admin) : self
+    public function setAdmin(?bool $admin) : self
     {
         $this->admin = $admin;
         return $this;
@@ -235,20 +235,20 @@ class Person
     /**
      * Is the user an admin?
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getArchived() : bool
+    public function getArchived() : ?bool
     {
         return $this->archived;
     }
     /**
      * Is the user an admin?
      *
-     * @param bool $archived
+     * @param bool|null $archived
      *
      * @return self
      */
-    public function setArchived(bool $archived) : self
+    public function setArchived(?bool $archived) : self
     {
         $this->archived = $archived;
         return $this;
@@ -256,20 +256,20 @@ class Person
     /**
      * Did the user subscribe?
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getSubscribed() : bool
+    public function getSubscribed() : ?bool
     {
         return $this->subscribed;
     }
     /**
      * Did the user subscribe?
      *
-     * @param bool $subscribed
+     * @param bool|null $subscribed
      *
      * @return self
      */
-    public function setSubscribed(bool $subscribed) : self
+    public function setSubscribed(?bool $subscribed) : self
     {
         $this->subscribed = $subscribed;
         return $this;
@@ -277,20 +277,20 @@ class Person
     /**
      * URL of the user's avatar image
      *
-     * @return string
+     * @return string|null
      */
-    public function getAvatarUrl() : string
+    public function getAvatarUrl() : ?string
     {
         return $this->avatarUrl;
     }
     /**
      * URL of the user's avatar image
      *
-     * @param string $avatarUrl
+     * @param string|null $avatarUrl
      *
      * @return self
      */
-    public function setAvatarUrl(string $avatarUrl) : self
+    public function setAvatarUrl(?string $avatarUrl) : self
     {
         $this->avatarUrl = $avatarUrl;
         return $this;
@@ -298,20 +298,20 @@ class Person
     /**
      * 
      *
-     * @return string[]
+     * @return string[]|null
      */
-    public function getRoles() : array
+    public function getRoles() : ?array
     {
         return $this->roles;
     }
     /**
      * 
      *
-     * @param string[] $roles
+     * @param string[]|null $roles
      *
      * @return self
      */
-    public function setRoles(array $roles) : self
+    public function setRoles(?array $roles) : self
     {
         $this->roles = $roles;
         return $this;
@@ -319,20 +319,20 @@ class Person
     /**
      * date when the Person was last updated
      *
-     * @return string
+     * @return string|null
      */
-    public function getUpdatedAt() : string
+    public function getUpdatedAt() : ?string
     {
         return $this->updatedAt;
     }
     /**
      * date when the Person was last updated
      *
-     * @param string $updatedAt
+     * @param string|null $updatedAt
      *
      * @return self
      */
-    public function setUpdatedAt(string $updatedAt) : self
+    public function setUpdatedAt(?string $updatedAt) : self
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -361,20 +361,20 @@ class Person
     /**
      * Id of the user in Harvest
      *
-     * @return int
+     * @return int|null
      */
-    public function getHarvestUserId() : int
+    public function getHarvestUserId() : ?int
     {
         return $this->harvestUserId;
     }
     /**
      * Id of the user in Harvest
      *
-     * @param int $harvestUserId
+     * @param int|null $harvestUserId
      *
      * @return self
      */
-    public function setHarvestUserId(int $harvestUserId) : self
+    public function setHarvestUserId(?int $harvestUserId) : self
     {
         $this->harvestUserId = $harvestUserId;
         return $this;
@@ -382,20 +382,20 @@ class Person
     /**
      * Number of seconds of capacity in each week
      *
-     * @return int
+     * @return int|null
      */
-    public function getWeeklyCapacity() : int
+    public function getWeeklyCapacity() : ?int
     {
         return $this->weeklyCapacity;
     }
     /**
      * Number of seconds of capacity in each week
      *
-     * @param int $weeklyCapacity
+     * @param int|null $weeklyCapacity
      *
      * @return self
      */
-    public function setWeeklyCapacity(int $weeklyCapacity) : self
+    public function setWeeklyCapacity(?int $weeklyCapacity) : self
     {
         $this->weeklyCapacity = $weeklyCapacity;
         return $this;
@@ -403,20 +403,20 @@ class Person
     /**
      * 
      *
-     * @return PersonWorkingDays
+     * @return PersonWorkingDays|null
      */
-    public function getWorkingDays() : PersonWorkingDays
+    public function getWorkingDays() : ?PersonWorkingDays
     {
         return $this->workingDays;
     }
     /**
      * 
      *
-     * @param PersonWorkingDays $workingDays
+     * @param PersonWorkingDays|null $workingDays
      *
      * @return self
      */
-    public function setWorkingDays(PersonWorkingDays $workingDays) : self
+    public function setWorkingDays(?PersonWorkingDays $workingDays) : self
     {
         $this->workingDays = $workingDays;
         return $this;
@@ -424,20 +424,20 @@ class Person
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getColorBlind() : bool
+    public function getColorBlind() : ?bool
     {
         return $this->colorBlind;
     }
     /**
      * 
      *
-     * @param bool $colorBlind
+     * @param bool|null $colorBlind
      *
      * @return self
      */
-    public function setColorBlind(bool $colorBlind) : self
+    public function setColorBlind(?bool $colorBlind) : self
     {
         $this->colorBlind = $colorBlind;
         return $this;

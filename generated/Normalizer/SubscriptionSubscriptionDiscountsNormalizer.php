@@ -25,7 +25,7 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,10 +34,10 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionDiscounts();
-        if (property_exists($data, 'monthly_percentage')) {
+        if (property_exists($data, 'monthly_percentage') && $data->{'monthly_percentage'} !== null) {
             $object->setMonthlyPercentage($data->{'monthly_percentage'});
         }
-        if (property_exists($data, 'yearly_percentage')) {
+        if (property_exists($data, 'yearly_percentage') && $data->{'yearly_percentage'} !== null) {
             $object->setYearlyPercentage($data->{'yearly_percentage'});
         }
         return $object;

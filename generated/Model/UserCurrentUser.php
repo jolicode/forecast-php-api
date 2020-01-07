@@ -7,32 +7,32 @@ class UserCurrentUser
     /**
      * 
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
     /**
      * 
      *
-     * @var int[]
+     * @var int[]|null
      */
     protected $accountIds;
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId() : ?int
     {
         return $this->id;
     }
     /**
      * 
      *
-     * @param int $id
+     * @param int|null $id
      *
      * @return self
      */
-    public function setId(int $id) : self
+    public function setId(?int $id) : self
     {
         $this->id = $id;
         return $this;
@@ -40,20 +40,20 @@ class UserCurrentUser
     /**
      * 
      *
-     * @return int[]
+     * @return int[]|null
      */
-    public function getAccountIds() : array
+    public function getAccountIds() : ?array
     {
         return $this->accountIds;
     }
     /**
      * 
      *
-     * @param int[] $accountIds
+     * @param int[]|null $accountIds
      *
      * @return self
      */
-    public function setAccountIds(array $accountIds) : self
+    public function setAccountIds(?array $accountIds) : self
     {
         $this->accountIds = $accountIds;
         return $this;

@@ -25,7 +25,7 @@ class FutureScheduledHoursNormalizer implements DenormalizerInterface, Normalize
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class FutureScheduledHoursNormalizer implements DenormalizerInterface, Normalize
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\FutureScheduledHours();
-        if (property_exists($data, 'future_scheduled_hours')) {
+        if (property_exists($data, 'future_scheduled_hours') && $data->{'future_scheduled_hours'} !== null) {
             $values = array();
             foreach ($data->{'future_scheduled_hours'} as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\FutureScheduledHour', 'json', $context);

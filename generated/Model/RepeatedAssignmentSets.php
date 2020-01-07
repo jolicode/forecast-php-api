@@ -7,26 +7,26 @@ class RepeatedAssignmentSets
     /**
      * 
      *
-     * @var RepeatedAssignmentSet[]
+     * @var RepeatedAssignmentSet[]|null
      */
     protected $repeatedAssignmentSets;
     /**
      * 
      *
-     * @return RepeatedAssignmentSet[]
+     * @return RepeatedAssignmentSet[]|null
      */
-    public function getRepeatedAssignmentSets() : array
+    public function getRepeatedAssignmentSets() : ?array
     {
         return $this->repeatedAssignmentSets;
     }
     /**
      * 
      *
-     * @param RepeatedAssignmentSet[] $repeatedAssignmentSets
+     * @param RepeatedAssignmentSet[]|null $repeatedAssignmentSets
      *
      * @return self
      */
-    public function setRepeatedAssignmentSets(array $repeatedAssignmentSets) : self
+    public function setRepeatedAssignmentSets(?array $repeatedAssignmentSets) : self
     {
         $this->repeatedAssignmentSets = $repeatedAssignmentSets;
         return $this;

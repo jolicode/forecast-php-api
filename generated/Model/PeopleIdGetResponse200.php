@@ -7,26 +7,26 @@ class PeopleIdGetResponse200
     /**
      * 
      *
-     * @var Person
+     * @var Person|null
      */
     protected $person;
     /**
      * 
      *
-     * @return Person
+     * @return Person|null
      */
-    public function getPerson() : Person
+    public function getPerson() : ?Person
     {
         return $this->person;
     }
     /**
      * 
      *
-     * @param Person $person
+     * @param Person|null $person
      *
      * @return self
      */
-    public function setPerson(Person $person) : self
+    public function setPerson(?Person $person) : self
     {
         $this->person = $person;
         return $this;

@@ -25,7 +25,7 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,20 +34,20 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSet();
-        if (property_exists($data, 'assignment_ids')) {
+        if (property_exists($data, 'assignment_ids') && $data->{'assignment_ids'} !== null) {
             $values = array();
             foreach ($data->{'assignment_ids'} as $value) {
                 $values[] = $value;
             }
             $object->setAssignmentIds($values);
         }
-        if (property_exists($data, 'first_start_date')) {
+        if (property_exists($data, 'first_start_date') && $data->{'first_start_date'} !== null) {
             $object->setFirstStartDate($data->{'first_start_date'});
         }
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'last_end_date')) {
+        if (property_exists($data, 'last_end_date') && $data->{'last_end_date'} !== null) {
             $object->setLastEndDate($data->{'last_end_date'});
         }
         return $object;

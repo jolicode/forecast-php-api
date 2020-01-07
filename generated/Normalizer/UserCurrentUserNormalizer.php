@@ -25,7 +25,7 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,10 +34,10 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserCurrentUser();
-        if (property_exists($data, 'id')) {
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
             $object->setId($data->{'id'});
         }
-        if (property_exists($data, 'account_ids')) {
+        if (property_exists($data, 'account_ids') && $data->{'account_ids'} !== null) {
             $values = array();
             foreach ($data->{'account_ids'} as $value) {
                 $values[] = $value;

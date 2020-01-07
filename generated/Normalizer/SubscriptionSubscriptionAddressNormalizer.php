@@ -25,7 +25,7 @@ class SubscriptionSubscriptionAddressNormalizer implements DenormalizerInterface
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,22 +34,22 @@ class SubscriptionSubscriptionAddressNormalizer implements DenormalizerInterface
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionAddress();
-        if (property_exists($data, 'line_1')) {
+        if (property_exists($data, 'line_1') && $data->{'line_1'} !== null) {
             $object->setLine1($data->{'line_1'});
         }
-        if (property_exists($data, 'line_2')) {
+        if (property_exists($data, 'line_2') && $data->{'line_2'} !== null) {
             $object->setLine2($data->{'line_2'});
         }
-        if (property_exists($data, 'city')) {
+        if (property_exists($data, 'city') && $data->{'city'} !== null) {
             $object->setCity($data->{'city'});
         }
-        if (property_exists($data, 'state')) {
+        if (property_exists($data, 'state') && $data->{'state'} !== null) {
             $object->setState($data->{'state'});
         }
-        if (property_exists($data, 'postal_code')) {
+        if (property_exists($data, 'postal_code') && $data->{'postal_code'} !== null) {
             $object->setPostalCode($data->{'postal_code'});
         }
-        if (property_exists($data, 'country')) {
+        if (property_exists($data, 'country') && $data->{'country'} !== null) {
             $object->setCountry($data->{'country'});
         }
         return $object;

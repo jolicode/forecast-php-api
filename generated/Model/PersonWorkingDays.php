@@ -7,31 +7,31 @@ class PersonWorkingDays
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $monday;
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $tuesday;
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $wednesday;
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $thursday;
     /**
      * 
      *
-     * @var bool
+     * @var bool|null
      */
     protected $friday;
     /**
@@ -49,20 +49,20 @@ class PersonWorkingDays
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getMonday() : bool
+    public function getMonday() : ?bool
     {
         return $this->monday;
     }
     /**
      * 
      *
-     * @param bool $monday
+     * @param bool|null $monday
      *
      * @return self
      */
-    public function setMonday(bool $monday) : self
+    public function setMonday(?bool $monday) : self
     {
         $this->monday = $monday;
         return $this;
@@ -70,20 +70,20 @@ class PersonWorkingDays
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getTuesday() : bool
+    public function getTuesday() : ?bool
     {
         return $this->tuesday;
     }
     /**
      * 
      *
-     * @param bool $tuesday
+     * @param bool|null $tuesday
      *
      * @return self
      */
-    public function setTuesday(bool $tuesday) : self
+    public function setTuesday(?bool $tuesday) : self
     {
         $this->tuesday = $tuesday;
         return $this;
@@ -91,20 +91,20 @@ class PersonWorkingDays
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getWednesday() : bool
+    public function getWednesday() : ?bool
     {
         return $this->wednesday;
     }
     /**
      * 
      *
-     * @param bool $wednesday
+     * @param bool|null $wednesday
      *
      * @return self
      */
-    public function setWednesday(bool $wednesday) : self
+    public function setWednesday(?bool $wednesday) : self
     {
         $this->wednesday = $wednesday;
         return $this;
@@ -112,20 +112,20 @@ class PersonWorkingDays
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getThursday() : bool
+    public function getThursday() : ?bool
     {
         return $this->thursday;
     }
     /**
      * 
      *
-     * @param bool $thursday
+     * @param bool|null $thursday
      *
      * @return self
      */
-    public function setThursday(bool $thursday) : self
+    public function setThursday(?bool $thursday) : self
     {
         $this->thursday = $thursday;
         return $this;
@@ -133,20 +133,20 @@ class PersonWorkingDays
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getFriday() : bool
+    public function getFriday() : ?bool
     {
         return $this->friday;
     }
     /**
      * 
      *
-     * @param bool $friday
+     * @param bool|null $friday
      *
      * @return self
      */
-    public function setFriday(bool $friday) : self
+    public function setFriday(?bool $friday) : self
     {
         $this->friday = $friday;
         return $this;

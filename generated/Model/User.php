@@ -7,26 +7,26 @@ class User
     /**
      * 
      *
-     * @var UserCurrentUser
+     * @var UserCurrentUser|null
      */
     protected $currentUser;
     /**
      * 
      *
-     * @return UserCurrentUser
+     * @return UserCurrentUser|null
      */
-    public function getCurrentUser() : UserCurrentUser
+    public function getCurrentUser() : ?UserCurrentUser
     {
         return $this->currentUser;
     }
     /**
      * 
      *
-     * @param UserCurrentUser $currentUser
+     * @param UserCurrentUser|null $currentUser
      *
      * @return self
      */
-    public function setCurrentUser(UserCurrentUser $currentUser) : self
+    public function setCurrentUser(?UserCurrentUser $currentUser) : self
     {
         $this->currentUser = $currentUser;
         return $this;

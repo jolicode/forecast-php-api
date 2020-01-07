@@ -7,26 +7,26 @@ class PlaceholdersIdGetResponse200
     /**
      * 
      *
-     * @var Placeholder
+     * @var Placeholder|null
      */
     protected $placeholder;
     /**
      * 
      *
-     * @return Placeholder
+     * @return Placeholder|null
      */
-    public function getPlaceholder() : Placeholder
+    public function getPlaceholder() : ?Placeholder
     {
         return $this->placeholder;
     }
     /**
      * 
      *
-     * @param Placeholder $placeholder
+     * @param Placeholder|null $placeholder
      *
      * @return self
      */
-    public function setPlaceholder(Placeholder $placeholder) : self
+    public function setPlaceholder(?Placeholder $placeholder) : self
     {
         $this->placeholder = $placeholder;
         return $this;

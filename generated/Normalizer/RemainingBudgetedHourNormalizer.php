@@ -25,7 +25,7 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,19 +34,19 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
-        if (property_exists($data, 'budget_by')) {
+        if (property_exists($data, 'budget_by') && $data->{'budget_by'} !== null) {
             $object->setBudgetBy($data->{'budget_by'});
         }
-        if (property_exists($data, 'budget_is_monthly')) {
+        if (property_exists($data, 'budget_is_monthly') && $data->{'budget_is_monthly'} !== null) {
             $object->setBudgetIsMonthly($data->{'budget_is_monthly'});
         }
-        if (property_exists($data, 'hours')) {
+        if (property_exists($data, 'hours') && $data->{'hours'} !== null) {
             $object->setHours($data->{'hours'});
         }
-        if (property_exists($data, 'project_id')) {
+        if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
             $object->setProjectId($data->{'project_id'});
         }
-        if (property_exists($data, 'response_code')) {
+        if (property_exists($data, 'response_code') && $data->{'response_code'} !== null) {
             $object->setResponseCode($data->{'response_code'});
         }
         return $object;

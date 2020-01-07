@@ -5,5 +5,6 @@ return [
     'namespace' => 'JoliCode\Forecast\Api',
     'directory' => __DIR__ . '/generated',
     'reference' => true,
+    'strict' => false,
     'client' => 'psr18',
 ];

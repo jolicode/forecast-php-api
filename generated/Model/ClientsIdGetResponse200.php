@@ -7,26 +7,26 @@ class ClientsIdGetResponse200
     /**
      * 
      *
-     * @var Client
+     * @var Client|null
      */
     protected $client;
     /**
      * 
      *
-     * @return Client
+     * @return Client|null
      */
-    public function getClient() : Client
+    public function getClient() : ?Client
     {
         return $this->client;
     }
     /**
      * 
      *
-     * @param Client $client
+     * @param Client|null $client
      *
      * @return self
      */
-    public function setClient(Client $client) : self
+    public function setClient(?Client $client) : self
     {
         $this->client = $client;
         return $this;

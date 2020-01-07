@@ -25,7 +25,7 @@ class RolesNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         if (isset($data->{'$ref'})) {
             return new Reference($data->{'$ref'}, $context['document-origin']);
@@ -34,7 +34,7 @@ class RolesNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Roles();
-        if (property_exists($data, 'roles')) {
+        if (property_exists($data, 'roles') && $data->{'roles'} !== null) {
             $values = array();
             foreach ($data->{'roles'} as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Role', 'json', $context);
