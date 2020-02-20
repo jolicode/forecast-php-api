@@ -18,7 +18,7 @@ class UserConnection
      */
     protected $id;
     /**
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $lastActiveAt;
     /**
@@ -38,12 +38,12 @@ class UserConnection
         return $this;
     }
 
-    public function getLastActiveAt(): ?string
+    public function getLastActiveAt(): ?\DateTime
     {
         return $this->lastActiveAt;
     }
 
-    public function setLastActiveAt(?string $lastActiveAt): self
+    public function setLastActiveAt(?\DateTime $lastActiveAt): self
     {
         $this->lastActiveAt = $lastActiveAt;
 

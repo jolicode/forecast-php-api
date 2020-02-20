@@ -624,7 +624,7 @@ components:
               description: whether or not the grid shows weekends
             created_at:
               type: string
-              format: datetime
+              format: date-time
               description: creation date
     Assignment:
       type: object
@@ -673,7 +673,7 @@ components:
           description: start date
         updated_at:
           type: string
-          format: datetime
+          format: date-time
           description: date when the assignment was last updated
         updated_by:
           type: integer
@@ -709,7 +709,7 @@ components:
           description: Name of the client
         updated_at:
           type: string
-          format: datetime
+          format: date-time
           description: date when the client was last updated
         updated_by_id:
           type: integer
@@ -802,7 +802,7 @@ components:
             type: string
         updated_at:
           type: string
-          format: datetime
+          format: date-time
           description: date when the Person was last updated
         updated_by_id:
           type: integer
@@ -856,7 +856,7 @@ components:
             type: string
         updated_at:
           type: string
-          format: datetime
+          format: date-time
           description: date when the Placeholder was last updated
         updated_by_id:
           type: integer
@@ -909,7 +909,7 @@ components:
             type: string
         updated_at:
           type: string
-          format: datetime
+          format: date-time
           description: date when the Project was last updated
         updated_by_id:
           type: integer
@@ -1106,7 +1106,7 @@ components:
           format: int32
         last_active_at:
           type: string
-          format: datetime
+          format: date-time
         person_id:
           type: integer
           format: int32

@@ -66,7 +66,7 @@ class Person
     /**
      * date when the Person was last updated.
      *
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $updatedAt;
     /**
@@ -259,7 +259,7 @@ class Person
     /**
      * date when the Person was last updated.
      */
-    public function getUpdatedAt(): ?string
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -267,7 +267,7 @@ class Person
     /**
      * date when the Person was last updated.
      */
-    public function setUpdatedAt(?string $updatedAt): self
+    public function setUpdatedAt(?\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
