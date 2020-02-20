@@ -67,7 +67,7 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setName(null);
         }
         if (property_exists($data, 'updated_at') && null !== $data->{'updated_at'}) {
-            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updated_at'}));
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.v\Z", $data->{'updated_at'}));
         } elseif (property_exists($data, 'updated_at') && null === $data->{'updated_at'}) {
             $object->setUpdatedAt(null);
         }
@@ -104,7 +104,7 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data->{'name'} = null;
         }
         if (null !== $object->getUpdatedAt()) {
-            $data->{'updated_at'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
+            $data->{'updated_at'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:s.v\Z");
         } else {
             $data->{'updated_at'} = null;
         }

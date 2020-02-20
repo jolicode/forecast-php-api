@@ -52,7 +52,7 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setId(null);
         }
         if (property_exists($data, 'last_active_at') && null !== $data->{'last_active_at'}) {
-            $object->setLastActiveAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'last_active_at'}));
+            $object->setLastActiveAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.v\Z", $data->{'last_active_at'}));
         } elseif (property_exists($data, 'last_active_at') && null === $data->{'last_active_at'}) {
             $object->setLastActiveAt(null);
         }
@@ -74,7 +74,7 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
             $data->{'id'} = null;
         }
         if (null !== $object->getLastActiveAt()) {
-            $data->{'last_active_at'} = $object->getLastActiveAt()->format("Y-m-d\TH:i:sP");
+            $data->{'last_active_at'} = $object->getLastActiveAt()->format("Y-m-d\TH:i:s.v\Z");
         } else {
             $data->{'last_active_at'} = null;
         }

@@ -86,7 +86,7 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setWeekendsEnabled(null);
         }
         if (property_exists($data, 'created_at') && null !== $data->{'created_at'}) {
-            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'created_at'}));
+            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.v\Z", $data->{'created_at'}));
         } elseif (property_exists($data, 'created_at') && null === $data->{'created_at'}) {
             $object->setCreatedAt(null);
         }
@@ -137,7 +137,7 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
             $data->{'weekends_enabled'} = null;
         }
         if (null !== $object->getCreatedAt()) {
-            $data->{'created_at'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
+            $data->{'created_at'} = $object->getCreatedAt()->format("Y-m-d\TH:i:s.v\Z");
         } else {
             $data->{'created_at'} = null;
         }
