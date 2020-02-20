@@ -48,15 +48,23 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionCard();
         if (property_exists($data, 'brand') && null !== $data->{'brand'}) {
             $object->setBrand($data->{'brand'});
+        } elseif (property_exists($data, 'brand') && null === $data->{'brand'}) {
+            $object->setBrand(null);
         }
         if (property_exists($data, 'last_four') && null !== $data->{'last_four'}) {
             $object->setLastFour($data->{'last_four'});
+        } elseif (property_exists($data, 'last_four') && null === $data->{'last_four'}) {
+            $object->setLastFour(null);
         }
         if (property_exists($data, 'expiry_month') && null !== $data->{'expiry_month'}) {
             $object->setExpiryMonth($data->{'expiry_month'});
+        } elseif (property_exists($data, 'expiry_month') && null === $data->{'expiry_month'}) {
+            $object->setExpiryMonth(null);
         }
         if (property_exists($data, 'expiry_year') && null !== $data->{'expiry_year'}) {
             $object->setExpiryYear($data->{'expiry_year'});
+        } elseif (property_exists($data, 'expiry_year') && null === $data->{'expiry_year'}) {
+            $object->setExpiryYear(null);
         }
 
         return $object;
@@ -67,15 +75,23 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
         $data = new \stdClass();
         if (null !== $object->getBrand()) {
             $data->{'brand'} = $object->getBrand();
+        } else {
+            $data->{'brand'} = null;
         }
         if (null !== $object->getLastFour()) {
             $data->{'last_four'} = $object->getLastFour();
+        } else {
+            $data->{'last_four'} = null;
         }
         if (null !== $object->getExpiryMonth()) {
             $data->{'expiry_month'} = $object->getExpiryMonth();
+        } else {
+            $data->{'expiry_month'} = null;
         }
         if (null !== $object->getExpiryYear()) {
             $data->{'expiry_year'} = $object->getExpiryYear();
+        } else {
+            $data->{'expiry_year'} = null;
         }
 
         return $data;

@@ -48,21 +48,33 @@ class SubscriptionSubscriptionAddressNormalizer implements DenormalizerInterface
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionAddress();
         if (property_exists($data, 'line_1') && null !== $data->{'line_1'}) {
             $object->setLine1($data->{'line_1'});
+        } elseif (property_exists($data, 'line_1') && null === $data->{'line_1'}) {
+            $object->setLine1(null);
         }
         if (property_exists($data, 'line_2') && null !== $data->{'line_2'}) {
             $object->setLine2($data->{'line_2'});
+        } elseif (property_exists($data, 'line_2') && null === $data->{'line_2'}) {
+            $object->setLine2(null);
         }
         if (property_exists($data, 'city') && null !== $data->{'city'}) {
             $object->setCity($data->{'city'});
+        } elseif (property_exists($data, 'city') && null === $data->{'city'}) {
+            $object->setCity(null);
         }
         if (property_exists($data, 'state') && null !== $data->{'state'}) {
             $object->setState($data->{'state'});
+        } elseif (property_exists($data, 'state') && null === $data->{'state'}) {
+            $object->setState(null);
         }
         if (property_exists($data, 'postal_code') && null !== $data->{'postal_code'}) {
             $object->setPostalCode($data->{'postal_code'});
+        } elseif (property_exists($data, 'postal_code') && null === $data->{'postal_code'}) {
+            $object->setPostalCode(null);
         }
         if (property_exists($data, 'country') && null !== $data->{'country'}) {
             $object->setCountry($data->{'country'});
+        } elseif (property_exists($data, 'country') && null === $data->{'country'}) {
+            $object->setCountry(null);
         }
 
         return $object;
@@ -73,21 +85,33 @@ class SubscriptionSubscriptionAddressNormalizer implements DenormalizerInterface
         $data = new \stdClass();
         if (null !== $object->getLine1()) {
             $data->{'line_1'} = $object->getLine1();
+        } else {
+            $data->{'line_1'} = null;
         }
         if (null !== $object->getLine2()) {
             $data->{'line_2'} = $object->getLine2();
+        } else {
+            $data->{'line_2'} = null;
         }
         if (null !== $object->getCity()) {
             $data->{'city'} = $object->getCity();
+        } else {
+            $data->{'city'} = null;
         }
         if (null !== $object->getState()) {
             $data->{'state'} = $object->getState();
+        } else {
+            $data->{'state'} = null;
         }
         if (null !== $object->getPostalCode()) {
             $data->{'postal_code'} = $object->getPostalCode();
+        } else {
+            $data->{'postal_code'} = null;
         }
         if (null !== $object->getCountry()) {
             $data->{'country'} = $object->getCountry();
+        } else {
+            $data->{'country'} = null;
         }
 
         return $data;

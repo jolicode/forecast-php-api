@@ -48,6 +48,8 @@ class RolesIdGetResponse200Normalizer implements DenormalizerInterface, Normaliz
         $object = new \JoliCode\Forecast\Api\Model\RolesIdGetResponse200();
         if (property_exists($data, 'role') && null !== $data->{'role'}) {
             $object->setRole($this->denormalizer->denormalize($data->{'role'}, 'JoliCode\\Forecast\\Api\\Model\\Role', 'json', $context));
+        } elseif (property_exists($data, 'role') && null === $data->{'role'}) {
+            $object->setRole(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class RolesIdGetResponse200Normalizer implements DenormalizerInterface, Normaliz
         $data = new \stdClass();
         if (null !== $object->getRole()) {
             $data->{'role'} = $this->normalizer->normalize($object->getRole(), 'json', $context);
+        } else {
+            $data->{'role'} = null;
         }
 
         return $data;

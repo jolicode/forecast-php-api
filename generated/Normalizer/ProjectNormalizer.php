@@ -48,33 +48,53 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $object = new \JoliCode\Forecast\Api\Model\Project();
         if (property_exists($data, 'archived') && null !== $data->{'archived'}) {
             $object->setArchived($data->{'archived'});
+        } elseif (property_exists($data, 'archived') && null === $data->{'archived'}) {
+            $object->setArchived(null);
         }
         if (property_exists($data, 'client_id') && null !== $data->{'client_id'}) {
             $object->setClientId($data->{'client_id'});
+        } elseif (property_exists($data, 'client_id') && null === $data->{'client_id'}) {
+            $object->setClientId(null);
         }
         if (property_exists($data, 'code') && null !== $data->{'code'}) {
             $object->setCode($data->{'code'});
+        } elseif (property_exists($data, 'code') && null === $data->{'code'}) {
+            $object->setCode(null);
         }
         if (property_exists($data, 'color') && null !== $data->{'color'}) {
             $object->setColor($data->{'color'});
+        } elseif (property_exists($data, 'color') && null === $data->{'color'}) {
+            $object->setColor(null);
         }
         if (property_exists($data, 'end_date') && null !== $data->{'end_date'}) {
-            $object->setEndDate($data->{'end_date'});
+            $object->setEndDate(\DateTime::createFromFormat('Y-m-d', $data->{'end_date'})->setTime(0, 0, 0));
+        } elseif (property_exists($data, 'end_date') && null === $data->{'end_date'}) {
+            $object->setEndDate(null);
         }
         if (property_exists($data, 'harvest_id') && null !== $data->{'harvest_id'}) {
             $object->setHarvestId($data->{'harvest_id'});
+        } elseif (property_exists($data, 'harvest_id') && null === $data->{'harvest_id'}) {
+            $object->setHarvestId(null);
         }
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'name') && null !== $data->{'name'}) {
             $object->setName($data->{'name'});
+        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+            $object->setName(null);
         }
         if (property_exists($data, 'notes') && null !== $data->{'notes'}) {
             $object->setNotes($data->{'notes'});
+        } elseif (property_exists($data, 'notes') && null === $data->{'notes'}) {
+            $object->setNotes(null);
         }
         if (property_exists($data, 'start_date') && null !== $data->{'start_date'}) {
-            $object->setStartDate($data->{'start_date'});
+            $object->setStartDate(\DateTime::createFromFormat('Y-m-d', $data->{'start_date'})->setTime(0, 0, 0));
+        } elseif (property_exists($data, 'start_date') && null === $data->{'start_date'}) {
+            $object->setStartDate(null);
         }
         if (property_exists($data, 'tags') && null !== $data->{'tags'}) {
             $values = [];
@@ -82,12 +102,18 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
                 $values[] = $value;
             }
             $object->setTags($values);
+        } elseif (property_exists($data, 'tags') && null === $data->{'tags'}) {
+            $object->setTags(null);
         }
         if (property_exists($data, 'updated_at') && null !== $data->{'updated_at'}) {
             $object->setUpdatedAt($data->{'updated_at'});
+        } elseif (property_exists($data, 'updated_at') && null === $data->{'updated_at'}) {
+            $object->setUpdatedAt(null);
         }
         if (property_exists($data, 'updated_by_id') && null !== $data->{'updated_by_id'}) {
             $object->setUpdatedById($data->{'updated_by_id'});
+        } elseif (property_exists($data, 'updated_by_id') && null === $data->{'updated_by_id'}) {
+            $object->setUpdatedById(null);
         }
 
         return $object;
@@ -98,33 +124,53 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $data = new \stdClass();
         if (null !== $object->getArchived()) {
             $data->{'archived'} = $object->getArchived();
+        } else {
+            $data->{'archived'} = null;
         }
         if (null !== $object->getClientId()) {
             $data->{'client_id'} = $object->getClientId();
+        } else {
+            $data->{'client_id'} = null;
         }
         if (null !== $object->getCode()) {
             $data->{'code'} = $object->getCode();
+        } else {
+            $data->{'code'} = null;
         }
         if (null !== $object->getColor()) {
             $data->{'color'} = $object->getColor();
+        } else {
+            $data->{'color'} = null;
         }
         if (null !== $object->getEndDate()) {
-            $data->{'end_date'} = $object->getEndDate();
+            $data->{'end_date'} = $object->getEndDate()->format('Y-m-d');
+        } else {
+            $data->{'end_date'} = null;
         }
         if (null !== $object->getHarvestId()) {
             $data->{'harvest_id'} = $object->getHarvestId();
+        } else {
+            $data->{'harvest_id'} = null;
         }
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        } else {
+            $data->{'name'} = null;
         }
         if (null !== $object->getNotes()) {
             $data->{'notes'} = $object->getNotes();
+        } else {
+            $data->{'notes'} = null;
         }
         if (null !== $object->getStartDate()) {
-            $data->{'start_date'} = $object->getStartDate();
+            $data->{'start_date'} = $object->getStartDate()->format('Y-m-d');
+        } else {
+            $data->{'start_date'} = null;
         }
         if (null !== $object->getTags()) {
             $values = [];
@@ -132,12 +178,18 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
                 $values[] = $value;
             }
             $data->{'tags'} = $values;
+        } else {
+            $data->{'tags'} = null;
         }
         if (null !== $object->getUpdatedAt()) {
             $data->{'updated_at'} = $object->getUpdatedAt();
+        } else {
+            $data->{'updated_at'} = null;
         }
         if (null !== $object->getUpdatedById()) {
             $data->{'updated_by_id'} = $object->getUpdatedById();
+        } else {
+            $data->{'updated_by_id'} = null;
         }
 
         return $data;

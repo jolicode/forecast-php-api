@@ -52,6 +52,8 @@ class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, 
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context);
             }
             $object->setProjects($values);
+        } elseif (property_exists($data, 'projects') && null === $data->{'projects'}) {
+            $object->setProjects(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, 
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'projects'} = $values;
+        } else {
+            $data->{'projects'} = null;
         }
 
         return $data;

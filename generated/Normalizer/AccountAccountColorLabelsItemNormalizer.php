@@ -48,9 +48,13 @@ class AccountAccountColorLabelsItemNormalizer implements DenormalizerInterface, 
         $object = new \JoliCode\Forecast\Api\Model\AccountAccountColorLabelsItem();
         if (property_exists($data, 'name') && null !== $data->{'name'}) {
             $object->setName($data->{'name'});
+        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+            $object->setName(null);
         }
         if (property_exists($data, 'label') && null !== $data->{'label'}) {
             $object->setLabel($data->{'label'});
+        } elseif (property_exists($data, 'label') && null === $data->{'label'}) {
+            $object->setLabel(null);
         }
 
         return $object;
@@ -61,9 +65,13 @@ class AccountAccountColorLabelsItemNormalizer implements DenormalizerInterface, 
         $data = new \stdClass();
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        } else {
+            $data->{'name'} = null;
         }
         if (null !== $object->getLabel()) {
             $data->{'label'} = $object->getLabel();
+        } else {
+            $data->{'label'} = null;
         }
 
         return $data;

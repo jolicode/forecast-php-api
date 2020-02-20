@@ -67,8 +67,12 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      *
      * @param array $queryParameters {
      *
+     *     @var int $project_id Only return assignments for this project
+     *     @var int $person_id Only return assignments for this person
+     *     @var int $repeated_assignment_set Only return assignments for this repeated assignment set
      *     @var string $start_date Only return assignments after this date
      *     @var string $end_date Only return assignments before this date
+     *     @var string $state Only return assignments before this date
      * }
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -240,7 +244,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
         return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\WhoAmI(), $fetch);
     }
 
-    public static function create($httpClient = null)
+    public static function create($httpClient = null, \Jane\OpenApiRuntime\Client\Authentication $authentication = null)
     {
         if (null === $httpClient) {
             $httpClient = \Http\Discovery\Psr18ClientDiscovery::find();
@@ -248,11 +252,14 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
             $uri = \Http\Discovery\Psr17FactoryDiscovery::findUrlFactory()->createUri('https://api.forecastapp.com/');
             $plugins[] = new \Http\Client\Common\Plugin\AddHostPlugin($uri);
             $plugins[] = new \Http\Client\Common\Plugin\AddPathPlugin($uri);
+            if (null !== $authentication) {
+                $plugins[] = $authentication->getPlugin();
+            }
             $httpClient = new \Http\Client\Common\PluginClient($httpClient, $plugins);
         }
         $requestFactory = \Http\Discovery\Psr17FactoryDiscovery::findRequestFactory();
         $streamFactory = \Http\Discovery\Psr17FactoryDiscovery::findStreamFactory();
-        $serializer = new \Symfony\Component\Serializer\Serializer(\JoliCode\Forecast\Api\Normalizer\NormalizerFactory::create(), [new \Symfony\Component\Serializer\Encoder\JsonEncoder(new \Symfony\Component\Serializer\Encoder\JsonEncode(), new \Symfony\Component\Serializer\Encoder\JsonDecode())]);
+        $serializer = new \Symfony\Component\Serializer\Serializer([new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(), new \JoliCode\Forecast\Api\Normalizer\JaneObjectNormalizer()], [new \Symfony\Component\Serializer\Encoder\JsonEncoder(new \Symfony\Component\Serializer\Encoder\JsonEncode(), new \Symfony\Component\Serializer\Encoder\JsonDecode())]);
 
         return new static($httpClient, $requestFactory, $serializer, $streamFactory);
     }

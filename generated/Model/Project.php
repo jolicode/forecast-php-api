@@ -30,7 +30,7 @@ class Project
      */
     protected $color;
     /**
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $endDate;
     /**
@@ -52,7 +52,7 @@ class Project
      */
     protected $notes;
     /**
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $startDate;
     /**
@@ -120,12 +120,12 @@ class Project
         return $this;
     }
 
-    public function getEndDate(): ?string
+    public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }
 
-    public function setEndDate(?string $endDate): self
+    public function setEndDate(?\DateTime $endDate): self
     {
         $this->endDate = $endDate;
 
@@ -186,12 +186,12 @@ class Project
         return $this;
     }
 
-    public function getStartDate(): ?string
+    public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
 
-    public function setStartDate(?string $startDate): self
+    public function setStartDate(?\DateTime $startDate): self
     {
         $this->startDate = $startDate;
 

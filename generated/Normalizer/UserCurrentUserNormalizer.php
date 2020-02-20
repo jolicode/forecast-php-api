@@ -48,6 +48,8 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
         $object = new \JoliCode\Forecast\Api\Model\UserCurrentUser();
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'account_ids') && null !== $data->{'account_ids'}) {
             $values = [];
@@ -55,6 +57,8 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
                 $values[] = $value;
             }
             $object->setAccountIds($values);
+        } elseif (property_exists($data, 'account_ids') && null === $data->{'account_ids'}) {
+            $object->setAccountIds(null);
         }
 
         return $object;
@@ -65,6 +69,8 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
         $data = new \stdClass();
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getAccountIds()) {
             $values = [];
@@ -72,6 +78,8 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
                 $values[] = $value;
             }
             $data->{'account_ids'} = $values;
+        } else {
+            $data->{'account_ids'} = null;
         }
 
         return $data;

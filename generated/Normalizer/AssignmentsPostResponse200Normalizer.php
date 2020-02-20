@@ -48,6 +48,8 @@ class AssignmentsPostResponse200Normalizer implements DenormalizerInterface, Nor
         $object = new \JoliCode\Forecast\Api\Model\AssignmentsPostResponse200();
         if (property_exists($data, 'assignment') && null !== $data->{'assignment'}) {
             $object->setAssignment($this->denormalizer->denormalize($data->{'assignment'}, 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context));
+        } elseif (property_exists($data, 'assignment') && null === $data->{'assignment'}) {
+            $object->setAssignment(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class AssignmentsPostResponse200Normalizer implements DenormalizerInterface, Nor
         $data = new \stdClass();
         if (null !== $object->getAssignment()) {
             $data->{'assignment'} = $this->normalizer->normalize($object->getAssignment(), 'json', $context);
+        } else {
+            $data->{'assignment'} = null;
         }
 
         return $data;

@@ -48,15 +48,23 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
         $object = new \JoliCode\Forecast\Api\Model\FutureScheduledHour();
         if (property_exists($data, 'allocation') && null !== $data->{'allocation'}) {
             $object->setAllocation($data->{'allocation'});
+        } elseif (property_exists($data, 'allocation') && null === $data->{'allocation'}) {
+            $object->setAllocation(null);
         }
         if (property_exists($data, 'person_id') && null !== $data->{'person_id'}) {
             $object->setPersonId($data->{'person_id'});
+        } elseif (property_exists($data, 'person_id') && null === $data->{'person_id'}) {
+            $object->setPersonId(null);
         }
         if (property_exists($data, 'placeholder_id') && null !== $data->{'placeholder_id'}) {
             $object->setPlaceholderId($data->{'placeholder_id'});
+        } elseif (property_exists($data, 'placeholder_id') && null === $data->{'placeholder_id'}) {
+            $object->setPlaceholderId(null);
         }
         if (property_exists($data, 'project_id') && null !== $data->{'project_id'}) {
             $object->setProjectId($data->{'project_id'});
+        } elseif (property_exists($data, 'project_id') && null === $data->{'project_id'}) {
+            $object->setProjectId(null);
         }
 
         return $object;
@@ -67,15 +75,23 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
         $data = new \stdClass();
         if (null !== $object->getAllocation()) {
             $data->{'allocation'} = $object->getAllocation();
+        } else {
+            $data->{'allocation'} = null;
         }
         if (null !== $object->getPersonId()) {
             $data->{'person_id'} = $object->getPersonId();
+        } else {
+            $data->{'person_id'} = null;
         }
         if (null !== $object->getPlaceholderId()) {
             $data->{'placeholder_id'} = $object->getPlaceholderId();
+        } else {
+            $data->{'placeholder_id'} = null;
         }
         if (null !== $object->getProjectId()) {
             $data->{'project_id'} = $object->getProjectId();
+        } else {
+            $data->{'project_id'} = null;
         }
 
         return $data;

@@ -48,18 +48,28 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
         $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
         if (property_exists($data, 'budget_by') && null !== $data->{'budget_by'}) {
             $object->setBudgetBy($data->{'budget_by'});
+        } elseif (property_exists($data, 'budget_by') && null === $data->{'budget_by'}) {
+            $object->setBudgetBy(null);
         }
         if (property_exists($data, 'budget_is_monthly') && null !== $data->{'budget_is_monthly'}) {
             $object->setBudgetIsMonthly($data->{'budget_is_monthly'});
+        } elseif (property_exists($data, 'budget_is_monthly') && null === $data->{'budget_is_monthly'}) {
+            $object->setBudgetIsMonthly(null);
         }
         if (property_exists($data, 'hours') && null !== $data->{'hours'}) {
             $object->setHours($data->{'hours'});
+        } elseif (property_exists($data, 'hours') && null === $data->{'hours'}) {
+            $object->setHours(null);
         }
         if (property_exists($data, 'project_id') && null !== $data->{'project_id'}) {
             $object->setProjectId($data->{'project_id'});
+        } elseif (property_exists($data, 'project_id') && null === $data->{'project_id'}) {
+            $object->setProjectId(null);
         }
         if (property_exists($data, 'response_code') && null !== $data->{'response_code'}) {
             $object->setResponseCode($data->{'response_code'});
+        } elseif (property_exists($data, 'response_code') && null === $data->{'response_code'}) {
+            $object->setResponseCode(null);
         }
 
         return $object;
@@ -70,18 +80,28 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
         $data = new \stdClass();
         if (null !== $object->getBudgetBy()) {
             $data->{'budget_by'} = $object->getBudgetBy();
+        } else {
+            $data->{'budget_by'} = null;
         }
         if (null !== $object->getBudgetIsMonthly()) {
             $data->{'budget_is_monthly'} = $object->getBudgetIsMonthly();
+        } else {
+            $data->{'budget_is_monthly'} = null;
         }
         if (null !== $object->getHours()) {
             $data->{'hours'} = $object->getHours();
+        } else {
+            $data->{'hours'} = null;
         }
         if (null !== $object->getProjectId()) {
             $data->{'project_id'} = $object->getProjectId();
+        } else {
+            $data->{'project_id'} = null;
         }
         if (null !== $object->getResponseCode()) {
             $data->{'response_code'} = $object->getResponseCode();
+        } else {
+            $data->{'response_code'} = null;
         }
 
         return $data;

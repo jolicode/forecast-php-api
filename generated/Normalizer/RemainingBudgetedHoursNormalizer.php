@@ -52,6 +52,8 @@ class RemainingBudgetedHoursNormalizer implements DenormalizerInterface, Normali
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour', 'json', $context);
             }
             $object->setRemainingBudgetedHours($values);
+        } elseif (property_exists($data, 'remaining_budgeted_hours') && null === $data->{'remaining_budgeted_hours'}) {
+            $object->setRemainingBudgetedHours(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class RemainingBudgetedHoursNormalizer implements DenormalizerInterface, Normali
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'remaining_budgeted_hours'} = $values;
+        } else {
+            $data->{'remaining_budgeted_hours'} = null;
         }
 
         return $data;

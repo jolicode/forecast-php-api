@@ -52,15 +52,23 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
                 $values[] = $value;
             }
             $object->setAssignmentIds($values);
+        } elseif (property_exists($data, 'assignment_ids') && null === $data->{'assignment_ids'}) {
+            $object->setAssignmentIds(null);
         }
         if (property_exists($data, 'first_start_date') && null !== $data->{'first_start_date'}) {
-            $object->setFirstStartDate($data->{'first_start_date'});
+            $object->setFirstStartDate(\DateTime::createFromFormat('Y-m-d', $data->{'first_start_date'})->setTime(0, 0, 0));
+        } elseif (property_exists($data, 'first_start_date') && null === $data->{'first_start_date'}) {
+            $object->setFirstStartDate(null);
         }
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'last_end_date') && null !== $data->{'last_end_date'}) {
-            $object->setLastEndDate($data->{'last_end_date'});
+            $object->setLastEndDate(\DateTime::createFromFormat('Y-m-d', $data->{'last_end_date'})->setTime(0, 0, 0));
+        } elseif (property_exists($data, 'last_end_date') && null === $data->{'last_end_date'}) {
+            $object->setLastEndDate(null);
         }
 
         return $object;
@@ -75,15 +83,23 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
                 $values[] = $value;
             }
             $data->{'assignment_ids'} = $values;
+        } else {
+            $data->{'assignment_ids'} = null;
         }
         if (null !== $object->getFirstStartDate()) {
-            $data->{'first_start_date'} = $object->getFirstStartDate();
+            $data->{'first_start_date'} = $object->getFirstStartDate()->format('Y-m-d');
+        } else {
+            $data->{'first_start_date'} = null;
         }
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getLastEndDate()) {
-            $data->{'last_end_date'} = $object->getLastEndDate();
+            $data->{'last_end_date'} = $object->getLastEndDate()->format('Y-m-d');
+        } else {
+            $data->{'last_end_date'} = null;
         }
 
         return $data;
