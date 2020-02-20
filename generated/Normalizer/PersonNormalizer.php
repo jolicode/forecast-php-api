@@ -101,7 +101,7 @@ class PersonNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setRoles(null);
         }
         if (property_exists($data, 'updated_at') && null !== $data->{'updated_at'}) {
-            $object->setUpdatedAt($data->{'updated_at'});
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updated_at'}));
         } elseif (property_exists($data, 'updated_at') && null === $data->{'updated_at'}) {
             $object->setUpdatedAt(null);
         }
@@ -197,7 +197,7 @@ class PersonNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data->{'roles'} = null;
         }
         if (null !== $object->getUpdatedAt()) {
-            $data->{'updated_at'} = $object->getUpdatedAt();
+            $data->{'updated_at'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
         } else {
             $data->{'updated_at'} = null;
         }

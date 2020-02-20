@@ -58,7 +58,7 @@ class AccountAccount
     /**
      * creation date.
      *
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $createdAt;
 
@@ -195,7 +195,7 @@ class AccountAccount
     /**
      * creation date.
      */
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -203,7 +203,7 @@ class AccountAccount
     /**
      * creation date.
      */
-    public function setCreatedAt(?string $createdAt): self
+    public function setCreatedAt(?\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 

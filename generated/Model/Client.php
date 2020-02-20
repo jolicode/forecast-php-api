@@ -40,7 +40,7 @@ class Client
     /**
      * date when the client was last updated.
      *
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $updatedAt;
     /**
@@ -125,7 +125,7 @@ class Client
     /**
      * date when the client was last updated.
      */
-    public function getUpdatedAt(): ?string
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -133,7 +133,7 @@ class Client
     /**
      * date when the client was last updated.
      */
-    public function setUpdatedAt(?string $updatedAt): self
+    public function setUpdatedAt(?\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
