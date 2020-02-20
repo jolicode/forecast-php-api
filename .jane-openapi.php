@@ -7,4 +7,5 @@ return [
     'reference' => true,
     'strict' => false,
     'client' => 'psr18',
+    'date-format' => 'Y-m-d\TH:i:s.v\Z',
 ];
