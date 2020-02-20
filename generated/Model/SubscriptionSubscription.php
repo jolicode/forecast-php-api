@@ -18,7 +18,7 @@ class SubscriptionSubscription
      */
     protected $id;
     /**
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $nextBillingDate;
     /**
@@ -86,12 +86,12 @@ class SubscriptionSubscription
         return $this;
     }
 
-    public function getNextBillingDate(): ?string
+    public function getNextBillingDate(): ?\DateTime
     {
         return $this->nextBillingDate;
     }
 
-    public function setNextBillingDate(?string $nextBillingDate): self
+    public function setNextBillingDate(?\DateTime $nextBillingDate): self
     {
         $this->nextBillingDate = $nextBillingDate;
 

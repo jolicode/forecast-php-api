@@ -48,6 +48,8 @@ class ProjectsIdGetResponse200Normalizer implements DenormalizerInterface, Norma
         $object = new \JoliCode\Forecast\Api\Model\ProjectsIdGetResponse200();
         if (property_exists($data, 'project') && null !== $data->{'project'}) {
             $object->setProject($this->denormalizer->denormalize($data->{'project'}, 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context));
+        } elseif (property_exists($data, 'project') && null === $data->{'project'}) {
+            $object->setProject(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class ProjectsIdGetResponse200Normalizer implements DenormalizerInterface, Norma
         $data = new \stdClass();
         if (null !== $object->getProject()) {
             $data->{'project'} = $this->normalizer->normalize($object->getProject(), 'json', $context);
+        } else {
+            $data->{'project'} = null;
         }
 
         return $data;

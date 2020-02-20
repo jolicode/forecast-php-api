@@ -48,6 +48,8 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         $object = new \JoliCode\Forecast\Api\Model\User();
         if (property_exists($data, 'current_user') && null !== $data->{'current_user'}) {
             $object->setCurrentUser($this->denormalizer->denormalize($data->{'current_user'}, 'JoliCode\\Forecast\\Api\\Model\\UserCurrentUser', 'json', $context));
+        } elseif (property_exists($data, 'current_user') && null === $data->{'current_user'}) {
+            $object->setCurrentUser(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         $data = new \stdClass();
         if (null !== $object->getCurrentUser()) {
             $data->{'current_user'} = $this->normalizer->normalize($object->getCurrentUser(), 'json', $context);
+        } else {
+            $data->{'current_user'} = null;
         }
 
         return $data;

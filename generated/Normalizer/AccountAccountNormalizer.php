@@ -48,12 +48,18 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
         $object = new \JoliCode\Forecast\Api\Model\AccountAccount();
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'name') && null !== $data->{'name'}) {
             $object->setName($data->{'name'});
+        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+            $object->setName(null);
         }
         if (property_exists($data, 'weekly_capacity') && null !== $data->{'weekly_capacity'}) {
             $object->setWeeklyCapacity($data->{'weekly_capacity'});
+        } elseif (property_exists($data, 'weekly_capacity') && null === $data->{'weekly_capacity'}) {
+            $object->setWeeklyCapacity(null);
         }
         if (property_exists($data, 'color_labels') && null !== $data->{'color_labels'}) {
             $values = [];
@@ -61,18 +67,28 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\AccountAccountColorLabelsItem', 'json', $context);
             }
             $object->setColorLabels($values);
+        } elseif (property_exists($data, 'color_labels') && null === $data->{'color_labels'}) {
+            $object->setColorLabels(null);
         }
         if (property_exists($data, 'harvest_subdomain') && null !== $data->{'harvest_subdomain'}) {
             $object->setHarvestSubdomain($data->{'harvest_subdomain'});
+        } elseif (property_exists($data, 'harvest_subdomain') && null === $data->{'harvest_subdomain'}) {
+            $object->setHarvestSubdomain(null);
         }
         if (property_exists($data, 'harvest_name') && null !== $data->{'harvest_name'}) {
             $object->setHarvestName($data->{'harvest_name'});
+        } elseif (property_exists($data, 'harvest_name') && null === $data->{'harvest_name'}) {
+            $object->setHarvestName(null);
         }
         if (property_exists($data, 'weekends_enabled') && null !== $data->{'weekends_enabled'}) {
             $object->setWeekendsEnabled($data->{'weekends_enabled'});
+        } elseif (property_exists($data, 'weekends_enabled') && null === $data->{'weekends_enabled'}) {
+            $object->setWeekendsEnabled(null);
         }
         if (property_exists($data, 'created_at') && null !== $data->{'created_at'}) {
             $object->setCreatedAt($data->{'created_at'});
+        } elseif (property_exists($data, 'created_at') && null === $data->{'created_at'}) {
+            $object->setCreatedAt(null);
         }
 
         return $object;
@@ -83,12 +99,18 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
         $data = new \stdClass();
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        } else {
+            $data->{'name'} = null;
         }
         if (null !== $object->getWeeklyCapacity()) {
             $data->{'weekly_capacity'} = $object->getWeeklyCapacity();
+        } else {
+            $data->{'weekly_capacity'} = null;
         }
         if (null !== $object->getColorLabels()) {
             $values = [];
@@ -96,18 +118,28 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'color_labels'} = $values;
+        } else {
+            $data->{'color_labels'} = null;
         }
         if (null !== $object->getHarvestSubdomain()) {
             $data->{'harvest_subdomain'} = $object->getHarvestSubdomain();
+        } else {
+            $data->{'harvest_subdomain'} = null;
         }
         if (null !== $object->getHarvestName()) {
             $data->{'harvest_name'} = $object->getHarvestName();
+        } else {
+            $data->{'harvest_name'} = null;
         }
         if (null !== $object->getWeekendsEnabled()) {
             $data->{'weekends_enabled'} = $object->getWeekendsEnabled();
+        } else {
+            $data->{'weekends_enabled'} = null;
         }
         if (null !== $object->getCreatedAt()) {
             $data->{'created_at'} = $object->getCreatedAt();
+        } else {
+            $data->{'created_at'} = null;
         }
 
         return $data;

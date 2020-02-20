@@ -48,6 +48,8 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $object = new \JoliCode\Forecast\Api\Model\Account();
         if (property_exists($data, 'account') && null !== $data->{'account'}) {
             $object->setAccount($this->denormalizer->denormalize($data->{'account'}, 'JoliCode\\Forecast\\Api\\Model\\AccountAccount', 'json', $context));
+        } elseif (property_exists($data, 'account') && null === $data->{'account'}) {
+            $object->setAccount(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $data = new \stdClass();
         if (null !== $object->getAccount()) {
             $data->{'account'} = $this->normalizer->normalize($object->getAccount(), 'json', $context);
+        } else {
+            $data->{'account'} = null;
         }
 
         return $data;

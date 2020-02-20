@@ -48,6 +48,8 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetsIdGetResponse200();
         if (property_exists($data, 'repeated_assignment_set') && null !== $data->{'repeated_assignment_set'}) {
             $object->setRepeatedAssignmentSet($this->denormalizer->denormalize($data->{'repeated_assignment_set'}, 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context));
+        } elseif (property_exists($data, 'repeated_assignment_set') && null === $data->{'repeated_assignment_set'}) {
+            $object->setRepeatedAssignmentSet(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
         $data = new \stdClass();
         if (null !== $object->getRepeatedAssignmentSet()) {
             $data->{'repeated_assignment_set'} = $this->normalizer->normalize($object->getRepeatedAssignmentSet(), 'json', $context);
+        } else {
+            $data->{'repeated_assignment_set'} = null;
         }
 
         return $data;

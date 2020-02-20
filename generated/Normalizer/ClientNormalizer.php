@@ -48,21 +48,33 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
         $object = new \JoliCode\Forecast\Api\Model\Client();
         if (property_exists($data, 'archived') && null !== $data->{'archived'}) {
             $object->setArchived($data->{'archived'});
+        } elseif (property_exists($data, 'archived') && null === $data->{'archived'}) {
+            $object->setArchived(null);
         }
         if (property_exists($data, 'harvest_id') && null !== $data->{'harvest_id'}) {
             $object->setHarvestId($data->{'harvest_id'});
+        } elseif (property_exists($data, 'harvest_id') && null === $data->{'harvest_id'}) {
+            $object->setHarvestId(null);
         }
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'name') && null !== $data->{'name'}) {
             $object->setName($data->{'name'});
+        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+            $object->setName(null);
         }
         if (property_exists($data, 'updated_at') && null !== $data->{'updated_at'}) {
             $object->setUpdatedAt($data->{'updated_at'});
+        } elseif (property_exists($data, 'updated_at') && null === $data->{'updated_at'}) {
+            $object->setUpdatedAt(null);
         }
         if (property_exists($data, 'updated_by_id') && null !== $data->{'updated_by_id'}) {
             $object->setUpdatedById($data->{'updated_by_id'});
+        } elseif (property_exists($data, 'updated_by_id') && null === $data->{'updated_by_id'}) {
+            $object->setUpdatedById(null);
         }
 
         return $object;
@@ -73,21 +85,33 @@ class ClientNormalizer implements DenormalizerInterface, NormalizerInterface, De
         $data = new \stdClass();
         if (null !== $object->getArchived()) {
             $data->{'archived'} = $object->getArchived();
+        } else {
+            $data->{'archived'} = null;
         }
         if (null !== $object->getHarvestId()) {
             $data->{'harvest_id'} = $object->getHarvestId();
+        } else {
+            $data->{'harvest_id'} = null;
         }
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        } else {
+            $data->{'name'} = null;
         }
         if (null !== $object->getUpdatedAt()) {
             $data->{'updated_at'} = $object->getUpdatedAt();
+        } else {
+            $data->{'updated_at'} = null;
         }
         if (null !== $object->getUpdatedById()) {
             $data->{'updated_by_id'} = $object->getUpdatedById();
+        } else {
+            $data->{'updated_by_id'} = null;
         }
 
         return $data;

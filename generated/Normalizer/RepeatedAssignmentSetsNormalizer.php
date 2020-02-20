@@ -52,6 +52,8 @@ class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, Normali
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context);
             }
             $object->setRepeatedAssignmentSets($values);
+        } elseif (property_exists($data, 'repeated_assignment_sets') && null === $data->{'repeated_assignment_sets'}) {
+            $object->setRepeatedAssignmentSets(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, Normali
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'repeated_assignment_sets'} = $values;
+        } else {
+            $data->{'repeated_assignment_sets'} = null;
         }
 
         return $data;

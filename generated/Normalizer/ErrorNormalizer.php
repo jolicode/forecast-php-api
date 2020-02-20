@@ -48,9 +48,13 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         $object = new \JoliCode\Forecast\Api\Model\Error();
         if (property_exists($data, 'code') && null !== $data->{'code'}) {
             $object->setCode($data->{'code'});
+        } elseif (property_exists($data, 'code') && null === $data->{'code'}) {
+            $object->setCode(null);
         }
         if (property_exists($data, 'message') && null !== $data->{'message'}) {
             $object->setMessage($data->{'message'});
+        } elseif (property_exists($data, 'message') && null === $data->{'message'}) {
+            $object->setMessage(null);
         }
 
         return $object;
@@ -61,9 +65,13 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         $data = new \stdClass();
         if (null !== $object->getCode()) {
             $data->{'code'} = $object->getCode();
+        } else {
+            $data->{'code'} = null;
         }
         if (null !== $object->getMessage()) {
             $data->{'message'} = $object->getMessage();
+        } else {
+            $data->{'message'} = null;
         }
 
         return $data;

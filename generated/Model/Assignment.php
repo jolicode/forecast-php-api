@@ -28,7 +28,7 @@ class Assignment
     /**
      * end date.
      *
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $endDate;
     /**
@@ -70,7 +70,7 @@ class Assignment
     /**
      * start date.
      *
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $startDate;
     /**
@@ -125,7 +125,7 @@ class Assignment
     /**
      * end date.
      */
-    public function getEndDate(): ?string
+    public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }
@@ -133,7 +133,7 @@ class Assignment
     /**
      * end date.
      */
-    public function setEndDate(?string $endDate): self
+    public function setEndDate(?\DateTime $endDate): self
     {
         $this->endDate = $endDate;
 
@@ -251,7 +251,7 @@ class Assignment
     /**
      * start date.
      */
-    public function getStartDate(): ?string
+    public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
@@ -259,7 +259,7 @@ class Assignment
     /**
      * start date.
      */
-    public function setStartDate(?string $startDate): self
+    public function setStartDate(?\DateTime $startDate): self
     {
         $this->startDate = $startDate;
 

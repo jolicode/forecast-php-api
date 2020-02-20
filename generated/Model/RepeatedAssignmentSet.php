@@ -18,7 +18,7 @@ class RepeatedAssignmentSet
      */
     protected $assignmentIds;
     /**
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $firstStartDate;
     /**
@@ -26,7 +26,7 @@ class RepeatedAssignmentSet
      */
     protected $id;
     /**
-     * @var string|null
+     * @var \DateTime|null
      */
     protected $lastEndDate;
 
@@ -48,12 +48,12 @@ class RepeatedAssignmentSet
         return $this;
     }
 
-    public function getFirstStartDate(): ?string
+    public function getFirstStartDate(): ?\DateTime
     {
         return $this->firstStartDate;
     }
 
-    public function setFirstStartDate(?string $firstStartDate): self
+    public function setFirstStartDate(?\DateTime $firstStartDate): self
     {
         $this->firstStartDate = $firstStartDate;
 
@@ -72,12 +72,12 @@ class RepeatedAssignmentSet
         return $this;
     }
 
-    public function getLastEndDate(): ?string
+    public function getLastEndDate(): ?\DateTime
     {
         return $this->lastEndDate;
     }
 
-    public function setLastEndDate(?string $lastEndDate): self
+    public function setLastEndDate(?\DateTime $lastEndDate): self
     {
         $this->lastEndDate = $lastEndDate;
 

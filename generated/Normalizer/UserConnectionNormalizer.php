@@ -48,12 +48,18 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
         $object = new \JoliCode\Forecast\Api\Model\UserConnection();
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'last_active_at') && null !== $data->{'last_active_at'}) {
             $object->setLastActiveAt($data->{'last_active_at'});
+        } elseif (property_exists($data, 'last_active_at') && null === $data->{'last_active_at'}) {
+            $object->setLastActiveAt(null);
         }
         if (property_exists($data, 'person_id') && null !== $data->{'person_id'}) {
             $object->setPersonId($data->{'person_id'});
+        } elseif (property_exists($data, 'person_id') && null === $data->{'person_id'}) {
+            $object->setPersonId(null);
         }
 
         return $object;
@@ -64,12 +70,18 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
         $data = new \stdClass();
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getLastActiveAt()) {
             $data->{'last_active_at'} = $object->getLastActiveAt();
+        } else {
+            $data->{'last_active_at'} = null;
         }
         if (null !== $object->getPersonId()) {
             $data->{'person_id'} = $object->getPersonId();
+        } else {
+            $data->{'person_id'} = null;
         }
 
         return $data;

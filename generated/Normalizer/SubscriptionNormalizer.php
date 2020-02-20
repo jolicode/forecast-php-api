@@ -48,6 +48,8 @@ class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterfa
         $object = new \JoliCode\Forecast\Api\Model\Subscription();
         if (property_exists($data, 'subscription') && null !== $data->{'subscription'}) {
             $object->setSubscription($this->denormalizer->denormalize($data->{'subscription'}, 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription', 'json', $context));
+        } elseif (property_exists($data, 'subscription') && null === $data->{'subscription'}) {
+            $object->setSubscription(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterfa
         $data = new \stdClass();
         if (null !== $object->getSubscription()) {
             $data->{'subscription'} = $this->normalizer->normalize($object->getSubscription(), 'json', $context);
+        } else {
+            $data->{'subscription'} = null;
         }
 
         return $data;

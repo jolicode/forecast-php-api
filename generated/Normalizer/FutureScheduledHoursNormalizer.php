@@ -52,6 +52,8 @@ class FutureScheduledHoursNormalizer implements DenormalizerInterface, Normalize
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\FutureScheduledHour', 'json', $context);
             }
             $object->setFutureScheduledHours($values);
+        } elseif (property_exists($data, 'future_scheduled_hours') && null === $data->{'future_scheduled_hours'}) {
+            $object->setFutureScheduledHours(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class FutureScheduledHoursNormalizer implements DenormalizerInterface, Normalize
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'future_scheduled_hours'} = $values;
+        } else {
+            $data->{'future_scheduled_hours'} = null;
         }
 
         return $data;

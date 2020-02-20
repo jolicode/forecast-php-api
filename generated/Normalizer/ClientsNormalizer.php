@@ -52,6 +52,8 @@ class ClientsNormalizer implements DenormalizerInterface, NormalizerInterface, D
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Client', 'json', $context);
             }
             $object->setClients($values);
+        } elseif (property_exists($data, 'clients') && null === $data->{'clients'}) {
+            $object->setClients(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class ClientsNormalizer implements DenormalizerInterface, NormalizerInterface, D
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'clients'} = $values;
+        } else {
+            $data->{'clients'} = null;
         }
 
         return $data;

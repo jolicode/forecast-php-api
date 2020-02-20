@@ -48,9 +48,13 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         $object = new \JoliCode\Forecast\Api\Model\Role();
         if (property_exists($data, 'id') && null !== $data->{'id'}) {
             $object->setId($data->{'id'});
+        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+            $object->setId(null);
         }
         if (property_exists($data, 'name') && null !== $data->{'name'}) {
             $object->setName($data->{'name'});
+        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+            $object->setName(null);
         }
         if (property_exists($data, 'placeholder_ids') && null !== $data->{'placeholder_ids'}) {
             $values = [];
@@ -58,6 +62,8 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
                 $values[] = $value;
             }
             $object->setPlaceholderIds($values);
+        } elseif (property_exists($data, 'placeholder_ids') && null === $data->{'placeholder_ids'}) {
+            $object->setPlaceholderIds(null);
         }
         if (property_exists($data, 'person_ids') && null !== $data->{'person_ids'}) {
             $values_1 = [];
@@ -65,9 +71,13 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
                 $values_1[] = $value_1;
             }
             $object->setPersonIds($values_1);
+        } elseif (property_exists($data, 'person_ids') && null === $data->{'person_ids'}) {
+            $object->setPersonIds(null);
         }
         if (property_exists($data, 'harvest_role_id') && null !== $data->{'harvest_role_id'}) {
             $object->setHarvestRoleId($data->{'harvest_role_id'});
+        } elseif (property_exists($data, 'harvest_role_id') && null === $data->{'harvest_role_id'}) {
+            $object->setHarvestRoleId(null);
         }
 
         return $object;
@@ -78,9 +88,13 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         $data = new \stdClass();
         if (null !== $object->getId()) {
             $data->{'id'} = $object->getId();
+        } else {
+            $data->{'id'} = null;
         }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        } else {
+            $data->{'name'} = null;
         }
         if (null !== $object->getPlaceholderIds()) {
             $values = [];
@@ -88,6 +102,8 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
                 $values[] = $value;
             }
             $data->{'placeholder_ids'} = $values;
+        } else {
+            $data->{'placeholder_ids'} = null;
         }
         if (null !== $object->getPersonIds()) {
             $values_1 = [];
@@ -95,9 +111,13 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
                 $values_1[] = $value_1;
             }
             $data->{'person_ids'} = $values_1;
+        } else {
+            $data->{'person_ids'} = null;
         }
         if (null !== $object->getHarvestRoleId()) {
             $data->{'harvest_role_id'} = $object->getHarvestRoleId();
+        } else {
+            $data->{'harvest_role_id'} = null;
         }
 
         return $data;

@@ -52,6 +52,8 @@ class UserConnectionsNormalizer implements DenormalizerInterface, NormalizerInte
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\UserConnection', 'json', $context);
             }
             $object->setUserConnections($values);
+        } elseif (property_exists($data, 'user_connections') && null === $data->{'user_connections'}) {
+            $object->setUserConnections(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class UserConnectionsNormalizer implements DenormalizerInterface, NormalizerInte
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'user_connections'} = $values;
+        } else {
+            $data->{'user_connections'} = null;
         }
 
         return $data;

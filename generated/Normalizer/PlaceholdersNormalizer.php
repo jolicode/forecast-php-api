@@ -52,6 +52,8 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Placeholder', 'json', $context);
             }
             $object->setPlaceholders($values);
+        } elseif (property_exists($data, 'placeholders') && null === $data->{'placeholders'}) {
+            $object->setPlaceholders(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'placeholders'} = $values;
+        } else {
+            $data->{'placeholders'} = null;
         }
 
         return $data;

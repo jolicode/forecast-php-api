@@ -48,6 +48,8 @@ class PlaceholdersIdGetResponse200Normalizer implements DenormalizerInterface, N
         $object = new \JoliCode\Forecast\Api\Model\PlaceholdersIdGetResponse200();
         if (property_exists($data, 'placeholder') && null !== $data->{'placeholder'}) {
             $object->setPlaceholder($this->denormalizer->denormalize($data->{'placeholder'}, 'JoliCode\\Forecast\\Api\\Model\\Placeholder', 'json', $context));
+        } elseif (property_exists($data, 'placeholder') && null === $data->{'placeholder'}) {
+            $object->setPlaceholder(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class PlaceholdersIdGetResponse200Normalizer implements DenormalizerInterface, N
         $data = new \stdClass();
         if (null !== $object->getPlaceholder()) {
             $data->{'placeholder'} = $this->normalizer->normalize($object->getPlaceholder(), 'json', $context);
+        } else {
+            $data->{'placeholder'} = null;
         }
 
         return $data;

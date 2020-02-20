@@ -48,6 +48,8 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
         $object = new \JoliCode\Forecast\Api\Model\PeopleIdGetResponse200();
         if (property_exists($data, 'person') && null !== $data->{'person'}) {
             $object->setPerson($this->denormalizer->denormalize($data->{'person'}, 'JoliCode\\Forecast\\Api\\Model\\Person', 'json', $context));
+        } elseif (property_exists($data, 'person') && null === $data->{'person'}) {
+            $object->setPerson(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
         $data = new \stdClass();
         if (null !== $object->getPerson()) {
             $data->{'person'} = $this->normalizer->normalize($object->getPerson(), 'json', $context);
+        } else {
+            $data->{'person'} = null;
         }
 
         return $data;

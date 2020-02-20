@@ -48,9 +48,13 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionDiscounts();
         if (property_exists($data, 'monthly_percentage') && null !== $data->{'monthly_percentage'}) {
             $object->setMonthlyPercentage($data->{'monthly_percentage'});
+        } elseif (property_exists($data, 'monthly_percentage') && null === $data->{'monthly_percentage'}) {
+            $object->setMonthlyPercentage(null);
         }
         if (property_exists($data, 'yearly_percentage') && null !== $data->{'yearly_percentage'}) {
             $object->setYearlyPercentage($data->{'yearly_percentage'});
+        } elseif (property_exists($data, 'yearly_percentage') && null === $data->{'yearly_percentage'}) {
+            $object->setYearlyPercentage(null);
         }
 
         return $object;
@@ -61,9 +65,13 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
         $data = new \stdClass();
         if (null !== $object->getMonthlyPercentage()) {
             $data->{'monthly_percentage'} = $object->getMonthlyPercentage();
+        } else {
+            $data->{'monthly_percentage'} = null;
         }
         if (null !== $object->getYearlyPercentage()) {
             $data->{'yearly_percentage'} = $object->getYearlyPercentage();
+        } else {
+            $data->{'yearly_percentage'} = null;
         }
 
         return $data;

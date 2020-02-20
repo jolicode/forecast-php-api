@@ -52,6 +52,8 @@ class AssignmentsNormalizer implements DenormalizerInterface, NormalizerInterfac
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context);
             }
             $object->setAssignments($values);
+        } elseif (property_exists($data, 'assignments') && null === $data->{'assignments'}) {
+            $object->setAssignments(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class AssignmentsNormalizer implements DenormalizerInterface, NormalizerInterfac
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'assignments'} = $values;
+        } else {
+            $data->{'assignments'} = null;
         }
 
         return $data;

@@ -52,6 +52,8 @@ class RolesNormalizer implements DenormalizerInterface, NormalizerInterface, Den
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Role', 'json', $context);
             }
             $object->setRoles($values);
+        } elseif (property_exists($data, 'roles') && null === $data->{'roles'}) {
+            $object->setRoles(null);
         }
 
         return $object;
@@ -66,6 +68,8 @@ class RolesNormalizer implements DenormalizerInterface, NormalizerInterface, Den
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data->{'roles'} = $values;
+        } else {
+            $data->{'roles'} = null;
         }
 
         return $data;

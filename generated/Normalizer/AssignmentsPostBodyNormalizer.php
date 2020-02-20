@@ -48,6 +48,8 @@ class AssignmentsPostBodyNormalizer implements DenormalizerInterface, Normalizer
         $object = new \JoliCode\Forecast\Api\Model\AssignmentsPostBody();
         if (property_exists($data, 'assignment') && null !== $data->{'assignment'}) {
             $object->setAssignment($this->denormalizer->denormalize($data->{'assignment'}, 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context));
+        } elseif (property_exists($data, 'assignment') && null === $data->{'assignment'}) {
+            $object->setAssignment(null);
         }
 
         return $object;
@@ -58,6 +60,8 @@ class AssignmentsPostBodyNormalizer implements DenormalizerInterface, Normalizer
         $data = new \stdClass();
         if (null !== $object->getAssignment()) {
             $data->{'assignment'} = $this->normalizer->normalize($object->getAssignment(), 'json', $context);
+        } else {
+            $data->{'assignment'} = null;
         }
 
         return $data;
