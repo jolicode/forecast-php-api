@@ -47,6 +47,11 @@ class CreateAssignment extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

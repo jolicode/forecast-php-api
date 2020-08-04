@@ -46,6 +46,11 @@ class GetRole extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

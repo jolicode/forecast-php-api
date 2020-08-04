@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\PeopleIdGetResponse200();
-        if (property_exists($data, 'person') && null !== $data->{'person'}) {
-            $object->setPerson($this->denormalizer->denormalize($data->{'person'}, 'JoliCode\\Forecast\\Api\\Model\\Person', 'json', $context));
-        } elseif (property_exists($data, 'person') && null === $data->{'person'}) {
+        if (\array_key_exists('person', $data) && null !== $data['person']) {
+            $object->setPerson($this->denormalizer->denormalize($data['person'], 'JoliCode\\Forecast\\Api\\Model\\Person', 'json', $context));
+        } elseif (\array_key_exists('person', $data) && null === $data['person']) {
             $object->setPerson(null);
         }
 
@@ -57,11 +56,9 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getPerson()) {
-            $data->{'person'} = $this->normalizer->normalize($object->getPerson(), 'json', $context);
-        } else {
-            $data->{'person'} = null;
+            $data['person'] = $this->normalizer->normalize($object->getPerson(), 'json', $context);
         }
 
         return $data;

@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,58 +38,55 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\AccountAccount();
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
+            $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (property_exists($data, 'name') && null !== $data->{'name'}) {
-            $object->setName($data->{'name'});
-        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+        if (\array_key_exists('name', $data) && null !== $data['name']) {
+            $object->setName($data['name']);
+        } elseif (\array_key_exists('name', $data) && null === $data['name']) {
             $object->setName(null);
         }
-        if (property_exists($data, 'weekly_capacity') && null !== $data->{'weekly_capacity'}) {
-            $object->setWeeklyCapacity($data->{'weekly_capacity'});
-        } elseif (property_exists($data, 'weekly_capacity') && null === $data->{'weekly_capacity'}) {
+        if (\array_key_exists('weekly_capacity', $data) && null !== $data['weekly_capacity']) {
+            $object->setWeeklyCapacity($data['weekly_capacity']);
+        } elseif (\array_key_exists('weekly_capacity', $data) && null === $data['weekly_capacity']) {
             $object->setWeeklyCapacity(null);
         }
-        if (property_exists($data, 'color_labels') && null !== $data->{'color_labels'}) {
+        if (\array_key_exists('color_labels', $data) && null !== $data['color_labels']) {
             $values = [];
-            foreach ($data->{'color_labels'} as $value) {
+            foreach ($data['color_labels'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\AccountAccountColorLabelsItem', 'json', $context);
             }
             $object->setColorLabels($values);
-        } elseif (property_exists($data, 'color_labels') && null === $data->{'color_labels'}) {
+        } elseif (\array_key_exists('color_labels', $data) && null === $data['color_labels']) {
             $object->setColorLabels(null);
         }
-        if (property_exists($data, 'harvest_subdomain') && null !== $data->{'harvest_subdomain'}) {
-            $object->setHarvestSubdomain($data->{'harvest_subdomain'});
-        } elseif (property_exists($data, 'harvest_subdomain') && null === $data->{'harvest_subdomain'}) {
+        if (\array_key_exists('harvest_subdomain', $data) && null !== $data['harvest_subdomain']) {
+            $object->setHarvestSubdomain($data['harvest_subdomain']);
+        } elseif (\array_key_exists('harvest_subdomain', $data) && null === $data['harvest_subdomain']) {
             $object->setHarvestSubdomain(null);
         }
-        if (property_exists($data, 'harvest_name') && null !== $data->{'harvest_name'}) {
-            $object->setHarvestName($data->{'harvest_name'});
-        } elseif (property_exists($data, 'harvest_name') && null === $data->{'harvest_name'}) {
+        if (\array_key_exists('harvest_name', $data) && null !== $data['harvest_name']) {
+            $object->setHarvestName($data['harvest_name']);
+        } elseif (\array_key_exists('harvest_name', $data) && null === $data['harvest_name']) {
             $object->setHarvestName(null);
         }
-        if (property_exists($data, 'weekends_enabled') && null !== $data->{'weekends_enabled'}) {
-            $object->setWeekendsEnabled($data->{'weekends_enabled'});
-        } elseif (property_exists($data, 'weekends_enabled') && null === $data->{'weekends_enabled'}) {
+        if (\array_key_exists('weekends_enabled', $data) && null !== $data['weekends_enabled']) {
+            $object->setWeekendsEnabled($data['weekends_enabled']);
+        } elseif (\array_key_exists('weekends_enabled', $data) && null === $data['weekends_enabled']) {
             $object->setWeekendsEnabled(null);
         }
-        if (property_exists($data, 'created_at') && null !== $data->{'created_at'}) {
-            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.v\Z", $data->{'created_at'}));
-        } elseif (property_exists($data, 'created_at') && null === $data->{'created_at'}) {
+        if (\array_key_exists('created_at', $data) && null !== $data['created_at']) {
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:s.v\\Z', $data['created_at']));
+        } elseif (\array_key_exists('created_at', $data) && null === $data['created_at']) {
             $object->setCreatedAt(null);
         }
 
@@ -96,50 +95,34 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getName()) {
-            $data->{'name'} = $object->getName();
-        } else {
-            $data->{'name'} = null;
+            $data['name'] = $object->getName();
         }
         if (null !== $object->getWeeklyCapacity()) {
-            $data->{'weekly_capacity'} = $object->getWeeklyCapacity();
-        } else {
-            $data->{'weekly_capacity'} = null;
+            $data['weekly_capacity'] = $object->getWeeklyCapacity();
         }
         if (null !== $object->getColorLabels()) {
             $values = [];
             foreach ($object->getColorLabels() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data->{'color_labels'} = $values;
-        } else {
-            $data->{'color_labels'} = null;
+            $data['color_labels'] = $values;
         }
         if (null !== $object->getHarvestSubdomain()) {
-            $data->{'harvest_subdomain'} = $object->getHarvestSubdomain();
-        } else {
-            $data->{'harvest_subdomain'} = null;
+            $data['harvest_subdomain'] = $object->getHarvestSubdomain();
         }
         if (null !== $object->getHarvestName()) {
-            $data->{'harvest_name'} = $object->getHarvestName();
-        } else {
-            $data->{'harvest_name'} = null;
+            $data['harvest_name'] = $object->getHarvestName();
         }
         if (null !== $object->getWeekendsEnabled()) {
-            $data->{'weekends_enabled'} = $object->getWeekendsEnabled();
-        } else {
-            $data->{'weekends_enabled'} = null;
+            $data['weekends_enabled'] = $object->getWeekendsEnabled();
         }
         if (null !== $object->getCreatedAt()) {
-            $data->{'created_at'} = $object->getCreatedAt()->format("Y-m-d\TH:i:s.v\Z");
-        } else {
-            $data->{'created_at'} = null;
+            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:s.v\\Z');
         }
 
         return $data;

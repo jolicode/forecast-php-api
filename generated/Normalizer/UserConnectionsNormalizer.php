@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class UserConnectionsNormalizer implements DenormalizerInterface, NormalizerInte
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,23 +38,20 @@ class UserConnectionsNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserConnections();
-        if (property_exists($data, 'user_connections') && null !== $data->{'user_connections'}) {
+        if (\array_key_exists('user_connections', $data) && null !== $data['user_connections']) {
             $values = [];
-            foreach ($data->{'user_connections'} as $value) {
+            foreach ($data['user_connections'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\UserConnection', 'json', $context);
             }
             $object->setUserConnections($values);
-        } elseif (property_exists($data, 'user_connections') && null === $data->{'user_connections'}) {
+        } elseif (\array_key_exists('user_connections', $data) && null === $data['user_connections']) {
             $object->setUserConnections(null);
         }
 
@@ -61,15 +60,13 @@ class UserConnectionsNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getUserConnections()) {
             $values = [];
             foreach ($object->getUserConnections() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data->{'user_connections'} = $values;
-        } else {
-            $data->{'user_connections'} = null;
+            $data['user_connections'] = $values;
         }
 
         return $data;

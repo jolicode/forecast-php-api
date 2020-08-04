@@ -35,6 +35,11 @@ class WhoAmI extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\O
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

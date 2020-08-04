@@ -35,6 +35,11 @@ class ListProjects extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

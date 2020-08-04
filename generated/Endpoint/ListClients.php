@@ -35,6 +35,11 @@ class ListClients extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \J
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

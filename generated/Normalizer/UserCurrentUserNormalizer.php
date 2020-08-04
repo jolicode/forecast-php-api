@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,28 +38,25 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserCurrentUser();
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
+            $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (property_exists($data, 'account_ids') && null !== $data->{'account_ids'}) {
+        if (\array_key_exists('account_ids', $data) && null !== $data['account_ids']) {
             $values = [];
-            foreach ($data->{'account_ids'} as $value) {
+            foreach ($data['account_ids'] as $value) {
                 $values[] = $value;
             }
             $object->setAccountIds($values);
-        } elseif (property_exists($data, 'account_ids') && null === $data->{'account_ids'}) {
+        } elseif (\array_key_exists('account_ids', $data) && null === $data['account_ids']) {
             $object->setAccountIds(null);
         }
 
@@ -66,20 +65,16 @@ class UserCurrentUserNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getAccountIds()) {
             $values = [];
             foreach ($object->getAccountIds() as $value) {
                 $values[] = $value;
             }
-            $data->{'account_ids'} = $values;
-        } else {
-            $data->{'account_ids'} = null;
+            $data['account_ids'] = $values;
         }
 
         return $data;

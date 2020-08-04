@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class ClientsIdGetResponse200Normalizer implements DenormalizerInterface, Normal
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class ClientsIdGetResponse200Normalizer implements DenormalizerInterface, Normal
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\ClientsIdGetResponse200();
-        if (property_exists($data, 'client') && null !== $data->{'client'}) {
-            $object->setClient($this->denormalizer->denormalize($data->{'client'}, 'JoliCode\\Forecast\\Api\\Model\\Client', 'json', $context));
-        } elseif (property_exists($data, 'client') && null === $data->{'client'}) {
+        if (\array_key_exists('client', $data) && null !== $data['client']) {
+            $object->setClient($this->denormalizer->denormalize($data['client'], 'JoliCode\\Forecast\\Api\\Model\\Client', 'json', $context));
+        } elseif (\array_key_exists('client', $data) && null === $data['client']) {
             $object->setClient(null);
         }
 
@@ -57,11 +56,9 @@ class ClientsIdGetResponse200Normalizer implements DenormalizerInterface, Normal
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getClient()) {
-            $data->{'client'} = $this->normalizer->normalize($object->getClient(), 'json', $context);
-        } else {
-            $data->{'client'} = null;
+            $data['client'] = $this->normalizer->normalize($object->getClient(), 'json', $context);
         }
 
         return $data;

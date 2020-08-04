@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\User();
-        if (property_exists($data, 'current_user') && null !== $data->{'current_user'}) {
-            $object->setCurrentUser($this->denormalizer->denormalize($data->{'current_user'}, 'JoliCode\\Forecast\\Api\\Model\\UserCurrentUser', 'json', $context));
-        } elseif (property_exists($data, 'current_user') && null === $data->{'current_user'}) {
+        if (\array_key_exists('current_user', $data) && null !== $data['current_user']) {
+            $object->setCurrentUser($this->denormalizer->denormalize($data['current_user'], 'JoliCode\\Forecast\\Api\\Model\\UserCurrentUser', 'json', $context));
+        } elseif (\array_key_exists('current_user', $data) && null === $data['current_user']) {
             $object->setCurrentUser(null);
         }
 
@@ -57,11 +56,9 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getCurrentUser()) {
-            $data->{'current_user'} = $this->normalizer->normalize($object->getCurrentUser(), 'json', $context);
-        } else {
-            $data->{'current_user'} = null;
+            $data['current_user'] = $this->normalizer->normalize($object->getCurrentUser(), 'json', $context);
         }
 
         return $data;

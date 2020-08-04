@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, Normali
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,23 +38,20 @@ class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, Normali
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSets();
-        if (property_exists($data, 'repeated_assignment_sets') && null !== $data->{'repeated_assignment_sets'}) {
+        if (\array_key_exists('repeated_assignment_sets', $data) && null !== $data['repeated_assignment_sets']) {
             $values = [];
-            foreach ($data->{'repeated_assignment_sets'} as $value) {
+            foreach ($data['repeated_assignment_sets'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context);
             }
             $object->setRepeatedAssignmentSets($values);
-        } elseif (property_exists($data, 'repeated_assignment_sets') && null === $data->{'repeated_assignment_sets'}) {
+        } elseif (\array_key_exists('repeated_assignment_sets', $data) && null === $data['repeated_assignment_sets']) {
             $object->setRepeatedAssignmentSets(null);
         }
 
@@ -61,15 +60,13 @@ class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, Normali
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getRepeatedAssignmentSets()) {
             $values = [];
             foreach ($object->getRepeatedAssignmentSets() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data->{'repeated_assignment_sets'} = $values;
-        } else {
-            $data->{'repeated_assignment_sets'} = null;
+            $data['repeated_assignment_sets'] = $values;
         }
 
         return $data;

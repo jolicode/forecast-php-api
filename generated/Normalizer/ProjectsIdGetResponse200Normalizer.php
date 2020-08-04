@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class ProjectsIdGetResponse200Normalizer implements DenormalizerInterface, Norma
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class ProjectsIdGetResponse200Normalizer implements DenormalizerInterface, Norma
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\ProjectsIdGetResponse200();
-        if (property_exists($data, 'project') && null !== $data->{'project'}) {
-            $object->setProject($this->denormalizer->denormalize($data->{'project'}, 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context));
-        } elseif (property_exists($data, 'project') && null === $data->{'project'}) {
+        if (\array_key_exists('project', $data) && null !== $data['project']) {
+            $object->setProject($this->denormalizer->denormalize($data['project'], 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context));
+        } elseif (\array_key_exists('project', $data) && null === $data['project']) {
             $object->setProject(null);
         }
 
@@ -57,11 +56,9 @@ class ProjectsIdGetResponse200Normalizer implements DenormalizerInterface, Norma
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getProject()) {
-            $data->{'project'} = $this->normalizer->normalize($object->getProject(), 'json', $context);
-        } else {
-            $data->{'project'} = null;
+            $data['project'] = $this->normalizer->normalize($object->getProject(), 'json', $context);
         }
 
         return $data;

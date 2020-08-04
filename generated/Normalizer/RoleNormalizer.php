@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,47 +38,44 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Role();
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
+            $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (property_exists($data, 'name') && null !== $data->{'name'}) {
-            $object->setName($data->{'name'});
-        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+        if (\array_key_exists('name', $data) && null !== $data['name']) {
+            $object->setName($data['name']);
+        } elseif (\array_key_exists('name', $data) && null === $data['name']) {
             $object->setName(null);
         }
-        if (property_exists($data, 'placeholder_ids') && null !== $data->{'placeholder_ids'}) {
+        if (\array_key_exists('placeholder_ids', $data) && null !== $data['placeholder_ids']) {
             $values = [];
-            foreach ($data->{'placeholder_ids'} as $value) {
+            foreach ($data['placeholder_ids'] as $value) {
                 $values[] = $value;
             }
             $object->setPlaceholderIds($values);
-        } elseif (property_exists($data, 'placeholder_ids') && null === $data->{'placeholder_ids'}) {
+        } elseif (\array_key_exists('placeholder_ids', $data) && null === $data['placeholder_ids']) {
             $object->setPlaceholderIds(null);
         }
-        if (property_exists($data, 'person_ids') && null !== $data->{'person_ids'}) {
+        if (\array_key_exists('person_ids', $data) && null !== $data['person_ids']) {
             $values_1 = [];
-            foreach ($data->{'person_ids'} as $value_1) {
+            foreach ($data['person_ids'] as $value_1) {
                 $values_1[] = $value_1;
             }
             $object->setPersonIds($values_1);
-        } elseif (property_exists($data, 'person_ids') && null === $data->{'person_ids'}) {
+        } elseif (\array_key_exists('person_ids', $data) && null === $data['person_ids']) {
             $object->setPersonIds(null);
         }
-        if (property_exists($data, 'harvest_role_id') && null !== $data->{'harvest_role_id'}) {
-            $object->setHarvestRoleId($data->{'harvest_role_id'});
-        } elseif (property_exists($data, 'harvest_role_id') && null === $data->{'harvest_role_id'}) {
+        if (\array_key_exists('harvest_role_id', $data) && null !== $data['harvest_role_id']) {
+            $object->setHarvestRoleId($data['harvest_role_id']);
+        } elseif (\array_key_exists('harvest_role_id', $data) && null === $data['harvest_role_id']) {
             $object->setHarvestRoleId(null);
         }
 
@@ -85,39 +84,29 @@ class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getName()) {
-            $data->{'name'} = $object->getName();
-        } else {
-            $data->{'name'} = null;
+            $data['name'] = $object->getName();
         }
         if (null !== $object->getPlaceholderIds()) {
             $values = [];
             foreach ($object->getPlaceholderIds() as $value) {
                 $values[] = $value;
             }
-            $data->{'placeholder_ids'} = $values;
-        } else {
-            $data->{'placeholder_ids'} = null;
+            $data['placeholder_ids'] = $values;
         }
         if (null !== $object->getPersonIds()) {
             $values_1 = [];
             foreach ($object->getPersonIds() as $value_1) {
                 $values_1[] = $value_1;
             }
-            $data->{'person_ids'} = $values_1;
-        } else {
-            $data->{'person_ids'} = null;
+            $data['person_ids'] = $values_1;
         }
         if (null !== $object->getHarvestRoleId()) {
-            $data->{'harvest_role_id'} = $object->getHarvestRoleId();
-        } else {
-            $data->{'harvest_role_id'} = null;
+            $data['harvest_role_id'] = $object->getHarvestRoleId();
         }
 
         return $data;

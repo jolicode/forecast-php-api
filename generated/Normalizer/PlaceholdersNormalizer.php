@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,23 +38,20 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Placeholders();
-        if (property_exists($data, 'placeholders') && null !== $data->{'placeholders'}) {
+        if (\array_key_exists('placeholders', $data) && null !== $data['placeholders']) {
             $values = [];
-            foreach ($data->{'placeholders'} as $value) {
+            foreach ($data['placeholders'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Placeholder', 'json', $context);
             }
             $object->setPlaceholders($values);
-        } elseif (property_exists($data, 'placeholders') && null === $data->{'placeholders'}) {
+        } elseif (\array_key_exists('placeholders', $data) && null === $data['placeholders']) {
             $object->setPlaceholders(null);
         }
 
@@ -61,15 +60,13 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getPlaceholders()) {
             $values = [];
             foreach ($object->getPlaceholders() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data->{'placeholders'} = $values;
-        } else {
-            $data->{'placeholders'} = null;
+            $data['placeholders'] = $values;
         }
 
         return $data;

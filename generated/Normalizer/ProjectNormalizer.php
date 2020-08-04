@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,83 +38,80 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Project();
-        if (property_exists($data, 'archived') && null !== $data->{'archived'}) {
-            $object->setArchived($data->{'archived'});
-        } elseif (property_exists($data, 'archived') && null === $data->{'archived'}) {
+        if (\array_key_exists('archived', $data) && null !== $data['archived']) {
+            $object->setArchived($data['archived']);
+        } elseif (\array_key_exists('archived', $data) && null === $data['archived']) {
             $object->setArchived(null);
         }
-        if (property_exists($data, 'client_id') && null !== $data->{'client_id'}) {
-            $object->setClientId($data->{'client_id'});
-        } elseif (property_exists($data, 'client_id') && null === $data->{'client_id'}) {
+        if (\array_key_exists('client_id', $data) && null !== $data['client_id']) {
+            $object->setClientId($data['client_id']);
+        } elseif (\array_key_exists('client_id', $data) && null === $data['client_id']) {
             $object->setClientId(null);
         }
-        if (property_exists($data, 'code') && null !== $data->{'code'}) {
-            $object->setCode($data->{'code'});
-        } elseif (property_exists($data, 'code') && null === $data->{'code'}) {
+        if (\array_key_exists('code', $data) && null !== $data['code']) {
+            $object->setCode($data['code']);
+        } elseif (\array_key_exists('code', $data) && null === $data['code']) {
             $object->setCode(null);
         }
-        if (property_exists($data, 'color') && null !== $data->{'color'}) {
-            $object->setColor($data->{'color'});
-        } elseif (property_exists($data, 'color') && null === $data->{'color'}) {
+        if (\array_key_exists('color', $data) && null !== $data['color']) {
+            $object->setColor($data['color']);
+        } elseif (\array_key_exists('color', $data) && null === $data['color']) {
             $object->setColor(null);
         }
-        if (property_exists($data, 'end_date') && null !== $data->{'end_date'}) {
-            $object->setEndDate(\DateTime::createFromFormat('Y-m-d', $data->{'end_date'})->setTime(0, 0, 0));
-        } elseif (property_exists($data, 'end_date') && null === $data->{'end_date'}) {
+        if (\array_key_exists('end_date', $data) && null !== $data['end_date']) {
+            $object->setEndDate(\DateTime::createFromFormat('Y-m-d', $data['end_date'])->setTime(0, 0, 0));
+        } elseif (\array_key_exists('end_date', $data) && null === $data['end_date']) {
             $object->setEndDate(null);
         }
-        if (property_exists($data, 'harvest_id') && null !== $data->{'harvest_id'}) {
-            $object->setHarvestId($data->{'harvest_id'});
-        } elseif (property_exists($data, 'harvest_id') && null === $data->{'harvest_id'}) {
+        if (\array_key_exists('harvest_id', $data) && null !== $data['harvest_id']) {
+            $object->setHarvestId($data['harvest_id']);
+        } elseif (\array_key_exists('harvest_id', $data) && null === $data['harvest_id']) {
             $object->setHarvestId(null);
         }
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
+            $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (property_exists($data, 'name') && null !== $data->{'name'}) {
-            $object->setName($data->{'name'});
-        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+        if (\array_key_exists('name', $data) && null !== $data['name']) {
+            $object->setName($data['name']);
+        } elseif (\array_key_exists('name', $data) && null === $data['name']) {
             $object->setName(null);
         }
-        if (property_exists($data, 'notes') && null !== $data->{'notes'}) {
-            $object->setNotes($data->{'notes'});
-        } elseif (property_exists($data, 'notes') && null === $data->{'notes'}) {
+        if (\array_key_exists('notes', $data) && null !== $data['notes']) {
+            $object->setNotes($data['notes']);
+        } elseif (\array_key_exists('notes', $data) && null === $data['notes']) {
             $object->setNotes(null);
         }
-        if (property_exists($data, 'start_date') && null !== $data->{'start_date'}) {
-            $object->setStartDate(\DateTime::createFromFormat('Y-m-d', $data->{'start_date'})->setTime(0, 0, 0));
-        } elseif (property_exists($data, 'start_date') && null === $data->{'start_date'}) {
+        if (\array_key_exists('start_date', $data) && null !== $data['start_date']) {
+            $object->setStartDate(\DateTime::createFromFormat('Y-m-d', $data['start_date'])->setTime(0, 0, 0));
+        } elseif (\array_key_exists('start_date', $data) && null === $data['start_date']) {
             $object->setStartDate(null);
         }
-        if (property_exists($data, 'tags') && null !== $data->{'tags'}) {
+        if (\array_key_exists('tags', $data) && null !== $data['tags']) {
             $values = [];
-            foreach ($data->{'tags'} as $value) {
+            foreach ($data['tags'] as $value) {
                 $values[] = $value;
             }
             $object->setTags($values);
-        } elseif (property_exists($data, 'tags') && null === $data->{'tags'}) {
+        } elseif (\array_key_exists('tags', $data) && null === $data['tags']) {
             $object->setTags(null);
         }
-        if (property_exists($data, 'updated_at') && null !== $data->{'updated_at'}) {
-            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.v\Z", $data->{'updated_at'}));
-        } elseif (property_exists($data, 'updated_at') && null === $data->{'updated_at'}) {
+        if (\array_key_exists('updated_at', $data) && null !== $data['updated_at']) {
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:s.v\\Z', $data['updated_at']));
+        } elseif (\array_key_exists('updated_at', $data) && null === $data['updated_at']) {
             $object->setUpdatedAt(null);
         }
-        if (property_exists($data, 'updated_by_id') && null !== $data->{'updated_by_id'}) {
-            $object->setUpdatedById($data->{'updated_by_id'});
-        } elseif (property_exists($data, 'updated_by_id') && null === $data->{'updated_by_id'}) {
+        if (\array_key_exists('updated_by_id', $data) && null !== $data['updated_by_id']) {
+            $object->setUpdatedById($data['updated_by_id']);
+        } elseif (\array_key_exists('updated_by_id', $data) && null === $data['updated_by_id']) {
             $object->setUpdatedById(null);
         }
 
@@ -121,75 +120,49 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getArchived()) {
-            $data->{'archived'} = $object->getArchived();
-        } else {
-            $data->{'archived'} = null;
+            $data['archived'] = $object->getArchived();
         }
         if (null !== $object->getClientId()) {
-            $data->{'client_id'} = $object->getClientId();
-        } else {
-            $data->{'client_id'} = null;
+            $data['client_id'] = $object->getClientId();
         }
         if (null !== $object->getCode()) {
-            $data->{'code'} = $object->getCode();
-        } else {
-            $data->{'code'} = null;
+            $data['code'] = $object->getCode();
         }
         if (null !== $object->getColor()) {
-            $data->{'color'} = $object->getColor();
-        } else {
-            $data->{'color'} = null;
+            $data['color'] = $object->getColor();
         }
         if (null !== $object->getEndDate()) {
-            $data->{'end_date'} = $object->getEndDate()->format('Y-m-d');
-        } else {
-            $data->{'end_date'} = null;
+            $data['end_date'] = $object->getEndDate()->format('Y-m-d');
         }
         if (null !== $object->getHarvestId()) {
-            $data->{'harvest_id'} = $object->getHarvestId();
-        } else {
-            $data->{'harvest_id'} = null;
+            $data['harvest_id'] = $object->getHarvestId();
         }
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getName()) {
-            $data->{'name'} = $object->getName();
-        } else {
-            $data->{'name'} = null;
+            $data['name'] = $object->getName();
         }
         if (null !== $object->getNotes()) {
-            $data->{'notes'} = $object->getNotes();
-        } else {
-            $data->{'notes'} = null;
+            $data['notes'] = $object->getNotes();
         }
         if (null !== $object->getStartDate()) {
-            $data->{'start_date'} = $object->getStartDate()->format('Y-m-d');
-        } else {
-            $data->{'start_date'} = null;
+            $data['start_date'] = $object->getStartDate()->format('Y-m-d');
         }
         if (null !== $object->getTags()) {
             $values = [];
             foreach ($object->getTags() as $value) {
                 $values[] = $value;
             }
-            $data->{'tags'} = $values;
-        } else {
-            $data->{'tags'} = null;
+            $data['tags'] = $values;
         }
         if (null !== $object->getUpdatedAt()) {
-            $data->{'updated_at'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:s.v\Z");
-        } else {
-            $data->{'updated_at'} = null;
+            $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:s.v\\Z');
         }
         if (null !== $object->getUpdatedById()) {
-            $data->{'updated_by_id'} = $object->getUpdatedById();
-        } else {
-            $data->{'updated_by_id'} = null;
+            $data['updated_by_id'] = $object->getUpdatedById();
         }
 
         return $data;

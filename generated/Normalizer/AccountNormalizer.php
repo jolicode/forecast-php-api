@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Account();
-        if (property_exists($data, 'account') && null !== $data->{'account'}) {
-            $object->setAccount($this->denormalizer->denormalize($data->{'account'}, 'JoliCode\\Forecast\\Api\\Model\\AccountAccount', 'json', $context));
-        } elseif (property_exists($data, 'account') && null === $data->{'account'}) {
+        if (\array_key_exists('account', $data) && null !== $data['account']) {
+            $object->setAccount($this->denormalizer->denormalize($data['account'], 'JoliCode\\Forecast\\Api\\Model\\AccountAccount', 'json', $context));
+        } elseif (\array_key_exists('account', $data) && null === $data['account']) {
             $object->setAccount(null);
         }
 
@@ -57,11 +56,9 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getAccount()) {
-            $data->{'account'} = $this->normalizer->normalize($object->getAccount(), 'json', $context);
-        } else {
-            $data->{'account'} = null;
+            $data['account'] = $this->normalizer->normalize($object->getAccount(), 'json', $context);
         }
 
         return $data;

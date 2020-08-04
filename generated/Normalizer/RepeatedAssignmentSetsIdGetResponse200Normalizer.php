@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetsIdGetResponse200();
-        if (property_exists($data, 'repeated_assignment_set') && null !== $data->{'repeated_assignment_set'}) {
-            $object->setRepeatedAssignmentSet($this->denormalizer->denormalize($data->{'repeated_assignment_set'}, 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context));
-        } elseif (property_exists($data, 'repeated_assignment_set') && null === $data->{'repeated_assignment_set'}) {
+        if (\array_key_exists('repeated_assignment_set', $data) && null !== $data['repeated_assignment_set']) {
+            $object->setRepeatedAssignmentSet($this->denormalizer->denormalize($data['repeated_assignment_set'], 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context));
+        } elseif (\array_key_exists('repeated_assignment_set', $data) && null === $data['repeated_assignment_set']) {
             $object->setRepeatedAssignmentSet(null);
         }
 
@@ -57,11 +56,9 @@ class RepeatedAssignmentSetsIdGetResponse200Normalizer implements DenormalizerIn
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getRepeatedAssignmentSet()) {
-            $data->{'repeated_assignment_set'} = $this->normalizer->normalize($object->getRepeatedAssignmentSet(), 'json', $context);
-        } else {
-            $data->{'repeated_assignment_set'} = null;
+            $data['repeated_assignment_set'] = $this->normalizer->normalize($object->getRepeatedAssignmentSet(), 'json', $context);
         }
 
         return $data;

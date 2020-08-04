@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,34 +38,31 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionCard();
-        if (property_exists($data, 'brand') && null !== $data->{'brand'}) {
-            $object->setBrand($data->{'brand'});
-        } elseif (property_exists($data, 'brand') && null === $data->{'brand'}) {
+        if (\array_key_exists('brand', $data) && null !== $data['brand']) {
+            $object->setBrand($data['brand']);
+        } elseif (\array_key_exists('brand', $data) && null === $data['brand']) {
             $object->setBrand(null);
         }
-        if (property_exists($data, 'last_four') && null !== $data->{'last_four'}) {
-            $object->setLastFour($data->{'last_four'});
-        } elseif (property_exists($data, 'last_four') && null === $data->{'last_four'}) {
+        if (\array_key_exists('last_four', $data) && null !== $data['last_four']) {
+            $object->setLastFour($data['last_four']);
+        } elseif (\array_key_exists('last_four', $data) && null === $data['last_four']) {
             $object->setLastFour(null);
         }
-        if (property_exists($data, 'expiry_month') && null !== $data->{'expiry_month'}) {
-            $object->setExpiryMonth($data->{'expiry_month'});
-        } elseif (property_exists($data, 'expiry_month') && null === $data->{'expiry_month'}) {
+        if (\array_key_exists('expiry_month', $data) && null !== $data['expiry_month']) {
+            $object->setExpiryMonth($data['expiry_month']);
+        } elseif (\array_key_exists('expiry_month', $data) && null === $data['expiry_month']) {
             $object->setExpiryMonth(null);
         }
-        if (property_exists($data, 'expiry_year') && null !== $data->{'expiry_year'}) {
-            $object->setExpiryYear($data->{'expiry_year'});
-        } elseif (property_exists($data, 'expiry_year') && null === $data->{'expiry_year'}) {
+        if (\array_key_exists('expiry_year', $data) && null !== $data['expiry_year']) {
+            $object->setExpiryYear($data['expiry_year']);
+        } elseif (\array_key_exists('expiry_year', $data) && null === $data['expiry_year']) {
             $object->setExpiryYear(null);
         }
 
@@ -72,26 +71,18 @@ class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, N
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getBrand()) {
-            $data->{'brand'} = $object->getBrand();
-        } else {
-            $data->{'brand'} = null;
+            $data['brand'] = $object->getBrand();
         }
         if (null !== $object->getLastFour()) {
-            $data->{'last_four'} = $object->getLastFour();
-        } else {
-            $data->{'last_four'} = null;
+            $data['last_four'] = $object->getLastFour();
         }
         if (null !== $object->getExpiryMonth()) {
-            $data->{'expiry_month'} = $object->getExpiryMonth();
-        } else {
-            $data->{'expiry_month'} = null;
+            $data['expiry_month'] = $object->getExpiryMonth();
         }
         if (null !== $object->getExpiryYear()) {
-            $data->{'expiry_year'} = $object->getExpiryYear();
-        } else {
-            $data->{'expiry_year'} = null;
+            $data['expiry_year'] = $object->getExpiryYear();
         }
 
         return $data;

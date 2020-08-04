@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class AssignmentsIdGetResponse200Normalizer implements DenormalizerInterface, No
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class AssignmentsIdGetResponse200Normalizer implements DenormalizerInterface, No
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\AssignmentsIdGetResponse200();
-        if (property_exists($data, 'assignment') && null !== $data->{'assignment'}) {
-            $object->setAssignment($this->denormalizer->denormalize($data->{'assignment'}, 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context));
-        } elseif (property_exists($data, 'assignment') && null === $data->{'assignment'}) {
+        if (\array_key_exists('assignment', $data) && null !== $data['assignment']) {
+            $object->setAssignment($this->denormalizer->denormalize($data['assignment'], 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context));
+        } elseif (\array_key_exists('assignment', $data) && null === $data['assignment']) {
             $object->setAssignment(null);
         }
 
@@ -57,11 +56,9 @@ class AssignmentsIdGetResponse200Normalizer implements DenormalizerInterface, No
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getAssignment()) {
-            $data->{'assignment'} = $this->normalizer->normalize($object->getAssignment(), 'json', $context);
-        } else {
-            $data->{'assignment'} = null;
+            $data['assignment'] = $this->normalizer->normalize($object->getAssignment(), 'json', $context);
         }
 
         return $data;

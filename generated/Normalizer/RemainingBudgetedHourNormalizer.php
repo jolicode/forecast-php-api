@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,39 +38,36 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
-        if (property_exists($data, 'budget_by') && null !== $data->{'budget_by'}) {
-            $object->setBudgetBy($data->{'budget_by'});
-        } elseif (property_exists($data, 'budget_by') && null === $data->{'budget_by'}) {
+        if (\array_key_exists('budget_by', $data) && null !== $data['budget_by']) {
+            $object->setBudgetBy($data['budget_by']);
+        } elseif (\array_key_exists('budget_by', $data) && null === $data['budget_by']) {
             $object->setBudgetBy(null);
         }
-        if (property_exists($data, 'budget_is_monthly') && null !== $data->{'budget_is_monthly'}) {
-            $object->setBudgetIsMonthly($data->{'budget_is_monthly'});
-        } elseif (property_exists($data, 'budget_is_monthly') && null === $data->{'budget_is_monthly'}) {
+        if (\array_key_exists('budget_is_monthly', $data) && null !== $data['budget_is_monthly']) {
+            $object->setBudgetIsMonthly($data['budget_is_monthly']);
+        } elseif (\array_key_exists('budget_is_monthly', $data) && null === $data['budget_is_monthly']) {
             $object->setBudgetIsMonthly(null);
         }
-        if (property_exists($data, 'hours') && null !== $data->{'hours'}) {
-            $object->setHours($data->{'hours'});
-        } elseif (property_exists($data, 'hours') && null === $data->{'hours'}) {
+        if (\array_key_exists('hours', $data) && null !== $data['hours']) {
+            $object->setHours($data['hours']);
+        } elseif (\array_key_exists('hours', $data) && null === $data['hours']) {
             $object->setHours(null);
         }
-        if (property_exists($data, 'project_id') && null !== $data->{'project_id'}) {
-            $object->setProjectId($data->{'project_id'});
-        } elseif (property_exists($data, 'project_id') && null === $data->{'project_id'}) {
+        if (\array_key_exists('project_id', $data) && null !== $data['project_id']) {
+            $object->setProjectId($data['project_id']);
+        } elseif (\array_key_exists('project_id', $data) && null === $data['project_id']) {
             $object->setProjectId(null);
         }
-        if (property_exists($data, 'response_code') && null !== $data->{'response_code'}) {
-            $object->setResponseCode($data->{'response_code'});
-        } elseif (property_exists($data, 'response_code') && null === $data->{'response_code'}) {
+        if (\array_key_exists('response_code', $data) && null !== $data['response_code']) {
+            $object->setResponseCode($data['response_code']);
+        } elseif (\array_key_exists('response_code', $data) && null === $data['response_code']) {
             $object->setResponseCode(null);
         }
 
@@ -77,31 +76,21 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getBudgetBy()) {
-            $data->{'budget_by'} = $object->getBudgetBy();
-        } else {
-            $data->{'budget_by'} = null;
+            $data['budget_by'] = $object->getBudgetBy();
         }
         if (null !== $object->getBudgetIsMonthly()) {
-            $data->{'budget_is_monthly'} = $object->getBudgetIsMonthly();
-        } else {
-            $data->{'budget_is_monthly'} = null;
+            $data['budget_is_monthly'] = $object->getBudgetIsMonthly();
         }
         if (null !== $object->getHours()) {
-            $data->{'hours'} = $object->getHours();
-        } else {
-            $data->{'hours'} = null;
+            $data['hours'] = $object->getHours();
         }
         if (null !== $object->getProjectId()) {
-            $data->{'project_id'} = $object->getProjectId();
-        } else {
-            $data->{'project_id'} = null;
+            $data['project_id'] = $object->getProjectId();
         }
         if (null !== $object->getResponseCode()) {
-            $data->{'response_code'} = $object->getResponseCode();
-        } else {
-            $data->{'response_code'} = null;
+            $data['response_code'] = $object->getResponseCode();
         }
 
         return $data;

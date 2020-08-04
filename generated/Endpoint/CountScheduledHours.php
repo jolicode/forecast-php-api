@@ -46,6 +46,11 @@ class CountScheduledHours extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

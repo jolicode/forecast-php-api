@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RolesIdGetResponse200Normalizer implements DenormalizerInterface, Normaliz
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,19 +38,16 @@ class RolesIdGetResponse200Normalizer implements DenormalizerInterface, Normaliz
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RolesIdGetResponse200();
-        if (property_exists($data, 'role') && null !== $data->{'role'}) {
-            $object->setRole($this->denormalizer->denormalize($data->{'role'}, 'JoliCode\\Forecast\\Api\\Model\\Role', 'json', $context));
-        } elseif (property_exists($data, 'role') && null === $data->{'role'}) {
+        if (\array_key_exists('role', $data) && null !== $data['role']) {
+            $object->setRole($this->denormalizer->denormalize($data['role'], 'JoliCode\\Forecast\\Api\\Model\\Role', 'json', $context));
+        } elseif (\array_key_exists('role', $data) && null === $data['role']) {
             $object->setRole(null);
         }
 
@@ -57,11 +56,9 @@ class RolesIdGetResponse200Normalizer implements DenormalizerInterface, Normaliz
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getRole()) {
-            $data->{'role'} = $this->normalizer->normalize($object->getRole(), 'json', $context);
-        } else {
-            $data->{'role'} = null;
+            $data['role'] = $this->normalizer->normalize($object->getRole(), 'json', $context);
         }
 
         return $data;

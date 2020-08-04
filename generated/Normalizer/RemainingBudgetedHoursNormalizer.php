@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RemainingBudgetedHoursNormalizer implements DenormalizerInterface, Normali
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,23 +38,20 @@ class RemainingBudgetedHoursNormalizer implements DenormalizerInterface, Normali
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHours();
-        if (property_exists($data, 'remaining_budgeted_hours') && null !== $data->{'remaining_budgeted_hours'}) {
+        if (\array_key_exists('remaining_budgeted_hours', $data) && null !== $data['remaining_budgeted_hours']) {
             $values = [];
-            foreach ($data->{'remaining_budgeted_hours'} as $value) {
+            foreach ($data['remaining_budgeted_hours'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour', 'json', $context);
             }
             $object->setRemainingBudgetedHours($values);
-        } elseif (property_exists($data, 'remaining_budgeted_hours') && null === $data->{'remaining_budgeted_hours'}) {
+        } elseif (\array_key_exists('remaining_budgeted_hours', $data) && null === $data['remaining_budgeted_hours']) {
             $object->setRemainingBudgetedHours(null);
         }
 
@@ -61,15 +60,13 @@ class RemainingBudgetedHoursNormalizer implements DenormalizerInterface, Normali
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getRemainingBudgetedHours()) {
             $values = [];
             foreach ($object->getRemainingBudgetedHours() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data->{'remaining_budgeted_hours'} = $values;
-        } else {
-            $data->{'remaining_budgeted_hours'} = null;
+            $data['remaining_budgeted_hours'] = $values;
         }
 
         return $data;

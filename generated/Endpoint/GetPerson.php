@@ -46,6 +46,11 @@ class GetPerson extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jan
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,34 +38,31 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\FutureScheduledHour();
-        if (property_exists($data, 'allocation') && null !== $data->{'allocation'}) {
-            $object->setAllocation($data->{'allocation'});
-        } elseif (property_exists($data, 'allocation') && null === $data->{'allocation'}) {
+        if (\array_key_exists('allocation', $data) && null !== $data['allocation']) {
+            $object->setAllocation($data['allocation']);
+        } elseif (\array_key_exists('allocation', $data) && null === $data['allocation']) {
             $object->setAllocation(null);
         }
-        if (property_exists($data, 'person_id') && null !== $data->{'person_id'}) {
-            $object->setPersonId($data->{'person_id'});
-        } elseif (property_exists($data, 'person_id') && null === $data->{'person_id'}) {
+        if (\array_key_exists('person_id', $data) && null !== $data['person_id']) {
+            $object->setPersonId($data['person_id']);
+        } elseif (\array_key_exists('person_id', $data) && null === $data['person_id']) {
             $object->setPersonId(null);
         }
-        if (property_exists($data, 'placeholder_id') && null !== $data->{'placeholder_id'}) {
-            $object->setPlaceholderId($data->{'placeholder_id'});
-        } elseif (property_exists($data, 'placeholder_id') && null === $data->{'placeholder_id'}) {
+        if (\array_key_exists('placeholder_id', $data) && null !== $data['placeholder_id']) {
+            $object->setPlaceholderId($data['placeholder_id']);
+        } elseif (\array_key_exists('placeholder_id', $data) && null === $data['placeholder_id']) {
             $object->setPlaceholderId(null);
         }
-        if (property_exists($data, 'project_id') && null !== $data->{'project_id'}) {
-            $object->setProjectId($data->{'project_id'});
-        } elseif (property_exists($data, 'project_id') && null === $data->{'project_id'}) {
+        if (\array_key_exists('project_id', $data) && null !== $data['project_id']) {
+            $object->setProjectId($data['project_id']);
+        } elseif (\array_key_exists('project_id', $data) && null === $data['project_id']) {
             $object->setProjectId(null);
         }
 
@@ -72,26 +71,18 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getAllocation()) {
-            $data->{'allocation'} = $object->getAllocation();
-        } else {
-            $data->{'allocation'} = null;
+            $data['allocation'] = $object->getAllocation();
         }
         if (null !== $object->getPersonId()) {
-            $data->{'person_id'} = $object->getPersonId();
-        } else {
-            $data->{'person_id'} = null;
+            $data['person_id'] = $object->getPersonId();
         }
         if (null !== $object->getPlaceholderId()) {
-            $data->{'placeholder_id'} = $object->getPlaceholderId();
-        } else {
-            $data->{'placeholder_id'} = null;
+            $data['placeholder_id'] = $object->getPlaceholderId();
         }
         if (null !== $object->getProjectId()) {
-            $data->{'project_id'} = $object->getProjectId();
-        } else {
-            $data->{'project_id'} = null;
+            $data['project_id'] = $object->getProjectId();
         }
 
         return $data;

@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,38 +38,35 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSet();
-        if (property_exists($data, 'assignment_ids') && null !== $data->{'assignment_ids'}) {
+        if (\array_key_exists('assignment_ids', $data) && null !== $data['assignment_ids']) {
             $values = [];
-            foreach ($data->{'assignment_ids'} as $value) {
+            foreach ($data['assignment_ids'] as $value) {
                 $values[] = $value;
             }
             $object->setAssignmentIds($values);
-        } elseif (property_exists($data, 'assignment_ids') && null === $data->{'assignment_ids'}) {
+        } elseif (\array_key_exists('assignment_ids', $data) && null === $data['assignment_ids']) {
             $object->setAssignmentIds(null);
         }
-        if (property_exists($data, 'first_start_date') && null !== $data->{'first_start_date'}) {
-            $object->setFirstStartDate(\DateTime::createFromFormat('Y-m-d', $data->{'first_start_date'})->setTime(0, 0, 0));
-        } elseif (property_exists($data, 'first_start_date') && null === $data->{'first_start_date'}) {
+        if (\array_key_exists('first_start_date', $data) && null !== $data['first_start_date']) {
+            $object->setFirstStartDate(\DateTime::createFromFormat('Y-m-d', $data['first_start_date'])->setTime(0, 0, 0));
+        } elseif (\array_key_exists('first_start_date', $data) && null === $data['first_start_date']) {
             $object->setFirstStartDate(null);
         }
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
+            $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (property_exists($data, 'last_end_date') && null !== $data->{'last_end_date'}) {
-            $object->setLastEndDate(\DateTime::createFromFormat('Y-m-d', $data->{'last_end_date'})->setTime(0, 0, 0));
-        } elseif (property_exists($data, 'last_end_date') && null === $data->{'last_end_date'}) {
+        if (\array_key_exists('last_end_date', $data) && null !== $data['last_end_date']) {
+            $object->setLastEndDate(\DateTime::createFromFormat('Y-m-d', $data['last_end_date'])->setTime(0, 0, 0));
+        } elseif (\array_key_exists('last_end_date', $data) && null === $data['last_end_date']) {
             $object->setLastEndDate(null);
         }
 
@@ -76,30 +75,22 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getAssignmentIds()) {
             $values = [];
             foreach ($object->getAssignmentIds() as $value) {
                 $values[] = $value;
             }
-            $data->{'assignment_ids'} = $values;
-        } else {
-            $data->{'assignment_ids'} = null;
+            $data['assignment_ids'] = $values;
         }
         if (null !== $object->getFirstStartDate()) {
-            $data->{'first_start_date'} = $object->getFirstStartDate()->format('Y-m-d');
-        } else {
-            $data->{'first_start_date'} = null;
+            $data['first_start_date'] = $object->getFirstStartDate()->format('Y-m-d');
         }
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getLastEndDate()) {
-            $data->{'last_end_date'} = $object->getLastEndDate()->format('Y-m-d');
-        } else {
-            $data->{'last_end_date'} = null;
+            $data['last_end_date'] = $object->getLastEndDate()->format('Y-m-d');
         }
 
         return $data;

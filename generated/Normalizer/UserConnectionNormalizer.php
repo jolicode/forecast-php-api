@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,29 +38,26 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserConnection();
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
+            $object->setId($data['id']);
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (property_exists($data, 'last_active_at') && null !== $data->{'last_active_at'}) {
-            $object->setLastActiveAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.v\Z", $data->{'last_active_at'}));
-        } elseif (property_exists($data, 'last_active_at') && null === $data->{'last_active_at'}) {
+        if (\array_key_exists('last_active_at', $data) && null !== $data['last_active_at']) {
+            $object->setLastActiveAt(\DateTime::createFromFormat('Y-m-d\\TH:i:s.v\\Z', $data['last_active_at']));
+        } elseif (\array_key_exists('last_active_at', $data) && null === $data['last_active_at']) {
             $object->setLastActiveAt(null);
         }
-        if (property_exists($data, 'person_id') && null !== $data->{'person_id'}) {
-            $object->setPersonId($data->{'person_id'});
-        } elseif (property_exists($data, 'person_id') && null === $data->{'person_id'}) {
+        if (\array_key_exists('person_id', $data) && null !== $data['person_id']) {
+            $object->setPersonId($data['person_id']);
+        } elseif (\array_key_exists('person_id', $data) && null === $data['person_id']) {
             $object->setPersonId(null);
         }
 
@@ -67,21 +66,15 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getLastActiveAt()) {
-            $data->{'last_active_at'} = $object->getLastActiveAt()->format("Y-m-d\TH:i:s.v\Z");
-        } else {
-            $data->{'last_active_at'} = null;
+            $data['last_active_at'] = $object->getLastActiveAt()->format('Y-m-d\\TH:i:s.v\\Z');
         }
         if (null !== $object->getPersonId()) {
-            $data->{'person_id'} = $object->getPersonId();
-        } else {
-            $data->{'person_id'} = null;
+            $data['person_id'] = $object->getPersonId();
         }
 
         return $data;

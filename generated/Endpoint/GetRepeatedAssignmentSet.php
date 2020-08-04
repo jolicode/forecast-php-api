@@ -46,6 +46,11 @@ class GetRepeatedAssignmentSet extends \Jane\OpenApiRuntime\Client\BaseEndpoint 
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['BearerAuth', 'AccountAuth'];
+    }
+
     /**
      * {@inheritdoc}
      *

@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,24 +38,21 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Error();
-        if (property_exists($data, 'code') && null !== $data->{'code'}) {
-            $object->setCode($data->{'code'});
-        } elseif (property_exists($data, 'code') && null === $data->{'code'}) {
+        if (\array_key_exists('code', $data) && null !== $data['code']) {
+            $object->setCode($data['code']);
+        } elseif (\array_key_exists('code', $data) && null === $data['code']) {
             $object->setCode(null);
         }
-        if (property_exists($data, 'message') && null !== $data->{'message'}) {
-            $object->setMessage($data->{'message'});
-        } elseif (property_exists($data, 'message') && null === $data->{'message'}) {
+        if (\array_key_exists('message', $data) && null !== $data['message']) {
+            $object->setMessage($data['message']);
+        } elseif (\array_key_exists('message', $data) && null === $data['message']) {
             $object->setMessage(null);
         }
 
@@ -62,16 +61,12 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getCode()) {
-            $data->{'code'} = $object->getCode();
-        } else {
-            $data->{'code'} = null;
+            $data['code'] = $object->getCode();
         }
         if (null !== $object->getMessage()) {
-            $data->{'message'} = $object->getMessage();
-        } else {
-            $data->{'message'} = null;
+            $data['message'] = $object->getMessage();
         }
 
         return $data;

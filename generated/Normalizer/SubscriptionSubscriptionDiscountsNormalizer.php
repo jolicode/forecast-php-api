@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,24 +38,21 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionDiscounts();
-        if (property_exists($data, 'monthly_percentage') && null !== $data->{'monthly_percentage'}) {
-            $object->setMonthlyPercentage($data->{'monthly_percentage'});
-        } elseif (property_exists($data, 'monthly_percentage') && null === $data->{'monthly_percentage'}) {
+        if (\array_key_exists('monthly_percentage', $data) && null !== $data['monthly_percentage']) {
+            $object->setMonthlyPercentage($data['monthly_percentage']);
+        } elseif (\array_key_exists('monthly_percentage', $data) && null === $data['monthly_percentage']) {
             $object->setMonthlyPercentage(null);
         }
-        if (property_exists($data, 'yearly_percentage') && null !== $data->{'yearly_percentage'}) {
-            $object->setYearlyPercentage($data->{'yearly_percentage'});
-        } elseif (property_exists($data, 'yearly_percentage') && null === $data->{'yearly_percentage'}) {
+        if (\array_key_exists('yearly_percentage', $data) && null !== $data['yearly_percentage']) {
+            $object->setYearlyPercentage($data['yearly_percentage']);
+        } elseif (\array_key_exists('yearly_percentage', $data) && null === $data['yearly_percentage']) {
             $object->setYearlyPercentage(null);
         }
 
@@ -62,16 +61,12 @@ class SubscriptionSubscriptionDiscountsNormalizer implements DenormalizerInterfa
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getMonthlyPercentage()) {
-            $data->{'monthly_percentage'} = $object->getMonthlyPercentage();
-        } else {
-            $data->{'monthly_percentage'} = null;
+            $data['monthly_percentage'] = $object->getMonthlyPercentage();
         }
         if (null !== $object->getYearlyPercentage()) {
-            $data->{'yearly_percentage'} = $object->getYearlyPercentage();
-        } else {
-            $data->{'yearly_percentage'} = null;
+            $data['yearly_percentage'] = $object->getYearlyPercentage();
         }
 
         return $data;

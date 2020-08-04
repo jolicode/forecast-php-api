@@ -11,6 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -23,6 +24,7 @@ class PersonWorkingDaysNormalizer implements DenormalizerInterface, NormalizerIn
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -36,49 +38,46 @@ class PersonWorkingDaysNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\PersonWorkingDays();
-        if (property_exists($data, 'monday') && null !== $data->{'monday'}) {
-            $object->setMonday($data->{'monday'});
-        } elseif (property_exists($data, 'monday') && null === $data->{'monday'}) {
+        if (\array_key_exists('monday', $data) && null !== $data['monday']) {
+            $object->setMonday($data['monday']);
+        } elseif (\array_key_exists('monday', $data) && null === $data['monday']) {
             $object->setMonday(null);
         }
-        if (property_exists($data, 'tuesday') && null !== $data->{'tuesday'}) {
-            $object->setTuesday($data->{'tuesday'});
-        } elseif (property_exists($data, 'tuesday') && null === $data->{'tuesday'}) {
+        if (\array_key_exists('tuesday', $data) && null !== $data['tuesday']) {
+            $object->setTuesday($data['tuesday']);
+        } elseif (\array_key_exists('tuesday', $data) && null === $data['tuesday']) {
             $object->setTuesday(null);
         }
-        if (property_exists($data, 'wednesday') && null !== $data->{'wednesday'}) {
-            $object->setWednesday($data->{'wednesday'});
-        } elseif (property_exists($data, 'wednesday') && null === $data->{'wednesday'}) {
+        if (\array_key_exists('wednesday', $data) && null !== $data['wednesday']) {
+            $object->setWednesday($data['wednesday']);
+        } elseif (\array_key_exists('wednesday', $data) && null === $data['wednesday']) {
             $object->setWednesday(null);
         }
-        if (property_exists($data, 'thursday') && null !== $data->{'thursday'}) {
-            $object->setThursday($data->{'thursday'});
-        } elseif (property_exists($data, 'thursday') && null === $data->{'thursday'}) {
+        if (\array_key_exists('thursday', $data) && null !== $data['thursday']) {
+            $object->setThursday($data['thursday']);
+        } elseif (\array_key_exists('thursday', $data) && null === $data['thursday']) {
             $object->setThursday(null);
         }
-        if (property_exists($data, 'friday') && null !== $data->{'friday'}) {
-            $object->setFriday($data->{'friday'});
-        } elseif (property_exists($data, 'friday') && null === $data->{'friday'}) {
+        if (\array_key_exists('friday', $data) && null !== $data['friday']) {
+            $object->setFriday($data['friday']);
+        } elseif (\array_key_exists('friday', $data) && null === $data['friday']) {
             $object->setFriday(null);
         }
-        if (property_exists($data, 'saturday') && null !== $data->{'saturday'}) {
-            $object->setSaturday($data->{'saturday'});
-        } elseif (property_exists($data, 'saturday') && null === $data->{'saturday'}) {
+        if (\array_key_exists('saturday', $data) && null !== $data['saturday']) {
+            $object->setSaturday($data['saturday']);
+        } elseif (\array_key_exists('saturday', $data) && null === $data['saturday']) {
             $object->setSaturday(null);
         }
-        if (property_exists($data, 'sunday') && null !== $data->{'sunday'}) {
-            $object->setSunday($data->{'sunday'});
-        } elseif (property_exists($data, 'sunday') && null === $data->{'sunday'}) {
+        if (\array_key_exists('sunday', $data) && null !== $data['sunday']) {
+            $object->setSunday($data['sunday']);
+        } elseif (\array_key_exists('sunday', $data) && null === $data['sunday']) {
             $object->setSunday(null);
         }
 
@@ -87,41 +86,27 @@ class PersonWorkingDaysNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function normalize($object, $format = null, array $context = [])
     {
-        $data = new \stdClass();
+        $data = [];
         if (null !== $object->getMonday()) {
-            $data->{'monday'} = $object->getMonday();
-        } else {
-            $data->{'monday'} = null;
+            $data['monday'] = $object->getMonday();
         }
         if (null !== $object->getTuesday()) {
-            $data->{'tuesday'} = $object->getTuesday();
-        } else {
-            $data->{'tuesday'} = null;
+            $data['tuesday'] = $object->getTuesday();
         }
         if (null !== $object->getWednesday()) {
-            $data->{'wednesday'} = $object->getWednesday();
-        } else {
-            $data->{'wednesday'} = null;
+            $data['wednesday'] = $object->getWednesday();
         }
         if (null !== $object->getThursday()) {
-            $data->{'thursday'} = $object->getThursday();
-        } else {
-            $data->{'thursday'} = null;
+            $data['thursday'] = $object->getThursday();
         }
         if (null !== $object->getFriday()) {
-            $data->{'friday'} = $object->getFriday();
-        } else {
-            $data->{'friday'} = null;
+            $data['friday'] = $object->getFriday();
         }
         if (null !== $object->getSaturday()) {
-            $data->{'saturday'} = $object->getSaturday();
-        } else {
-            $data->{'saturday'} = null;
+            $data['saturday'] = $object->getSaturday();
         }
         if (null !== $object->getSunday()) {
-            $data->{'sunday'} = $object->getSunday();
-        } else {
-            $data->{'sunday'} = null;
+            $data['sunday'] = $object->getSunday();
         }
 
         return $data;
