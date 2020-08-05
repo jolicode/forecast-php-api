@@ -1,69 +1,52 @@
 <?php
 
-/*
- * This file is part of JoliCode's Forecast PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\JsonSchemaRuntime\Reference;
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-
+    use CheckArray;
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\Subscription' === $type;
+        return $type === 'JoliCode\\Forecast\\Api\\Model\\Subscription';
     }
-
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Subscription' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\Subscription';
     }
-
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Subscription();
-        if (property_exists($data, 'subscription') && null !== $data->{'subscription'}) {
-            $object->setSubscription($this->denormalizer->denormalize($data->{'subscription'}, 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription', 'json', $context));
-        } elseif (property_exists($data, 'subscription') && null === $data->{'subscription'}) {
+        if (\array_key_exists('subscription', $data) && $data['subscription'] !== null) {
+            $object->setSubscription($this->denormalizer->denormalize($data['subscription'], 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription', 'json', $context));
+        }
+        elseif (\array_key_exists('subscription', $data) && $data['subscription'] === null) {
             $object->setSubscription(null);
         }
-
         return $object;
     }
-
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = new \stdClass();
+        $data = array();
         if (null !== $object->getSubscription()) {
-            $data->{'subscription'} = $this->normalizer->normalize($object->getSubscription(), 'json', $context);
-        } else {
-            $data->{'subscription'} = null;
+            $data['subscription'] = $this->normalizer->normalize($object->getSubscription(), 'json', $context);
         }
-
         return $data;
     }
 }

@@ -1,99 +1,79 @@
 <?php
 
-/*
- * This file is part of JoliCode's Forecast PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\JsonSchemaRuntime\Reference;
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class SubscriptionSubscriptionCardNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-
+    use CheckArray;
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionCard' === $type;
+        return $type === 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionCard';
     }
-
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionCard' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionCard';
     }
-
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscriptionCard();
-        if (property_exists($data, 'brand') && null !== $data->{'brand'}) {
-            $object->setBrand($data->{'brand'});
-        } elseif (property_exists($data, 'brand') && null === $data->{'brand'}) {
+        if (\array_key_exists('brand', $data) && $data['brand'] !== null) {
+            $object->setBrand($data['brand']);
+        }
+        elseif (\array_key_exists('brand', $data) && $data['brand'] === null) {
             $object->setBrand(null);
         }
-        if (property_exists($data, 'last_four') && null !== $data->{'last_four'}) {
-            $object->setLastFour($data->{'last_four'});
-        } elseif (property_exists($data, 'last_four') && null === $data->{'last_four'}) {
+        if (\array_key_exists('last_four', $data) && $data['last_four'] !== null) {
+            $object->setLastFour($data['last_four']);
+        }
+        elseif (\array_key_exists('last_four', $data) && $data['last_four'] === null) {
             $object->setLastFour(null);
         }
-        if (property_exists($data, 'expiry_month') && null !== $data->{'expiry_month'}) {
-            $object->setExpiryMonth($data->{'expiry_month'});
-        } elseif (property_exists($data, 'expiry_month') && null === $data->{'expiry_month'}) {
+        if (\array_key_exists('expiry_month', $data) && $data['expiry_month'] !== null) {
+            $object->setExpiryMonth($data['expiry_month']);
+        }
+        elseif (\array_key_exists('expiry_month', $data) && $data['expiry_month'] === null) {
             $object->setExpiryMonth(null);
         }
-        if (property_exists($data, 'expiry_year') && null !== $data->{'expiry_year'}) {
-            $object->setExpiryYear($data->{'expiry_year'});
-        } elseif (property_exists($data, 'expiry_year') && null === $data->{'expiry_year'}) {
+        if (\array_key_exists('expiry_year', $data) && $data['expiry_year'] !== null) {
+            $object->setExpiryYear($data['expiry_year']);
+        }
+        elseif (\array_key_exists('expiry_year', $data) && $data['expiry_year'] === null) {
             $object->setExpiryYear(null);
         }
-
         return $object;
     }
-
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = new \stdClass();
+        $data = array();
         if (null !== $object->getBrand()) {
-            $data->{'brand'} = $object->getBrand();
-        } else {
-            $data->{'brand'} = null;
+            $data['brand'] = $object->getBrand();
         }
         if (null !== $object->getLastFour()) {
-            $data->{'last_four'} = $object->getLastFour();
-        } else {
-            $data->{'last_four'} = null;
+            $data['last_four'] = $object->getLastFour();
         }
         if (null !== $object->getExpiryMonth()) {
-            $data->{'expiry_month'} = $object->getExpiryMonth();
-        } else {
-            $data->{'expiry_month'} = null;
+            $data['expiry_month'] = $object->getExpiryMonth();
         }
         if (null !== $object->getExpiryYear()) {
-            $data->{'expiry_year'} = $object->getExpiryYear();
-        } else {
-            $data->{'expiry_year'} = null;
+            $data['expiry_year'] = $object->getExpiryYear();
         }
-
         return $data;
     }
 }

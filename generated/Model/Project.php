@@ -1,254 +1,358 @@
 <?php
 
-/*
- * This file is part of JoliCode's Forecast PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Forecast\Api\Model;
 
 class Project
 {
     /**
+     * 
+     *
      * @var bool|null
      */
     protected $archived;
     /**
+     * 
+     *
      * @var int|null
      */
     protected $clientId;
     /**
+     * 
+     *
      * @var string|null
      */
     protected $code;
     /**
+     * 
+     *
      * @var string|null
      */
     protected $color;
     /**
+     * 
+     *
      * @var \DateTime|null
      */
     protected $endDate;
     /**
+     * 
+     *
      * @var int|null
      */
     protected $harvestId;
     /**
+     * 
+     *
      * @var int|null
      */
     protected $id;
     /**
+     * 
+     *
      * @var string|null
      */
     protected $name;
     /**
-     * literature.
+     * literature
      *
      * @var string|null
      */
     protected $notes;
     /**
+     * 
+     *
      * @var \DateTime|null
      */
     protected $startDate;
     /**
+     * 
+     *
      * @var string[]|null
      */
     protected $tags;
     /**
-     * date when the Project was last updated.
+     * date when the Project was last updated
      *
      * @var \DateTime|null
      */
     protected $updatedAt;
     /**
-     * id of the user who last updated this Project.
+     * id of the user who last updated this Project
      *
      * @var int|null
      */
     protected $updatedById;
-
-    public function getArchived(): ?bool
+    /**
+     * 
+     *
+     * @return bool|null
+     */
+    public function getArchived() : ?bool
     {
         return $this->archived;
     }
-
-    public function setArchived(?bool $archived): self
+    /**
+     * 
+     *
+     * @param bool|null $archived
+     *
+     * @return self
+     */
+    public function setArchived(?bool $archived) : self
     {
         $this->archived = $archived;
-
         return $this;
     }
-
-    public function getClientId(): ?int
+    /**
+     * 
+     *
+     * @return int|null
+     */
+    public function getClientId() : ?int
     {
         return $this->clientId;
     }
-
-    public function setClientId(?int $clientId): self
+    /**
+     * 
+     *
+     * @param int|null $clientId
+     *
+     * @return self
+     */
+    public function setClientId(?int $clientId) : self
     {
         $this->clientId = $clientId;
-
         return $this;
     }
-
-    public function getCode(): ?string
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getCode() : ?string
     {
         return $this->code;
     }
-
-    public function setCode(?string $code): self
+    /**
+     * 
+     *
+     * @param string|null $code
+     *
+     * @return self
+     */
+    public function setCode(?string $code) : self
     {
         $this->code = $code;
-
         return $this;
     }
-
-    public function getColor(): ?string
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getColor() : ?string
     {
         return $this->color;
     }
-
-    public function setColor(?string $color): self
+    /**
+     * 
+     *
+     * @param string|null $color
+     *
+     * @return self
+     */
+    public function setColor(?string $color) : self
     {
         $this->color = $color;
-
         return $this;
     }
-
-    public function getEndDate(): ?\DateTime
+    /**
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getEndDate() : ?\DateTime
     {
         return $this->endDate;
     }
-
-    public function setEndDate(?\DateTime $endDate): self
+    /**
+     * 
+     *
+     * @param \DateTime|null $endDate
+     *
+     * @return self
+     */
+    public function setEndDate(?\DateTime $endDate) : self
     {
         $this->endDate = $endDate;
-
         return $this;
     }
-
-    public function getHarvestId(): ?int
+    /**
+     * 
+     *
+     * @return int|null
+     */
+    public function getHarvestId() : ?int
     {
         return $this->harvestId;
     }
-
-    public function setHarvestId(?int $harvestId): self
+    /**
+     * 
+     *
+     * @param int|null $harvestId
+     *
+     * @return self
+     */
+    public function setHarvestId(?int $harvestId) : self
     {
         $this->harvestId = $harvestId;
-
         return $this;
     }
-
-    public function getId(): ?int
+    /**
+     * 
+     *
+     * @return int|null
+     */
+    public function getId() : ?int
     {
         return $this->id;
     }
-
-    public function setId(?int $id): self
+    /**
+     * 
+     *
+     * @param int|null $id
+     *
+     * @return self
+     */
+    public function setId(?int $id) : self
     {
         $this->id = $id;
-
         return $this;
     }
-
-    public function getName(): ?string
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getName() : ?string
     {
         return $this->name;
     }
-
-    public function setName(?string $name): self
+    /**
+     * 
+     *
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName(?string $name) : self
     {
         $this->name = $name;
-
         return $this;
     }
-
     /**
-     * literature.
+     * literature
+     *
+     * @return string|null
      */
-    public function getNotes(): ?string
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
-
     /**
-     * literature.
+     * literature
+     *
+     * @param string|null $notes
+     *
+     * @return self
      */
-    public function setNotes(?string $notes): self
+    public function setNotes(?string $notes) : self
     {
         $this->notes = $notes;
-
         return $this;
     }
-
-    public function getStartDate(): ?\DateTime
+    /**
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getStartDate() : ?\DateTime
     {
         return $this->startDate;
     }
-
-    public function setStartDate(?\DateTime $startDate): self
+    /**
+     * 
+     *
+     * @param \DateTime|null $startDate
+     *
+     * @return self
+     */
+    public function setStartDate(?\DateTime $startDate) : self
     {
         $this->startDate = $startDate;
-
         return $this;
     }
-
     /**
+     * 
+     *
      * @return string[]|null
      */
-    public function getTags(): ?array
+    public function getTags() : ?array
     {
         return $this->tags;
     }
-
     /**
+     * 
+     *
      * @param string[]|null $tags
+     *
+     * @return self
      */
-    public function setTags(?array $tags): self
+    public function setTags(?array $tags) : self
     {
         $this->tags = $tags;
-
         return $this;
     }
-
     /**
-     * date when the Project was last updated.
+     * date when the Project was last updated
+     *
+     * @return \DateTime|null
      */
-    public function getUpdatedAt(): ?\DateTime
+    public function getUpdatedAt() : ?\DateTime
     {
         return $this->updatedAt;
     }
-
     /**
-     * date when the Project was last updated.
+     * date when the Project was last updated
+     *
+     * @param \DateTime|null $updatedAt
+     *
+     * @return self
      */
-    public function setUpdatedAt(?\DateTime $updatedAt): self
+    public function setUpdatedAt(?\DateTime $updatedAt) : self
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
-
     /**
-     * id of the user who last updated this Project.
+     * id of the user who last updated this Project
+     *
+     * @return int|null
      */
-    public function getUpdatedById(): ?int
+    public function getUpdatedById() : ?int
     {
         return $this->updatedById;
     }
-
     /**
-     * id of the user who last updated this Project.
+     * id of the user who last updated this Project
+     *
+     * @param int|null $updatedById
+     *
+     * @return self
      */
-    public function setUpdatedById(?int $updatedById): self
+    public function setUpdatedById(?int $updatedById) : self
     {
         $this->updatedById = $updatedById;
-
         return $this;
     }
 }

@@ -1,125 +1,104 @@
 <?php
 
-/*
- * This file is part of JoliCode's Forecast PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\JsonSchemaRuntime\Reference;
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class RoleNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-
+    use CheckArray;
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\Role' === $type;
+        return $type === 'JoliCode\\Forecast\\Api\\Model\\Role';
     }
-
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Role' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\Role';
     }
-
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
-        if (!\is_object($data)) {
-            return null;
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['document-origin']);
-        }
-        if (isset($data->{'$recursiveRef'})) {
-            return new Reference($data->{'$recursiveRef'}, $context['document-origin']);
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Role();
-        if (property_exists($data, 'id') && null !== $data->{'id'}) {
-            $object->setId($data->{'id'});
-        } elseif (property_exists($data, 'id') && null === $data->{'id'}) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
+            $object->setId($data['id']);
+        }
+        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (property_exists($data, 'name') && null !== $data->{'name'}) {
-            $object->setName($data->{'name'});
-        } elseif (property_exists($data, 'name') && null === $data->{'name'}) {
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+            $object->setName($data['name']);
+        }
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
             $object->setName(null);
         }
-        if (property_exists($data, 'placeholder_ids') && null !== $data->{'placeholder_ids'}) {
-            $values = [];
-            foreach ($data->{'placeholder_ids'} as $value) {
+        if (\array_key_exists('placeholder_ids', $data) && $data['placeholder_ids'] !== null) {
+            $values = array();
+            foreach ($data['placeholder_ids'] as $value) {
                 $values[] = $value;
             }
             $object->setPlaceholderIds($values);
-        } elseif (property_exists($data, 'placeholder_ids') && null === $data->{'placeholder_ids'}) {
+        }
+        elseif (\array_key_exists('placeholder_ids', $data) && $data['placeholder_ids'] === null) {
             $object->setPlaceholderIds(null);
         }
-        if (property_exists($data, 'person_ids') && null !== $data->{'person_ids'}) {
-            $values_1 = [];
-            foreach ($data->{'person_ids'} as $value_1) {
+        if (\array_key_exists('person_ids', $data) && $data['person_ids'] !== null) {
+            $values_1 = array();
+            foreach ($data['person_ids'] as $value_1) {
                 $values_1[] = $value_1;
             }
             $object->setPersonIds($values_1);
-        } elseif (property_exists($data, 'person_ids') && null === $data->{'person_ids'}) {
+        }
+        elseif (\array_key_exists('person_ids', $data) && $data['person_ids'] === null) {
             $object->setPersonIds(null);
         }
-        if (property_exists($data, 'harvest_role_id') && null !== $data->{'harvest_role_id'}) {
-            $object->setHarvestRoleId($data->{'harvest_role_id'});
-        } elseif (property_exists($data, 'harvest_role_id') && null === $data->{'harvest_role_id'}) {
+        if (\array_key_exists('harvest_role_id', $data) && $data['harvest_role_id'] !== null) {
+            $object->setHarvestRoleId($data['harvest_role_id']);
+        }
+        elseif (\array_key_exists('harvest_role_id', $data) && $data['harvest_role_id'] === null) {
             $object->setHarvestRoleId(null);
         }
-
         return $object;
     }
-
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = new \stdClass();
+        $data = array();
         if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        } else {
-            $data->{'id'} = null;
+            $data['id'] = $object->getId();
         }
         if (null !== $object->getName()) {
-            $data->{'name'} = $object->getName();
-        } else {
-            $data->{'name'} = null;
+            $data['name'] = $object->getName();
         }
         if (null !== $object->getPlaceholderIds()) {
-            $values = [];
+            $values = array();
             foreach ($object->getPlaceholderIds() as $value) {
                 $values[] = $value;
             }
-            $data->{'placeholder_ids'} = $values;
-        } else {
-            $data->{'placeholder_ids'} = null;
+            $data['placeholder_ids'] = $values;
         }
         if (null !== $object->getPersonIds()) {
-            $values_1 = [];
+            $values_1 = array();
             foreach ($object->getPersonIds() as $value_1) {
                 $values_1[] = $value_1;
             }
-            $data->{'person_ids'} = $values_1;
-        } else {
-            $data->{'person_ids'} = null;
+            $data['person_ids'] = $values_1;
         }
         if (null !== $object->getHarvestRoleId()) {
-            $data->{'harvest_role_id'} = $object->getHarvestRoleId();
-        } else {
-            $data->{'harvest_role_id'} = null;
+            $data['harvest_role_id'] = $object->getHarvestRoleId();
         }
-
         return $data;
     }
 }

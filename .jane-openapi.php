@@ -6,6 +6,5 @@ return [
     'directory' => __DIR__ . '/generated',
     'reference' => true,
     'strict' => false,
-    'client' => 'psr18',
     'date-format' => 'Y-m-d\TH:i:s.v\Z',
 ];
