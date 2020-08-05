@@ -1,30 +1,42 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Reference;
 use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
+
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type === 'JoliCode\\Forecast\\Api\\Model\\UserConnection';
+        return 'JoliCode\\Forecast\\Api\\Model\\UserConnection' === $type;
     }
+
     public function supportsNormalization($data, $format = null)
     {
-        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\UserConnection';
+        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\UserConnection' === \get_class($data);
     }
-    public function denormalize($data, $class, $format = null, array $context = array())
+
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -33,29 +45,28 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserConnection();
-        if (\array_key_exists('id', $data) && $data['id'] !== null) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
             $object->setId($data['id']);
-        }
-        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (\array_key_exists('last_active_at', $data) && $data['last_active_at'] !== null) {
+        if (\array_key_exists('last_active_at', $data) && null !== $data['last_active_at']) {
             $object->setLastActiveAt(\DateTime::createFromFormat('Y-m-d\\TH:i:s.v\\Z', $data['last_active_at']));
-        }
-        elseif (\array_key_exists('last_active_at', $data) && $data['last_active_at'] === null) {
+        } elseif (\array_key_exists('last_active_at', $data) && null === $data['last_active_at']) {
             $object->setLastActiveAt(null);
         }
-        if (\array_key_exists('person_id', $data) && $data['person_id'] !== null) {
+        if (\array_key_exists('person_id', $data) && null !== $data['person_id']) {
             $object->setPersonId($data['person_id']);
-        }
-        elseif (\array_key_exists('person_id', $data) && $data['person_id'] === null) {
+        } elseif (\array_key_exists('person_id', $data) && null === $data['person_id']) {
             $object->setPersonId(null);
         }
+
         return $object;
     }
-    public function normalize($object, $format = null, array $context = array())
+
+    public function normalize($object, $format = null, array $context = [])
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -65,6 +76,7 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
         if (null !== $object->getPersonId()) {
             $data['person_id'] = $object->getPersonId();
         }
+
         return $data;
     }
 }

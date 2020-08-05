@@ -1,61 +1,48 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Model;
 
 class Error
 {
     /**
-     * 
-     *
      * @var int|null
      */
     protected $code;
     /**
-     * 
-     *
      * @var string|null
      */
     protected $message;
-    /**
-     * 
-     *
-     * @return int|null
-     */
-    public function getCode() : ?int
+
+    public function getCode(): ?int
     {
         return $this->code;
     }
-    /**
-     * 
-     *
-     * @param int|null $code
-     *
-     * @return self
-     */
-    public function setCode(?int $code) : self
+
+    public function setCode(?int $code): self
     {
         $this->code = $code;
+
         return $this;
     }
-    /**
-     * 
-     *
-     * @return string|null
-     */
-    public function getMessage() : ?string
+
+    public function getMessage(): ?string
     {
         return $this->message;
     }
-    /**
-     * 
-     *
-     * @param string|null $message
-     *
-     * @return self
-     */
-    public function setMessage(?string $message) : self
+
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 }
