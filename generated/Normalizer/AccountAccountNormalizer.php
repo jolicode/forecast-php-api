@@ -1,30 +1,42 @@
 <?php
 
+/*
+ * This file is part of JoliCode's Forecast PHP API project.
+ *
+ * (c) JoliCode <coucou@jolicode.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Reference;
 use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
+
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type === 'JoliCode\\Forecast\\Api\\Model\\AccountAccount';
+        return 'JoliCode\\Forecast\\Api\\Model\\AccountAccount' === $type;
     }
+
     public function supportsNormalization($data, $format = null)
     {
-        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\AccountAccount';
+        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\AccountAccount' === \get_class($data);
     }
-    public function denormalize($data, $class, $format = null, array $context = array())
+
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -33,63 +45,57 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\AccountAccount();
-        if (\array_key_exists('id', $data) && $data['id'] !== null) {
+        if (\array_key_exists('id', $data) && null !== $data['id']) {
             $object->setId($data['id']);
-        }
-        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
+        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
             $object->setId(null);
         }
-        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+        if (\array_key_exists('name', $data) && null !== $data['name']) {
             $object->setName($data['name']);
-        }
-        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+        } elseif (\array_key_exists('name', $data) && null === $data['name']) {
             $object->setName(null);
         }
-        if (\array_key_exists('weekly_capacity', $data) && $data['weekly_capacity'] !== null) {
+        if (\array_key_exists('weekly_capacity', $data) && null !== $data['weekly_capacity']) {
             $object->setWeeklyCapacity($data['weekly_capacity']);
-        }
-        elseif (\array_key_exists('weekly_capacity', $data) && $data['weekly_capacity'] === null) {
+        } elseif (\array_key_exists('weekly_capacity', $data) && null === $data['weekly_capacity']) {
             $object->setWeeklyCapacity(null);
         }
-        if (\array_key_exists('color_labels', $data) && $data['color_labels'] !== null) {
-            $values = array();
+        if (\array_key_exists('color_labels', $data) && null !== $data['color_labels']) {
+            $values = [];
             foreach ($data['color_labels'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\AccountAccountColorLabelsItem', 'json', $context);
             }
             $object->setColorLabels($values);
-        }
-        elseif (\array_key_exists('color_labels', $data) && $data['color_labels'] === null) {
+        } elseif (\array_key_exists('color_labels', $data) && null === $data['color_labels']) {
             $object->setColorLabels(null);
         }
-        if (\array_key_exists('harvest_subdomain', $data) && $data['harvest_subdomain'] !== null) {
+        if (\array_key_exists('harvest_subdomain', $data) && null !== $data['harvest_subdomain']) {
             $object->setHarvestSubdomain($data['harvest_subdomain']);
-        }
-        elseif (\array_key_exists('harvest_subdomain', $data) && $data['harvest_subdomain'] === null) {
+        } elseif (\array_key_exists('harvest_subdomain', $data) && null === $data['harvest_subdomain']) {
             $object->setHarvestSubdomain(null);
         }
-        if (\array_key_exists('harvest_name', $data) && $data['harvest_name'] !== null) {
+        if (\array_key_exists('harvest_name', $data) && null !== $data['harvest_name']) {
             $object->setHarvestName($data['harvest_name']);
-        }
-        elseif (\array_key_exists('harvest_name', $data) && $data['harvest_name'] === null) {
+        } elseif (\array_key_exists('harvest_name', $data) && null === $data['harvest_name']) {
             $object->setHarvestName(null);
         }
-        if (\array_key_exists('weekends_enabled', $data) && $data['weekends_enabled'] !== null) {
+        if (\array_key_exists('weekends_enabled', $data) && null !== $data['weekends_enabled']) {
             $object->setWeekendsEnabled($data['weekends_enabled']);
-        }
-        elseif (\array_key_exists('weekends_enabled', $data) && $data['weekends_enabled'] === null) {
+        } elseif (\array_key_exists('weekends_enabled', $data) && null === $data['weekends_enabled']) {
             $object->setWeekendsEnabled(null);
         }
-        if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
+        if (\array_key_exists('created_at', $data) && null !== $data['created_at']) {
             $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:s.v\\Z', $data['created_at']));
-        }
-        elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
+        } elseif (\array_key_exists('created_at', $data) && null === $data['created_at']) {
             $object->setCreatedAt(null);
         }
+
         return $object;
     }
-    public function normalize($object, $format = null, array $context = array())
+
+    public function normalize($object, $format = null, array $context = [])
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -100,7 +106,7 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
             $data['weekly_capacity'] = $object->getWeeklyCapacity();
         }
         if (null !== $object->getColorLabels()) {
-            $values = array();
+            $values = [];
             foreach ($object->getColorLabels() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
@@ -118,6 +124,7 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
         if (null !== $object->getCreatedAt()) {
             $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:s.v\\Z');
         }
+
         return $data;
     }
 }
