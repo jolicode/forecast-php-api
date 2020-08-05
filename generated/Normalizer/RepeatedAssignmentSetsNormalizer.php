@@ -1,42 +1,30 @@
 <?php
 
-/*
- * This file is part of JoliCode's Forecast PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSets' === $type;
+        return $type === 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSets';
     }
-
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSets' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSets';
     }
-
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,30 +33,28 @@ class RepeatedAssignmentSetsNormalizer implements DenormalizerInterface, Normali
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSets();
-        if (\array_key_exists('repeated_assignment_sets', $data) && null !== $data['repeated_assignment_sets']) {
-            $values = [];
+        if (\array_key_exists('repeated_assignment_sets', $data) && $data['repeated_assignment_sets'] !== null) {
+            $values = array();
             foreach ($data['repeated_assignment_sets'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet', 'json', $context);
             }
             $object->setRepeatedAssignmentSets($values);
-        } elseif (\array_key_exists('repeated_assignment_sets', $data) && null === $data['repeated_assignment_sets']) {
+        }
+        elseif (\array_key_exists('repeated_assignment_sets', $data) && $data['repeated_assignment_sets'] === null) {
             $object->setRepeatedAssignmentSets(null);
         }
-
         return $object;
     }
-
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         if (null !== $object->getRepeatedAssignmentSets()) {
-            $values = [];
+            $values = array();
             foreach ($object->getRepeatedAssignmentSets() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data['repeated_assignment_sets'] = $values;
         }
-
         return $data;
     }
 }

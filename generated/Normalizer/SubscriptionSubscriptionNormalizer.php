@@ -1,42 +1,30 @@
 <?php
 
-/*
- * This file is part of JoliCode's Forecast PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class SubscriptionSubscriptionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription' === $type;
+        return $type === 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription';
     }
-
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription';
     }
-
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,83 +33,95 @@ class SubscriptionSubscriptionNormalizer implements DenormalizerInterface, Norma
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\SubscriptionSubscription();
-        if (\array_key_exists('id', $data) && null !== $data['id']) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
-        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
+        }
+        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (\array_key_exists('next_billing_date', $data) && null !== $data['next_billing_date']) {
+        if (\array_key_exists('next_billing_date', $data) && $data['next_billing_date'] !== null) {
             $object->setNextBillingDate(\DateTime::createFromFormat('Y-m-d', $data['next_billing_date'])->setTime(0, 0, 0));
-        } elseif (\array_key_exists('next_billing_date', $data) && null === $data['next_billing_date']) {
+        }
+        elseif (\array_key_exists('next_billing_date', $data) && $data['next_billing_date'] === null) {
             $object->setNextBillingDate(null);
         }
-        if (\array_key_exists('days_until_next_billing_date', $data) && null !== $data['days_until_next_billing_date']) {
+        if (\array_key_exists('days_until_next_billing_date', $data) && $data['days_until_next_billing_date'] !== null) {
             $object->setDaysUntilNextBillingDate($data['days_until_next_billing_date']);
-        } elseif (\array_key_exists('days_until_next_billing_date', $data) && null === $data['days_until_next_billing_date']) {
+        }
+        elseif (\array_key_exists('days_until_next_billing_date', $data) && $data['days_until_next_billing_date'] === null) {
             $object->setDaysUntilNextBillingDate(null);
         }
-        if (\array_key_exists('amount', $data) && null !== $data['amount']) {
+        if (\array_key_exists('amount', $data) && $data['amount'] !== null) {
             $object->setAmount($data['amount']);
-        } elseif (\array_key_exists('amount', $data) && null === $data['amount']) {
+        }
+        elseif (\array_key_exists('amount', $data) && $data['amount'] === null) {
             $object->setAmount(null);
         }
-        if (\array_key_exists('amount_per_person', $data) && null !== $data['amount_per_person']) {
+        if (\array_key_exists('amount_per_person', $data) && $data['amount_per_person'] !== null) {
             $object->setAmountPerPerson($data['amount_per_person']);
-        } elseif (\array_key_exists('amount_per_person', $data) && null === $data['amount_per_person']) {
+        }
+        elseif (\array_key_exists('amount_per_person', $data) && $data['amount_per_person'] === null) {
             $object->setAmountPerPerson(null);
         }
-        if (\array_key_exists('receipt_recipient', $data) && null !== $data['receipt_recipient']) {
+        if (\array_key_exists('receipt_recipient', $data) && $data['receipt_recipient'] !== null) {
             $object->setReceiptRecipient($data['receipt_recipient']);
-        } elseif (\array_key_exists('receipt_recipient', $data) && null === $data['receipt_recipient']) {
+        }
+        elseif (\array_key_exists('receipt_recipient', $data) && $data['receipt_recipient'] === null) {
             $object->setReceiptRecipient(null);
         }
-        if (\array_key_exists('status', $data) && null !== $data['status']) {
+        if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
-        } elseif (\array_key_exists('status', $data) && null === $data['status']) {
+        }
+        elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
-        if (\array_key_exists('purchased_people', $data) && null !== $data['purchased_people']) {
+        if (\array_key_exists('purchased_people', $data) && $data['purchased_people'] !== null) {
             $object->setPurchasedPeople($data['purchased_people']);
-        } elseif (\array_key_exists('purchased_people', $data) && null === $data['purchased_people']) {
+        }
+        elseif (\array_key_exists('purchased_people', $data) && $data['purchased_people'] === null) {
             $object->setPurchasedPeople(null);
         }
-        if (\array_key_exists('interval', $data) && null !== $data['interval']) {
+        if (\array_key_exists('interval', $data) && $data['interval'] !== null) {
             $object->setInterval($data['interval']);
-        } elseif (\array_key_exists('interval', $data) && null === $data['interval']) {
+        }
+        elseif (\array_key_exists('interval', $data) && $data['interval'] === null) {
             $object->setInterval(null);
         }
-        if (\array_key_exists('paid_by_invoice', $data) && null !== $data['paid_by_invoice']) {
+        if (\array_key_exists('paid_by_invoice', $data) && $data['paid_by_invoice'] !== null) {
             $object->setPaidByInvoice($data['paid_by_invoice']);
-        } elseif (\array_key_exists('paid_by_invoice', $data) && null === $data['paid_by_invoice']) {
+        }
+        elseif (\array_key_exists('paid_by_invoice', $data) && $data['paid_by_invoice'] === null) {
             $object->setPaidByInvoice(null);
         }
-        if (\array_key_exists('discounts', $data) && null !== $data['discounts']) {
+        if (\array_key_exists('discounts', $data) && $data['discounts'] !== null) {
             $object->setDiscounts($this->denormalizer->denormalize($data['discounts'], 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionDiscounts', 'json', $context));
-        } elseif (\array_key_exists('discounts', $data) && null === $data['discounts']) {
+        }
+        elseif (\array_key_exists('discounts', $data) && $data['discounts'] === null) {
             $object->setDiscounts(null);
         }
-        if (\array_key_exists('placeholder_limit', $data) && null !== $data['placeholder_limit']) {
+        if (\array_key_exists('placeholder_limit', $data) && $data['placeholder_limit'] !== null) {
             $object->setPlaceholderLimit($data['placeholder_limit']);
-        } elseif (\array_key_exists('placeholder_limit', $data) && null === $data['placeholder_limit']) {
+        }
+        elseif (\array_key_exists('placeholder_limit', $data) && $data['placeholder_limit'] === null) {
             $object->setPlaceholderLimit(null);
         }
-        if (\array_key_exists('card', $data) && null !== $data['card']) {
+        if (\array_key_exists('card', $data) && $data['card'] !== null) {
             $object->setCard($this->denormalizer->denormalize($data['card'], 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionCard', 'json', $context));
-        } elseif (\array_key_exists('card', $data) && null === $data['card']) {
+        }
+        elseif (\array_key_exists('card', $data) && $data['card'] === null) {
             $object->setCard(null);
         }
-        if (\array_key_exists('address', $data) && null !== $data['address']) {
+        if (\array_key_exists('address', $data) && $data['address'] !== null) {
             $object->setAddress($this->denormalizer->denormalize($data['address'], 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscriptionAddress', 'json', $context));
-        } elseif (\array_key_exists('address', $data) && null === $data['address']) {
+        }
+        elseif (\array_key_exists('address', $data) && $data['address'] === null) {
             $object->setAddress(null);
         }
-
         return $object;
     }
-
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         if (null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -164,7 +164,6 @@ class SubscriptionSubscriptionNormalizer implements DenormalizerInterface, Norma
         if (null !== $object->getAddress()) {
             $data['address'] = $this->normalizer->normalize($object->getAddress(), 'json', $context);
         }
-
         return $data;
     }
 }
