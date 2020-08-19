@@ -72,7 +72,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      *     @var int $repeated_assignment_set Only return assignments for this repeated assignment set
      *     @var string $start_date Only return assignments after this date
      *     @var string $end_date Only return assignments before this date
-     *     @var string $state Only return assignments before this date
+     *     @var string $state Pass "active" to only return assignments for currently active users
      * }
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -133,13 +133,20 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
     }
 
     /**
+     * Returns a list of people.
+     *
+     * @param array $queryParameters {
+     *
+     *     @var string $state Pass "active" to only return active users. Any other value also returns archived users.
+     * }
+     *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return \JoliCode\Forecast\Api\Model\People|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
      */
-    public function listPeople(string $fetch = self::FETCH_OBJECT)
+    public function listPeople(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListPeople(), $fetch);
+        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListPeople($queryParameters), $fetch);
     }
 
     /**
