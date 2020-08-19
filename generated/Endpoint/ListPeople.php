@@ -15,6 +15,19 @@ class ListPeople extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
 {
     use \Jane\OpenApiRuntime\Client\Psr7EndpointTrait;
 
+    /**
+     * Returns a list of people.
+     *
+     * @param array $queryParameters {
+     *
+     *     @var string $state Pass "active" to only return active users. Any other value also returns archived users.
+     * }
+     */
+    public function __construct(array $queryParameters = [])
+    {
+        $this->queryParameters = $queryParameters;
+    }
+
     public function getMethod(): string
     {
         return 'GET';
@@ -38,6 +51,17 @@ class ListPeople extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
     public function getAuthenticationScopes(): array
     {
         return ['BearerAuth', 'AccountAuth'];
+    }
+
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(['state']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->setAllowedTypes('state', ['string']);
+
+        return $optionsResolver;
     }
 
     /**

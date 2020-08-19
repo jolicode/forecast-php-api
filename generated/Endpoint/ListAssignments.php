@@ -25,7 +25,7 @@ class ListAssignments extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
      *     @var int $repeated_assignment_set Only return assignments for this repeated assignment set
      *     @var string $start_date Only return assignments after this date
      *     @var string $end_date Only return assignments before this date
-     *     @var string $state Only return assignments before this date
+     *     @var string $state Pass "active" to only return assignments for currently active users
      * }
      */
     public function __construct(array $queryParameters = [])
