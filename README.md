@@ -47,6 +47,8 @@ dump($clients);
 dump($assignments);
 ```
 
+In the above example, the `$client` variable is an instance of the [Client](./generated/Client.php) class, which you can browse through to learn more about the API features.
+
 Want more example or documentation? See the [documentation](doc/index.md).
 
 ## Troubleshoot

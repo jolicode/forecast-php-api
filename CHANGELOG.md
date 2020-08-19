@@ -1,5 +1,10 @@
 # Changes between versions
 
+## 4.0.0 (2020-08-19)
+
+ * fixed the `/assignments` "`state`" query parameter description
+ * added the "`state`" query parameter on the `/people` endpoint
+
 ## 3.0.0 (2020-08-06)
 
 * Upgrade to Jane 6.0
