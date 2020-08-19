@@ -161,7 +161,7 @@ paths:
             type: string
             format: date
         - name: state
-          description: Only return assignments before this date
+          description: Pass "active" to only return assignments for currently active users
           required: false
           in: query
           schema:
@@ -314,6 +314,16 @@ paths:
       security:
         - BearerAuth: []
           AccountAuth: []
+      parameters:
+        - name: state
+          description: Pass "active" to only return active users. Any other value also returns archived users.
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - active
+              - archived
       responses:
         "200":
           description: People list
