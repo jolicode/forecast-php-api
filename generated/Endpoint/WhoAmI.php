@@ -11,9 +11,9 @@
 
 namespace JoliCode\Forecast\Api\Endpoint;
 
-class WhoAmI extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7Endpoint
+class WhoAmI extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Endpoint
 {
-    use \Jane\OpenApiRuntime\Client\Psr7EndpointTrait;
+    use \Jane\OpenApiRuntime\Client\EndpointTrait;
 
     public function getMethod(): string
     {

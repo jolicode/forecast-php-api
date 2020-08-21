@@ -11,9 +11,9 @@
 
 namespace JoliCode\Forecast\Api\Endpoint;
 
-class GetRepeatedAssignmentSet extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7Endpoint
+class GetRepeatedAssignmentSet extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Endpoint
 {
-    use \Jane\OpenApiRuntime\Client\Psr7EndpointTrait;
+    use \Jane\OpenApiRuntime\Client\EndpointTrait;
     protected $id;
 
     /**
