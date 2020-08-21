@@ -1,5 +1,11 @@
 # Changes between versions
 
+## 4.1.0 (2020-08-21)
+
+ * upgrade to `janephp/open-api` 6.1
+ * regenerated SDK
+ * fixed the `jane-php/open-api-runtime` dependency to a minor version, in order to avoid situations where a jane-php update would break things
+
 ## 4.0.0 (2020-08-19)
 
  * fixed the `/assignments` "`state`" query parameter description
