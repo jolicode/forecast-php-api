@@ -11,7 +11,7 @@
 
 namespace JoliCode\Forecast\Api;
 
-class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
+class Client extends \Jane\OpenApiRuntime\Client\Client
 {
     /**
      * Returns an account details.
@@ -23,7 +23,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getAccount(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetAccount($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetAccount($id), $fetch);
     }
 
     /**
@@ -36,7 +36,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function countScheduledHours(string $date, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\CountScheduledHours($date), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CountScheduledHours($date), $fetch);
     }
 
     /**
@@ -46,7 +46,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getRemainingBudgetedHours(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetRemainingBudgetedHours(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetRemainingBudgetedHours(), $fetch);
     }
 
     /**
@@ -59,7 +59,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getAssignment(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetAssignment($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetAssignment($id), $fetch);
     }
 
     /**
@@ -81,7 +81,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listAssignments(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListAssignments($queryParameters), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListAssignments($queryParameters), $fetch);
     }
 
     /**
@@ -93,7 +93,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function createAssignment(\JoliCode\Forecast\Api\Model\AssignmentsPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\CreateAssignment($requestBody), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreateAssignment($requestBody), $fetch);
     }
 
     /**
@@ -106,7 +106,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getClient(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetClient($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetClient($id), $fetch);
     }
 
     /**
@@ -116,7 +116,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listClients(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListClients(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListClients(), $fetch);
     }
 
     /**
@@ -129,7 +129,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getPerson(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetPerson($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetPerson($id), $fetch);
     }
 
     /**
@@ -146,7 +146,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listPeople(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListPeople($queryParameters), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListPeople($queryParameters), $fetch);
     }
 
     /**
@@ -159,7 +159,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getPlaceholder(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetPlaceholder($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetPlaceholder($id), $fetch);
     }
 
     /**
@@ -169,7 +169,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listPlaceholders(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListPlaceholders(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListPlaceholders(), $fetch);
     }
 
     /**
@@ -182,7 +182,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getProject(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetProject($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetProject($id), $fetch);
     }
 
     /**
@@ -192,7 +192,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listProjects(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListProjects(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListProjects(), $fetch);
     }
 
     /**
@@ -205,7 +205,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getRole(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetRole($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetRole($id), $fetch);
     }
 
     /**
@@ -215,7 +215,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listRoles(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListRoles(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListRoles(), $fetch);
     }
 
     /**
@@ -228,7 +228,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function getRepeatedAssignmentSet(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\GetRepeatedAssignmentSet($id), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetRepeatedAssignmentSet($id), $fetch);
     }
 
     /**
@@ -238,7 +238,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function listRepeatedAssignmentSets(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\ListRepeatedAssignmentSets(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListRepeatedAssignmentSets(), $fetch);
     }
 
     /**
@@ -248,7 +248,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      */
     public function whoAmI(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \JoliCode\Forecast\Api\Endpoint\WhoAmI(), $fetch);
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\WhoAmI(), $fetch);
     }
 
     public static function create($httpClient = null, array $additionalPlugins = [])
