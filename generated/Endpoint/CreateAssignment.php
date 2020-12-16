@@ -59,7 +59,7 @@ class CreateAssignment extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (200 === $status && false !== mb_strpos($contentType, 'application/json')) {
+        if (201 === $status && false !== mb_strpos($contentType, 'application/json')) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\AssignmentsPostResponse200', 'json');
         }
         if (false !== mb_strpos($contentType, 'application/json')) {
