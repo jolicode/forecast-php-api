@@ -202,7 +202,7 @@ paths:
         description: an objectif representing the assignment to create
         required: true
       responses:
-        "200":
+        "201":
           description: Assignment details
           content:
             "application/json":
