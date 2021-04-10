@@ -11,7 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class AssignmentsPostResponse200
+class AssignmentsPostResponse201
 {
     /**
      * @var Assignment|null

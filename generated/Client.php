@@ -89,7 +89,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \JoliCode\Forecast\Api\Model\AssignmentsPostResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     * @return \JoliCode\Forecast\Api\Model\AssignmentsPostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
      */
     public function createAssignment(\JoliCode\Forecast\Api\Model\AssignmentsPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
     {

@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AssignmentsPostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class AssignmentsPostResponse201Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -28,12 +28,12 @@ class AssignmentsPostResponse200Normalizer implements DenormalizerInterface, Nor
 
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\AssignmentsPostResponse200' === $type;
+        return 'JoliCode\\Forecast\\Api\\Model\\AssignmentsPostResponse201' === $type;
     }
 
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\AssignmentsPostResponse200' === \get_class($data);
+        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\AssignmentsPostResponse201' === \get_class($data);
     }
 
     public function denormalize($data, $class, $format = null, array $context = [])
@@ -44,7 +44,7 @@ class AssignmentsPostResponse200Normalizer implements DenormalizerInterface, Nor
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \JoliCode\Forecast\Api\Model\AssignmentsPostResponse200();
+        $object = new \JoliCode\Forecast\Api\Model\AssignmentsPostResponse201();
         if (\array_key_exists('assignment', $data) && null !== $data['assignment']) {
             $object->setAssignment($this->denormalizer->denormalize($data['assignment'], 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context));
         } elseif (\array_key_exists('assignment', $data) && null === $data['assignment']) {
