@@ -8,9 +8,11 @@ If you are uncomfortable with OpenAPI, please read
 
 ## Regenerate the SDk
 
-When the versioned spec has been updated, we need to run Jane to regenerate the
-SDK:
+When the OpenAPI specification has been updated, please regenerate the SDK code:
 
 ```bash
-vendor/bin/jane-openapi generate -c .jane-openapi.php
+make update_sdk
 ```
+
+Please do not change manually code in the `generated` folder, as this would
+be overwritten during the next SDK generation.
