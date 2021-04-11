@@ -11,9 +11,9 @@
 
 namespace JoliCode\Forecast\Api\Endpoint;
 
-class ListProjects extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Endpoint
+class ListProjects extends \JoliCode\Forecast\Api\Runtime\Client\BaseEndpoint implements \JoliCode\Forecast\Api\Runtime\Client\Endpoint
 {
-    use \Jane\OpenApiRuntime\Client\EndpointTrait;
+    use \JoliCode\Forecast\Api\Runtime\Client\EndpointTrait;
 
     public function getMethod(): string
     {
@@ -47,7 +47,7 @@ class ListProjects extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (200 === $status && false !== mb_strpos($contentType, 'application/json')) {
+        if ((null === $contentType) === false && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\Projects', 'json');
         }
         if (false !== mb_strpos($contentType, 'application/json')) {

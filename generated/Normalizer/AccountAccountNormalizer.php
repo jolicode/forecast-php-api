@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\AccountAccount();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('id', $data) && null !== $data['id']) {
             $object->setId($data['id']);
         } elseif (\array_key_exists('id', $data) && null === $data['id']) {
@@ -96,12 +99,8 @@ class AccountAccountNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getId()) {
-            $data['id'] = $object->getId();
-        }
-        if (null !== $object->getName()) {
-            $data['name'] = $object->getName();
-        }
+        $data['id'] = $object->getId();
+        $data['name'] = $object->getName();
         if (null !== $object->getWeeklyCapacity()) {
             $data['weekly_capacity'] = $object->getWeeklyCapacity();
         }

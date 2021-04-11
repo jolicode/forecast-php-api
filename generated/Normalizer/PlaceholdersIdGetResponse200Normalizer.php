@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PlaceholdersIdGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class PlaceholdersIdGetResponse200Normalizer implements DenormalizerInterface, N
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\PlaceholdersIdGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('placeholder', $data) && null !== $data['placeholder']) {
             $object->setPlaceholder($this->denormalizer->denormalize($data['placeholder'], 'JoliCode\\Forecast\\Api\\Model\\Placeholder', 'json', $context));
         } elseif (\array_key_exists('placeholder', $data) && null === $data['placeholder']) {
@@ -57,9 +60,7 @@ class PlaceholdersIdGetResponse200Normalizer implements DenormalizerInterface, N
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getPlaceholder()) {
-            $data['placeholder'] = $this->normalizer->normalize($object->getPlaceholder(), 'json', $context);
-        }
+        $data['placeholder'] = $this->normalizer->normalize($object->getPlaceholder(), 'json', $context);
 
         return $data;
     }

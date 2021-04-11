@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\UserConnection();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('id', $data) && null !== $data['id']) {
             $object->setId($data['id']);
         } elseif (\array_key_exists('id', $data) && null === $data['id']) {
@@ -70,12 +73,8 @@ class UserConnectionNormalizer implements DenormalizerInterface, NormalizerInter
         if (null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
-        if (null !== $object->getLastActiveAt()) {
-            $data['last_active_at'] = $object->getLastActiveAt()->format('Y-m-d\\TH:i:s.v\\Z');
-        }
-        if (null !== $object->getPersonId()) {
-            $data['person_id'] = $object->getPersonId();
-        }
+        $data['last_active_at'] = $object->getLastActiveAt()->format('Y-m-d\\TH:i:s.v\\Z');
+        $data['person_id'] = $object->getPersonId();
 
         return $data;
     }

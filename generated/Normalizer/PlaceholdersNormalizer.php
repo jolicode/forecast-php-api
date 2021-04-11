@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Placeholders();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('placeholders', $data) && null !== $data['placeholders']) {
             $values = [];
             foreach ($data['placeholders'] as $value) {
@@ -61,13 +64,11 @@ class PlaceholdersNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getPlaceholders()) {
-            $values = [];
-            foreach ($object->getPlaceholders() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['placeholders'] = $values;
+        $values = [];
+        foreach ($object->getPlaceholders() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
+        $data['placeholders'] = $values;
 
         return $data;
     }

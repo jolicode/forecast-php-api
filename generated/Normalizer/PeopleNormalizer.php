@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PeopleNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class PeopleNormalizer implements DenormalizerInterface, NormalizerInterface, De
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\People();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('people', $data) && null !== $data['people']) {
             $values = [];
             foreach ($data['people'] as $value) {
@@ -61,13 +64,11 @@ class PeopleNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getPeople()) {
-            $values = [];
-            foreach ($object->getPeople() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['people'] = $values;
+        $values = [];
+        foreach ($object->getPeople() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
+        $data['people'] = $values;
 
         return $data;
     }

@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\PeopleIdGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('person', $data) && null !== $data['person']) {
             $object->setPerson($this->denormalizer->denormalize($data['person'], 'JoliCode\\Forecast\\Api\\Model\\Person', 'json', $context));
         } elseif (\array_key_exists('person', $data) && null === $data['person']) {
@@ -57,9 +60,7 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getPerson()) {
-            $data['person'] = $this->normalizer->normalize($object->getPerson(), 'json', $context);
-        }
+        $data['person'] = $this->normalizer->normalize($object->getPerson(), 'json', $context);
 
         return $data;
     }

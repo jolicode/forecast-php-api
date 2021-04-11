@@ -11,9 +11,9 @@
 
 namespace JoliCode\Forecast\Api\Endpoint;
 
-class ListPeople extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Endpoint
+class ListPeople extends \JoliCode\Forecast\Api\Runtime\Client\BaseEndpoint implements \JoliCode\Forecast\Api\Runtime\Client\Endpoint
 {
-    use \Jane\OpenApiRuntime\Client\EndpointTrait;
+    use \JoliCode\Forecast\Api\Runtime\Client\EndpointTrait;
 
     /**
      * Returns a list of people.
@@ -71,7 +71,7 @@ class ListPeople extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (200 === $status && false !== mb_strpos($contentType, 'application/json')) {
+        if ((null === $contentType) === false && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\People', 'json');
         }
         if (false !== mb_strpos($contentType, 'application/json')) {

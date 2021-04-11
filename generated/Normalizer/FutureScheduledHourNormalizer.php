@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class FutureScheduledHourNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\FutureScheduledHour();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('allocation', $data) && null !== $data['allocation']) {
             $object->setAllocation($data['allocation']);
         } elseif (\array_key_exists('allocation', $data) && null === $data['allocation']) {
@@ -72,18 +75,14 @@ class FutureScheduledHourNormalizer implements DenormalizerInterface, Normalizer
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getAllocation()) {
-            $data['allocation'] = $object->getAllocation();
-        }
+        $data['allocation'] = $object->getAllocation();
         if (null !== $object->getPersonId()) {
             $data['person_id'] = $object->getPersonId();
         }
         if (null !== $object->getPlaceholderId()) {
             $data['placeholder_id'] = $object->getPlaceholderId();
         }
-        if (null !== $object->getProjectId()) {
-            $data['project_id'] = $object->getProjectId();
-        }
+        $data['project_id'] = $object->getProjectId();
 
         return $data;
     }

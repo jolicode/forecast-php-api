@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSet();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('assignment_ids', $data) && null !== $data['assignment_ids']) {
             $values = [];
             foreach ($data['assignment_ids'] as $value) {
@@ -76,22 +79,16 @@ class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, Normaliz
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getAssignmentIds()) {
-            $values = [];
-            foreach ($object->getAssignmentIds() as $value) {
-                $values[] = $value;
-            }
-            $data['assignment_ids'] = $values;
+        $values = [];
+        foreach ($object->getAssignmentIds() as $value) {
+            $values[] = $value;
         }
-        if (null !== $object->getFirstStartDate()) {
-            $data['first_start_date'] = $object->getFirstStartDate()->format('Y-m-d');
-        }
+        $data['assignment_ids'] = $values;
+        $data['first_start_date'] = $object->getFirstStartDate()->format('Y-m-d');
         if (null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
-        if (null !== $object->getLastEndDate()) {
-            $data['last_end_date'] = $object->getLastEndDate()->format('Y-m-d');
-        }
+        $data['last_end_date'] = $object->getLastEndDate()->format('Y-m-d');
 
         return $data;
     }
