@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AssignmentNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class AssignmentNormalizer implements DenormalizerInterface, NormalizerInterface
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Assignment();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('active_on_days_off', $data) && null !== $data['active_on_days_off']) {
             $object->setActiveOnDaysOff($data['active_on_days_off']);
         } elseif (\array_key_exists('active_on_days_off', $data) && null === $data['active_on_days_off']) {
@@ -115,12 +118,8 @@ class AssignmentNormalizer implements DenormalizerInterface, NormalizerInterface
         if (null !== $object->getActiveOnDaysOff()) {
             $data['active_on_days_off'] = $object->getActiveOnDaysOff();
         }
-        if (null !== $object->getAllocation()) {
-            $data['allocation'] = $object->getAllocation();
-        }
-        if (null !== $object->getEndDate()) {
-            $data['end_date'] = $object->getEndDate()->format('Y-m-d');
-        }
+        $data['allocation'] = $object->getAllocation();
+        $data['end_date'] = $object->getEndDate()->format('Y-m-d');
         if (null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -139,9 +138,7 @@ class AssignmentNormalizer implements DenormalizerInterface, NormalizerInterface
         if (null !== $object->getRepeatedAssignmentSetId()) {
             $data['repeated_assignment_set_id'] = $object->getRepeatedAssignmentSetId();
         }
-        if (null !== $object->getStartDate()) {
-            $data['start_date'] = $object->getStartDate()->format('Y-m-d');
-        }
+        $data['start_date'] = $object->getStartDate()->format('Y-m-d');
         if (null !== $object->getUpdatedAt()) {
             $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:s.v\\Z');
         }

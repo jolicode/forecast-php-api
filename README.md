@@ -2,8 +2,10 @@
 
 [Harvest Forecast](https://www.getharvest.com/forecast) is a planification tool built by Harvest.
 
-This PHP SDK is generated automatically with [JanePHP](https://github.com/janephp/janephp) using a [Forecast OpenAPI specification](Resources/forecast-openapi.yaml).
+This PHP SDK is generated automatically with [JanePHP](https://github.com/janephp/janephp) using a [Forecast OpenAPI specification](Resources/forecast-openapi.yaml). It means that:
 
+ * the code in the `generated` dorectory is not hand-written but *generated*;
+ * if the API changes and you need to fix an API call, please edit the OpenAPI specification file, then [regenerate the SDK](doc/updating-sdk.md).
 
 ## Installation
 
@@ -51,11 +53,61 @@ In the above example, the `$client` variable is an instance of the [Client](./ge
 
 Want more example or documentation? See the [documentation](doc/index.md).
 
+## Available operations
+
+Instead of the `listClients()` method above, you can use all of these methods:
+
+ * Account:
+   * `getAccount()`
+ * Aggregations:
+   * `countScheduledHours()`
+   * `getRemainingBudgetedHours()`
+ * Assignments:
+   * `createAssignment()`
+   * `deleteAssignment()`
+   * `editAssignment()`
+   * `getAssignment()`
+   * `listAssignments()`
+ * Clients:
+   * `getClient()`
+   * `listClients()`
+ * Persons:
+   * `createPerson()`
+   * `deletePerson()`
+   * `editPerson()`
+   * `getPerson()`
+   * `listPeople()`
+ * Placeholders:
+   * `createPlaceholder()`
+   * `deletePlaceholder()`
+   * `editPlaceholder()`
+   * `getPlaceholder()`
+   * `listPlaceholders()`
+ * Profile:
+   * `whoAmI()`
+ * Projects:
+   * `getProject()`
+   * `listProjects()`
+ * RepeatedAssignmentSets:
+   * `createRepeatedAssignmentSet()`
+   * `deleteRepeatedAssignmentSet()`
+   * `editRepeatedAssignmentSet()`
+   * `getRepeatedAssignmentSet()`
+   * `listRepeatedAssignmentSets()`
+ * Roles:
+   * `createRole()`
+   * `deleteRole()`
+   * `editRole()`
+   * `getRole()`
+   * `listRoles()`
+
 ## Troubleshoot
 
 Got some problems using this library? Need a missing feature?
 Do not hesitate to [open an issue](https://github.com/jolicode/forecast-php-api/issues)
 and share it with us.
+
+If some operation is missing or not working correctly, please follow the steps to [regenerate the SDK](doc/updating-sdk.md).
 
 ## Further documentation
 

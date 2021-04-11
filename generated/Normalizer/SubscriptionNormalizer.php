@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterfa
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\Subscription();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('subscription', $data) && null !== $data['subscription']) {
             $object->setSubscription($this->denormalizer->denormalize($data['subscription'], 'JoliCode\\Forecast\\Api\\Model\\SubscriptionSubscription', 'json', $context));
         } elseif (\array_key_exists('subscription', $data) && null === $data['subscription']) {
@@ -57,9 +60,7 @@ class SubscriptionNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getSubscription()) {
-            $data['subscription'] = $this->normalizer->normalize($object->getSubscription(), 'json', $context);
-        }
+        $data['subscription'] = $this->normalizer->normalize($object->getSubscription(), 'json', $context);
 
         return $data;
     }

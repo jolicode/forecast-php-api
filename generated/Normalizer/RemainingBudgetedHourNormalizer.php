@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class RemainingBudgetedHourNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('budget_by', $data) && null !== $data['budget_by']) {
             $object->setBudgetBy($data['budget_by']);
         } elseif (\array_key_exists('budget_by', $data) && null === $data['budget_by']) {
@@ -83,12 +86,8 @@ class RemainingBudgetedHourNormalizer implements DenormalizerInterface, Normaliz
         if (null !== $object->getBudgetIsMonthly()) {
             $data['budget_is_monthly'] = $object->getBudgetIsMonthly();
         }
-        if (null !== $object->getHours()) {
-            $data['hours'] = $object->getHours();
-        }
-        if (null !== $object->getProjectId()) {
-            $data['project_id'] = $object->getProjectId();
-        }
+        $data['hours'] = $object->getHours();
+        $data['project_id'] = $object->getProjectId();
         if (null !== $object->getResponseCode()) {
             $data['response_code'] = $object->getResponseCode();
         }

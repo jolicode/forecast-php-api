@@ -11,7 +11,7 @@
 
 namespace JoliCode\Forecast\Api;
 
-class Client extends \Jane\OpenApiRuntime\Client\Client
+class Client extends \JoliCode\Forecast\Api\Runtime\Client\Client
 {
     /**
      * Returns an account details.
@@ -50,6 +50,19 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Delete an Assignment.
+     *
+     * @param int    $id    Id of the Assignment
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function deleteAssignment(int $id, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\DeleteAssignment($id), $fetch);
+    }
+
+    /**
      * Returns an Assignment.
      *
      * @param int    $id    Id of the Assignment
@@ -60,6 +73,20 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     public function getAssignment(int $id, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetAssignment($id), $fetch);
+    }
+
+    /**
+     * Edits an assignment.
+     *
+     * @param int                                                    $id          Id of the Assignment
+     * @param \JoliCode\Forecast\Api\Model\AssignmentsIdPutBody|null $requestBody
+     * @param string                                                 $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\AssignmentsIdPutResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function editAssignment(int $id, ?Model\AssignmentsIdPutBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\EditAssignment($id, $requestBody), $fetch);
     }
 
     /**
@@ -87,11 +114,12 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     /**
      * Creates an assignment.
      *
-     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param \JoliCode\Forecast\Api\Model\AssignmentsPostBody|null $requestBody
+     * @param string                                                $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return \JoliCode\Forecast\Api\Model\AssignmentsPostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
      */
-    public function createAssignment(\JoliCode\Forecast\Api\Model\AssignmentsPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function createAssignment(?Model\AssignmentsPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreateAssignment($requestBody), $fetch);
     }
@@ -120,6 +148,19 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Delete a Person.
+     *
+     * @param int    $id    Id of the Person
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function deletePerson(int $id, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\DeletePerson($id), $fetch);
+    }
+
+    /**
      * Returns a Person.
      *
      * @param int    $id    Id of the Person
@@ -130,6 +171,20 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     public function getPerson(int $id, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetPerson($id), $fetch);
+    }
+
+    /**
+     * Edits a Person.
+     *
+     * @param int                                               $id          Id of the Person
+     * @param \JoliCode\Forecast\Api\Model\PeopleIdPutBody|null $requestBody
+     * @param string                                            $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\PeopleIdPutResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function editPerson(int $id, ?Model\PeopleIdPutBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\EditPerson($id, $requestBody), $fetch);
     }
 
     /**
@@ -150,6 +205,32 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Create a Person.
+     *
+     * @param \JoliCode\Forecast\Api\Model\PeoplePostBody|null $requestBody
+     * @param string                                           $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\PeoplePostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function createPerson(?Model\PeoplePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreatePerson($requestBody), $fetch);
+    }
+
+    /**
+     * Delete a Placeholder.
+     *
+     * @param int    $id    Id of the Placeholder
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function deletePlaceholder(int $id, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\DeletePlaceholder($id), $fetch);
+    }
+
+    /**
      * Returns a Placeholder.
      *
      * @param int    $id    Id of the Placeholder
@@ -163,6 +244,20 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Edit a Placeholder.
+     *
+     * @param int                                               $id          Id of the Placeholder
+     * @param \JoliCode\Forecast\Api\Model\PlaceholderBody|null $requestBody
+     * @param string                                            $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\PlaceholdersIdPutResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function editPlaceholder(int $id, ?Model\PlaceholderBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\EditPlaceholder($id, $requestBody), $fetch);
+    }
+
+    /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return \JoliCode\Forecast\Api\Model\Placeholders|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
@@ -170,6 +265,19 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     public function listPlaceholders(string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListPlaceholders(), $fetch);
+    }
+
+    /**
+     * Create a Placeholder.
+     *
+     * @param \JoliCode\Forecast\Api\Model\PlaceholderBody|null $requestBody
+     * @param string                                            $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\PlaceholdersPostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function createPlaceholder(?Model\PlaceholderBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreatePlaceholder($requestBody), $fetch);
     }
 
     /**
@@ -196,6 +304,19 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Delete a Role.
+     *
+     * @param int    $id    Id of the Role
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function deleteRole(int $id, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\DeleteRole($id), $fetch);
+    }
+
+    /**
      * Returns a Role.
      *
      * @param int    $id    Id of the Role
@@ -209,6 +330,20 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Edit a Role.
+     *
+     * @param int                                        $id          Id of the Role
+     * @param \JoliCode\Forecast\Api\Model\RoleBody|null $requestBody
+     * @param string                                     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\RolesIdPutResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function editRole(int $id, ?Model\RoleBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\EditRole($id, $requestBody), $fetch);
+    }
+
+    /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return \JoliCode\Forecast\Api\Model\Roles|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
@@ -219,7 +354,33 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
-     * Returns a RepeatedAssignmentSet.
+     * Creates a Role.
+     *
+     * @param \JoliCode\Forecast\Api\Model\RoleBody|null $requestBody
+     * @param string                                     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\RolesPostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function createRole(?Model\RoleBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreateRole($requestBody), $fetch);
+    }
+
+    /**
+     * Delete a Repeated Assignment Set.
+     *
+     * @param int    $id    Id of the Repeated Assignment Set
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function deleteRepeatedAssignmentSet(int $id, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\DeleteRepeatedAssignmentSet($id), $fetch);
+    }
+
+    /**
+     * Returns a Repeated Assignment Set.
      *
      * @param int    $id    Id of the RepeatedAssignmentSet
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -232,6 +393,20 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     }
 
     /**
+     * Modifies a Repeated Assignment Set.
+     *
+     * @param int                                                         $id          Id of the RepeatedAssignmentSet
+     * @param \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetBody|null $requestBody
+     * @param string                                                      $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetsIdPutResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function editRepeatedAssignmentSet(int $id, ?Model\RepeatedAssignmentSetBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\EditRepeatedAssignmentSet($id, $requestBody), $fetch);
+    }
+
+    /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return \JoliCode\Forecast\Api\Model\RepeatedAssignmentSets|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
@@ -239,6 +414,19 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     public function listRepeatedAssignmentSets(string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListRepeatedAssignmentSets(), $fetch);
+    }
+
+    /**
+     * Creates a Repeated Assignment Set.
+     *
+     * @param \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetBody|null $requestBody
+     * @param string                                                      $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\RepeatedAssignmentSetsPostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function createRepeatedAssignmentSet(?Model\RepeatedAssignmentSetBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreateRepeatedAssignmentSet($requestBody), $fetch);
     }
 
     /**

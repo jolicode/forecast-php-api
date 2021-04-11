@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AssignmentsIdGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class AssignmentsIdGetResponse200Normalizer implements DenormalizerInterface, No
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\AssignmentsIdGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('assignment', $data) && null !== $data['assignment']) {
             $object->setAssignment($this->denormalizer->denormalize($data['assignment'], 'JoliCode\\Forecast\\Api\\Model\\Assignment', 'json', $context));
         } elseif (\array_key_exists('assignment', $data) && null === $data['assignment']) {
@@ -57,9 +60,7 @@ class AssignmentsIdGetResponse200Normalizer implements DenormalizerInterface, No
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getAssignment()) {
-            $data['assignment'] = $this->normalizer->normalize($object->getAssignment(), 'json', $context);
-        }
+        $data['assignment'] = $this->normalizer->normalize($object->getAssignment(), 'json', $context);
 
         return $data;
     }

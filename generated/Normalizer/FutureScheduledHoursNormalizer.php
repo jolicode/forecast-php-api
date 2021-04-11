@@ -11,8 +11,8 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
 use Jane\JsonSchemaRuntime\Reference;
+use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class FutureScheduledHoursNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
+    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -45,6 +45,9 @@ class FutureScheduledHoursNormalizer implements DenormalizerInterface, Normalize
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \JoliCode\Forecast\Api\Model\FutureScheduledHours();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
         if (\array_key_exists('future_scheduled_hours', $data) && null !== $data['future_scheduled_hours']) {
             $values = [];
             foreach ($data['future_scheduled_hours'] as $value) {
@@ -61,13 +64,11 @@ class FutureScheduledHoursNormalizer implements DenormalizerInterface, Normalize
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getFutureScheduledHours()) {
-            $values = [];
-            foreach ($object->getFutureScheduledHours() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['future_scheduled_hours'] = $values;
+        $values = [];
+        foreach ($object->getFutureScheduledHours() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
+        $data['future_scheduled_hours'] = $values;
 
         return $data;
     }
