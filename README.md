@@ -1,5 +1,7 @@
 # A PHP Client for Harvest Forecast API
 
+![test workflow](https://github.com/jolicode/forecast-php-api/actions/workflows/tests.yml/badge.svg)
+
 [Harvest Forecast](https://www.getharvest.com/forecast) is a planification tool built by Harvest.
 
 This PHP SDK is generated automatically with [JanePHP](https://github.com/janephp/janephp) using a [Forecast OpenAPI specification](Resources/forecast-openapi.yaml). It means that:

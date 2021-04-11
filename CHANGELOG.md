@@ -1,5 +1,10 @@
 # Changes between versions
 
+## 5.0.0 (2020-04-11)
+
+ * upgrade to `janephp/open-api` 6.3
+ * added more endpoints (create / edit / delete for Person, Placeholder, Role, RepeatedAssignmentSet, Assignment)
+
 ## 4.1.0 (2020-08-21)
 
  * upgrade to `janephp/open-api` 6.1
