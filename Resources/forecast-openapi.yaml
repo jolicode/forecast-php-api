@@ -341,6 +341,29 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
   "/people/{id}":
+    delete:
+      summary: Delete a Person
+      operationId: deletePerson
+      description: Delete a Person.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Person
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: The Person was deleted successfully
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
     get:
       summary: Get a Person's details
       operationId: getPerson
@@ -355,6 +378,50 @@ paths:
           in: path
           schema:
             type: integer
+      responses:
+        "200":
+          description: Person details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - person
+                properties:
+                  person:
+                    $ref: "#/components/schemas/Person"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Edit a Person
+      operationId: editPerson
+      description: Edits a Person.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      parameters:
+        - name: id
+          description: Id of the Person
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - person
+              properties:
+                person:
+                  $ref: "#/components/schemas/Person"
+        description: an object representing the Person to edit
+        required: true
       responses:
         "200":
           description: Person details
@@ -398,6 +465,43 @@ paths:
             "application/json":
               schema:
                 $ref: "#/components/schemas/People"
+        default:
+          description: error payload
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a Person
+      operationId: createPerson
+      description: Create a Person.
+      security:
+        - BearerAuth: []
+          AccountAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - person
+              properties:
+                person:
+                  $ref: "#/components/schemas/Person"
+        description: an object representing the Person to create
+        required: true
+      responses:
+        "201":
+          description: Person details
+          content:
+            "application/json":
+              schema:
+                type: object
+                required:
+                  - person
+                properties:
+                  person:
+                    $ref: "#/components/schemas/Person"
         default:
           description: error payload
           content:

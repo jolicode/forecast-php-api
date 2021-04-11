@@ -148,6 +148,19 @@ class Client extends \JoliCode\Forecast\Api\Runtime\Client\Client
     }
 
     /**
+     * Delete a Person.
+     *
+     * @param int    $id    Id of the Person
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function deletePerson(int $id, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\DeletePerson($id), $fetch);
+    }
+
+    /**
      * Returns a Person.
      *
      * @param int    $id    Id of the Person
@@ -158,6 +171,20 @@ class Client extends \JoliCode\Forecast\Api\Runtime\Client\Client
     public function getPerson(int $id, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\GetPerson($id), $fetch);
+    }
+
+    /**
+     * Edits a Person.
+     *
+     * @param int                                               $id          Id of the Person
+     * @param \JoliCode\Forecast\Api\Model\PeopleIdPutBody|null $requestBody
+     * @param string                                            $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\PeopleIdPutResponse200|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function editPerson(int $id, ?Model\PeopleIdPutBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\EditPerson($id, $requestBody), $fetch);
     }
 
     /**
@@ -175,6 +202,19 @@ class Client extends \JoliCode\Forecast\Api\Runtime\Client\Client
     public function listPeople(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListPeople($queryParameters), $fetch);
+    }
+
+    /**
+     * Create a Person.
+     *
+     * @param \JoliCode\Forecast\Api\Model\PeoplePostBody|null $requestBody
+     * @param string                                           $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \JoliCode\Forecast\Api\Model\PeoplePostResponse201|\JoliCode\Forecast\Api\Model\Error|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function createPerson(?Model\PeoplePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\CreatePerson($requestBody), $fetch);
     }
 
     /**
