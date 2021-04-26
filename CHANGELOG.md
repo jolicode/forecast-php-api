@@ -1,6 +1,12 @@
 # Changes between versions
 
-## 5.0.0 (2020-04-11)
+## 5.1.0 (2021-04-26)
+
+ * fixed error model
+ * made the parameters `end_date` and `start_date` required for `listAssignments()`
+ * bypass Forecast's restriction on the assignments selection timeframe (180 days max) - see #15
+
+## 5.0.0 (2021-04-11)
 
  * upgrade to `janephp/open-api` 6.3
  * added more endpoints (create / edit / delete for Person, Placeholder, Role, RepeatedAssignmentSet, Assignment)
