@@ -14,34 +14,24 @@ namespace JoliCode\Forecast\Api\Model;
 class Error
 {
     /**
-     * @var int|null
+     * @var string[]|null
      */
-    protected $code;
+    protected $errors;
+
     /**
-     * @var string|null
+     * @return string[]|null
      */
-    protected $message;
-
-    public function getCode(): ?int
+    public function getErrors(): ?array
     {
-        return $this->code;
+        return $this->errors;
     }
 
-    public function setCode(?int $code): self
+    /**
+     * @param string[]|null $errors
+     */
+    public function setErrors(?array $errors): self
     {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(?string $message): self
-    {
-        $this->message = $message;
+        $this->errors = $errors;
 
         return $this;
     }

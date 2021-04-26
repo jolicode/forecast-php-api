@@ -1642,7 +1642,7 @@ components:
     Error:
       type: object
       properties:
-        code:
-          type: integer
-        message:
-          type: string
+        errors:
+          type: array
+          items:
+            type: string
