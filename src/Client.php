@@ -35,7 +35,7 @@ class Client extends BaseClient
             );
         }
 
-        $assignments = array_unique($assignments, SORT_REGULAR);
+        $assignments = array_unique($assignments, \SORT_REGULAR);
         $assignmentsObject = new Assignments();
         $assignmentsObject->setAssignments($assignments);
 
