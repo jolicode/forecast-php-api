@@ -48,15 +48,14 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('code', $data) && null !== $data['code']) {
-            $object->setCode($data['code']);
-        } elseif (\array_key_exists('code', $data) && null === $data['code']) {
-            $object->setCode(null);
-        }
-        if (\array_key_exists('message', $data) && null !== $data['message']) {
-            $object->setMessage($data['message']);
-        } elseif (\array_key_exists('message', $data) && null === $data['message']) {
-            $object->setMessage(null);
+        if (\array_key_exists('errors', $data) && null !== $data['errors']) {
+            $values = [];
+            foreach ($data['errors'] as $value) {
+                $values[] = $value;
+            }
+            $object->setErrors($values);
+        } elseif (\array_key_exists('errors', $data) && null === $data['errors']) {
+            $object->setErrors(null);
         }
 
         return $object;
@@ -65,11 +64,12 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
-        if (null !== $object->getCode()) {
-            $data['code'] = $object->getCode();
-        }
-        if (null !== $object->getMessage()) {
-            $data['message'] = $object->getMessage();
+        if (null !== $object->getErrors()) {
+            $values = [];
+            foreach ($object->getErrors() as $value) {
+                $values[] = $value;
+            }
+            $data['errors'] = $values;
         }
 
         return $data;
