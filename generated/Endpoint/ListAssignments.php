@@ -62,7 +62,7 @@ class ListAssignments extends \JoliCode\Forecast\Api\Runtime\Client\BaseEndpoint
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['project_id', 'person_id', 'repeated_assignment_set', 'start_date', 'end_date', 'state']);
-        $optionsResolver->setRequired([]);
+        $optionsResolver->setRequired(['start_date', 'end_date']);
         $optionsResolver->setDefaults([]);
         $optionsResolver->setAllowedTypes('project_id', ['int']);
         $optionsResolver->setAllowedTypes('person_id', ['int']);

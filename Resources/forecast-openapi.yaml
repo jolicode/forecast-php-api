@@ -215,14 +215,14 @@ paths:
             type: integer
         - name: start_date
           description: Only return assignments after this date
-          required: false
+          required: true
           in: query
           schema:
             type: string
             format: date
         - name: end_date
           description: Only return assignments before this date
-          required: false
+          required: true
           in: query
           schema:
             type: string
