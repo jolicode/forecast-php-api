@@ -15,7 +15,6 @@ use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Jane\OpenApiRuntime\Client\Plugin\AuthenticationRegistry;
 use JoliCode\Forecast\Api\Authentication\AccountAuthAuthentication;
 use JoliCode\Forecast\Api\Authentication\BearerAuthAuthentication;
-use JoliCode\Forecast\Api\Client;
 use Psr\Http\Client\ClientInterface;
 
 class ClientFactory
