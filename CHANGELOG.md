@@ -1,5 +1,9 @@
 # Changes between versions
 
+## 5.1.1 (2021-06-07)
+
+ * fixed a possible bug when the call to `ListAssignments()` returns an error
+
 ## 5.1.0 (2021-04-26)
 
  * fixed error model
