@@ -1,7 +1,7 @@
 {
     "name": "jolicode/forecast-php-api",
-    "description": "An up to date PHP client for Forecast's API",
-    "keywords": ["forecast", "forecast api", "forecastapp", "client", "openapi", "swagger", "sdk"],
+    "description": "An up to date PHP client for Harvest Forecast's API",
+    "keywords": ["forecast", "forecast api", "forecastapp", "harvest", "harvestapp", "janephp", "client", "openapi", "swagger", "sdk"],
     "type": "library",
     "license": "MIT",
     "authors": [
