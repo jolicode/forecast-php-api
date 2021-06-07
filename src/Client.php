@@ -13,6 +13,7 @@ namespace JoliCode\Forecast;
 
 use JoliCode\Forecast\Api\Client as BaseClient;
 use JoliCode\Forecast\Api\Model\Assignments;
+use JoliCode\Forecast\Api\Model\Error;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class Client extends BaseClient
@@ -29,10 +30,14 @@ class Client extends BaseClient
         foreach ($intervals as $interval) {
             $queryParameters['start_date'] = $interval['start_date']->format('Y-m-d');
             $queryParameters['end_date'] = $interval['end_date']->format('Y-m-d');
-            $assignments = array_merge(
-                $assignments,
-                $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListAssignments($queryParameters), $fetch)->getAssignments()
-            );
+            $response = $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListAssignments($queryParameters), $fetch);
+
+            if (Error::class !== \get_class($response)) {
+                $assignments = array_merge(
+                    $assignments,
+                    $response->getAssignments()
+                );
+            }
         }
 
         $assignments = array_unique($assignments, \SORT_REGULAR);
