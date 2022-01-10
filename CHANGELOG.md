@@ -1,5 +1,9 @@
 # Changes between versions
 
+## 5.2.0 (2022-01-10)
+
+ * upgrade to `janephp/open-api` 7.1
+
 ## 5.1.1 (2021-06-07)
 
  * fixed a possible bug when the call to `ListAssignments()` returns an error
