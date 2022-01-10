@@ -12,7 +12,7 @@
 namespace JoliCode\Forecast;
 
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
-use Jane\OpenApiRuntime\Client\Plugin\AuthenticationRegistry;
+use Jane\Component\OpenApiRuntime\Client\Plugin\AuthenticationRegistry;
 use JoliCode\Forecast\Api\Authentication\AccountAuthAuthentication;
 use JoliCode\Forecast\Api\Authentication\BearerAuthAuthentication;
 use Psr\Http\Client\ClientInterface;

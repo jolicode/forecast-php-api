@@ -11,7 +11,7 @@
 
 namespace JoliCode\Forecast\Api\Normalizer;
 
-use Jane\JsonSchemaRuntime\Reference;
+use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -26,6 +26,13 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
 
+    /**
+     * @param mixed      $data
+     * @param mixed      $type
+     * @param mixed|null $format
+     *
+     * @return bool
+     */
     public function supportsDenormalization($data, $type, $format = null)
     {
         return 'JoliCode\\Forecast\\Api\\Model\\User' === $type;
@@ -36,6 +43,13 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\User' === \get_class($data);
     }
 
+    /**
+     * @param mixed      $data
+     * @param mixed      $class
+     * @param mixed|null $format
+     *
+     * @return mixed
+     */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data['$ref'])) {
@@ -57,6 +71,12 @@ class UserNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         return $object;
     }
 
+    /**
+     * @param mixed      $object
+     * @param mixed|null $format
+     *
+     * @return array|string|int|float|bool|\ArrayObject|null
+     */
     public function normalize($object, $format = null, array $context = [])
     {
         $data = [];
