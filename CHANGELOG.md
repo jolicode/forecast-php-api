@@ -1,5 +1,10 @@
 # Changes between versions
 
+## 6.0.0 (2022-08-03)
+
+ * upgrade to `janephp/open-api` 7.3
+ * drop support for PHP <7.4
+
 ## 5.2.0 (2022-01-10)
 
  * upgrade to `janephp/open-api` 7.1
