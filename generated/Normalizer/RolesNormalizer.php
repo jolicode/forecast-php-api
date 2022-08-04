@@ -26,19 +26,12 @@ class RolesNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
 
-    /**
-     * @param mixed      $data
-     * @param mixed      $type
-     * @param mixed|null $format
-     *
-     * @return bool
-     */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return 'JoliCode\\Forecast\\Api\\Model\\Roles' === $type;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Roles' === \get_class($data);
     }

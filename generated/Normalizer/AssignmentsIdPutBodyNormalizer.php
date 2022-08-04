@@ -26,19 +26,12 @@ class AssignmentsIdPutBodyNormalizer implements DenormalizerInterface, Normalize
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
 
-    /**
-     * @param mixed      $data
-     * @param mixed      $type
-     * @param mixed|null $format
-     *
-     * @return bool
-     */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return 'JoliCode\\Forecast\\Api\\Model\\AssignmentsIdPutBody' === $type;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\AssignmentsIdPutBody' === \get_class($data);
     }

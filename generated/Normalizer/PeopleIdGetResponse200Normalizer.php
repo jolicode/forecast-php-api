@@ -26,19 +26,12 @@ class PeopleIdGetResponse200Normalizer implements DenormalizerInterface, Normali
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
 
-    /**
-     * @param mixed      $data
-     * @param mixed      $type
-     * @param mixed|null $format
-     *
-     * @return bool
-     */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return 'JoliCode\\Forecast\\Api\\Model\\PeopleIdGetResponse200' === $type;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\PeopleIdGetResponse200' === \get_class($data);
     }
