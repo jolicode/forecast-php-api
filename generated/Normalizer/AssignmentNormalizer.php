@@ -110,10 +110,10 @@ class AssignmentNormalizer implements DenormalizerInterface, NormalizerInterface
         } elseif (\array_key_exists('updated_at', $data) && null === $data['updated_at']) {
             $object->setUpdatedAt(null);
         }
-        if (\array_key_exists('updated_by', $data) && null !== $data['updated_by']) {
-            $object->setUpdatedBy($data['updated_by']);
-        } elseif (\array_key_exists('updated_by', $data) && null === $data['updated_by']) {
-            $object->setUpdatedBy(null);
+        if (\array_key_exists('updated_by_id', $data) && null !== $data['updated_by_id']) {
+            $object->setUpdatedById($data['updated_by_id']);
+        } elseif (\array_key_exists('updated_by_id', $data) && null === $data['updated_by_id']) {
+            $object->setUpdatedById(null);
         }
 
         return $object;
@@ -155,8 +155,8 @@ class AssignmentNormalizer implements DenormalizerInterface, NormalizerInterface
         if (null !== $object->getUpdatedAt()) {
             $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:s.v\\Z');
         }
-        if (null !== $object->getUpdatedBy()) {
-            $data['updated_by'] = $object->getUpdatedBy();
+        if (null !== $object->getUpdatedById()) {
+            $data['updated_by_id'] = $object->getUpdatedById();
         }
 
         return $data;

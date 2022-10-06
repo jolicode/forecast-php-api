@@ -1138,7 +1138,7 @@ components:
           type: string
           format: date-time
           description: date when the assignment was last updated
-        updated_by:
+        updated_by_id:
           type: integer
           description: id of the user who last updated this assignment
           format: int32
