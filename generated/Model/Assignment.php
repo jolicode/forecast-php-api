@@ -84,7 +84,7 @@ class Assignment
      *
      * @var int|null
      */
-    protected $updatedBy;
+    protected $updatedById;
 
     /**
      * should the assignement be also active on days off?
@@ -287,17 +287,17 @@ class Assignment
     /**
      * id of the user who last updated this assignment.
      */
-    public function getUpdatedBy(): ?int
+    public function getUpdatedById(): ?int
     {
-        return $this->updatedBy;
+        return $this->updatedById;
     }
 
     /**
      * id of the user who last updated this assignment.
      */
-    public function setUpdatedBy(?int $updatedBy): self
+    public function setUpdatedById(?int $updatedById): self
     {
-        $this->updatedBy = $updatedBy;
+        $this->updatedById = $updatedById;
 
         return $this;
     }
