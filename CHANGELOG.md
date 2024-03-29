@@ -1,5 +1,15 @@
 # Changes between versions
 
+## 7.0.0 (2024-03-29)
+
+ * upgrade to `janephp/open-api` 7.6
+ * drop support for PHP <8.1
+ * switch to [Castor](https://castor.jolicode.com/) for the project tooling
+
+## 6.0.1 (2022-10-06)
+
+* fixed the `updated_by_id` property name in the `Assignment` model (see https://github.com/jolicode/forecast-php-api/pull/23)
+
 ## 6.0.0 (2022-08-03)
 
  * upgrade to `janephp/open-api` 7.3
