@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class RepeatedAssignmentSetBody
+class RepeatedAssignmentSetBody extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var RepeatedAssignmentSetBodyRepeatedAssignmentSet|null
      */
     protected $repeatedAssignmentSet;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getRepeatedAssignmentSet(): ?RepeatedAssignmentSetBodyRepeatedAssignmentSet
     {
@@ -25,6 +34,7 @@ class RepeatedAssignmentSetBody
 
     public function setRepeatedAssignmentSet(?RepeatedAssignmentSetBodyRepeatedAssignmentSet $repeatedAssignmentSet): self
     {
+        $this->initialized['repeatedAssignmentSet'] = true;
         $this->repeatedAssignmentSet = $repeatedAssignmentSet;
 
         return $this;

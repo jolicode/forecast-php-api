@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Project
+class Project extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var bool|null
      */
@@ -56,7 +60,7 @@ class Project
      */
     protected $startDate;
     /**
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $tags;
     /**
@@ -72,6 +76,11 @@ class Project
      */
     protected $updatedById;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getArchived(): ?bool
     {
         return $this->archived;
@@ -79,6 +88,7 @@ class Project
 
     public function setArchived(?bool $archived): self
     {
+        $this->initialized['archived'] = true;
         $this->archived = $archived;
 
         return $this;
@@ -91,6 +101,7 @@ class Project
 
     public function setClientId(?int $clientId): self
     {
+        $this->initialized['clientId'] = true;
         $this->clientId = $clientId;
 
         return $this;
@@ -103,6 +114,7 @@ class Project
 
     public function setCode(?string $code): self
     {
+        $this->initialized['code'] = true;
         $this->code = $code;
 
         return $this;
@@ -115,6 +127,7 @@ class Project
 
     public function setColor(?string $color): self
     {
+        $this->initialized['color'] = true;
         $this->color = $color;
 
         return $this;
@@ -127,6 +140,7 @@ class Project
 
     public function setEndDate(?\DateTime $endDate): self
     {
+        $this->initialized['endDate'] = true;
         $this->endDate = $endDate;
 
         return $this;
@@ -139,6 +153,7 @@ class Project
 
     public function setHarvestId(?int $harvestId): self
     {
+        $this->initialized['harvestId'] = true;
         $this->harvestId = $harvestId;
 
         return $this;
@@ -151,6 +166,7 @@ class Project
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -163,6 +179,7 @@ class Project
 
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -181,6 +198,7 @@ class Project
      */
     public function setNotes(?string $notes): self
     {
+        $this->initialized['notes'] = true;
         $this->notes = $notes;
 
         return $this;
@@ -193,13 +211,14 @@ class Project
 
     public function setStartDate(?\DateTime $startDate): self
     {
+        $this->initialized['startDate'] = true;
         $this->startDate = $startDate;
 
         return $this;
     }
 
     /**
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getTags(): ?array
     {
@@ -207,10 +226,11 @@ class Project
     }
 
     /**
-     * @param string[]|null $tags
+     * @param list<string>|null $tags
      */
     public function setTags(?array $tags): self
     {
+        $this->initialized['tags'] = true;
         $this->tags = $tags;
 
         return $this;
@@ -229,6 +249,7 @@ class Project
      */
     public function setUpdatedAt(?\DateTime $updatedAt): self
     {
+        $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -247,6 +268,7 @@ class Project
      */
     public function setUpdatedById(?int $updatedById): self
     {
+        $this->initialized['updatedById'] = true;
         $this->updatedById = $updatedById;
 
         return $this;

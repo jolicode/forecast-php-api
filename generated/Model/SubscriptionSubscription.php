@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class SubscriptionSubscription
+class SubscriptionSubscription extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var int|null
      */
@@ -74,6 +78,11 @@ class SubscriptionSubscription
      */
     protected $address;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +90,7 @@ class SubscriptionSubscription
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -93,6 +103,7 @@ class SubscriptionSubscription
 
     public function setNextBillingDate(?\DateTime $nextBillingDate): self
     {
+        $this->initialized['nextBillingDate'] = true;
         $this->nextBillingDate = $nextBillingDate;
 
         return $this;
@@ -105,6 +116,7 @@ class SubscriptionSubscription
 
     public function setDaysUntilNextBillingDate(?int $daysUntilNextBillingDate): self
     {
+        $this->initialized['daysUntilNextBillingDate'] = true;
         $this->daysUntilNextBillingDate = $daysUntilNextBillingDate;
 
         return $this;
@@ -123,6 +135,7 @@ class SubscriptionSubscription
      */
     public function setAmount(?int $amount): self
     {
+        $this->initialized['amount'] = true;
         $this->amount = $amount;
 
         return $this;
@@ -141,6 +154,7 @@ class SubscriptionSubscription
      */
     public function setAmountPerPerson(?int $amountPerPerson): self
     {
+        $this->initialized['amountPerPerson'] = true;
         $this->amountPerPerson = $amountPerPerson;
 
         return $this;
@@ -153,6 +167,7 @@ class SubscriptionSubscription
 
     public function setReceiptRecipient(?string $receiptRecipient): self
     {
+        $this->initialized['receiptRecipient'] = true;
         $this->receiptRecipient = $receiptRecipient;
 
         return $this;
@@ -165,6 +180,7 @@ class SubscriptionSubscription
 
     public function setStatus(?string $status): self
     {
+        $this->initialized['status'] = true;
         $this->status = $status;
 
         return $this;
@@ -177,6 +193,7 @@ class SubscriptionSubscription
 
     public function setPurchasedPeople(?int $purchasedPeople): self
     {
+        $this->initialized['purchasedPeople'] = true;
         $this->purchasedPeople = $purchasedPeople;
 
         return $this;
@@ -189,6 +206,7 @@ class SubscriptionSubscription
 
     public function setInterval(?string $interval): self
     {
+        $this->initialized['interval'] = true;
         $this->interval = $interval;
 
         return $this;
@@ -201,6 +219,7 @@ class SubscriptionSubscription
 
     public function setPaidByInvoice(?bool $paidByInvoice): self
     {
+        $this->initialized['paidByInvoice'] = true;
         $this->paidByInvoice = $paidByInvoice;
 
         return $this;
@@ -213,6 +232,7 @@ class SubscriptionSubscription
 
     public function setDiscounts(?SubscriptionSubscriptionDiscounts $discounts): self
     {
+        $this->initialized['discounts'] = true;
         $this->discounts = $discounts;
 
         return $this;
@@ -225,6 +245,7 @@ class SubscriptionSubscription
 
     public function setPlaceholderLimit(?int $placeholderLimit): self
     {
+        $this->initialized['placeholderLimit'] = true;
         $this->placeholderLimit = $placeholderLimit;
 
         return $this;
@@ -237,6 +258,7 @@ class SubscriptionSubscription
 
     public function setCard(?SubscriptionSubscriptionCard $card): self
     {
+        $this->initialized['card'] = true;
         $this->card = $card;
 
         return $this;
@@ -249,6 +271,7 @@ class SubscriptionSubscription
 
     public function setAddress(?SubscriptionSubscriptionAddress $address): self
     {
+        $this->initialized['address'] = true;
         $this->address = $address;
 
         return $this;

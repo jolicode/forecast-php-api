@@ -30,9 +30,9 @@ class Client extends BaseClient
         foreach ($intervals as $interval) {
             $queryParameters['start_date'] = $interval['start_date']->format('Y-m-d');
             $queryParameters['end_date'] = $interval['end_date']->format('Y-m-d');
-            $response = $this->executeEndpoint(new \JoliCode\Forecast\Api\Endpoint\ListAssignments($queryParameters), $fetch);
+            $response = $this->executeEndpoint(new Api\Endpoint\ListAssignments($queryParameters), $fetch);
 
-            if (Error::class !== \get_class($response)) {
+            if (Error::class !== $response::class) {
                 $assignments = array_merge(
                     $assignments,
                     $response->getAssignments()

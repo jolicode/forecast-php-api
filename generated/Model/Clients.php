@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Clients
+class Clients extends \ArrayObject
 {
     /**
-     * @var Client[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<Client>|null
      */
     protected $clients;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return Client[]|null
+     * @return list<Client>|null
      */
     public function getClients(): ?array
     {
@@ -27,10 +36,11 @@ class Clients
     }
 
     /**
-     * @param Client[]|null $clients
+     * @param list<Client>|null $clients
      */
     public function setClients(?array $clients): self
     {
+        $this->initialized['clients'] = true;
         $this->clients = $clients;
 
         return $this;

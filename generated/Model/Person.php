@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Person
+class Person extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var int|null
      */
@@ -60,7 +64,7 @@ class Person
      */
     protected $avatarUrl;
     /**
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $roles;
     /**
@@ -100,6 +104,11 @@ class Person
      */
     protected $personalFeedTokenId;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +116,7 @@ class Person
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -119,6 +129,7 @@ class Person
 
     public function setFirstName(?string $firstName): self
     {
+        $this->initialized['firstName'] = true;
         $this->firstName = $firstName;
 
         return $this;
@@ -131,6 +142,7 @@ class Person
 
     public function setLastName(?string $lastName): self
     {
+        $this->initialized['lastName'] = true;
         $this->lastName = $lastName;
 
         return $this;
@@ -143,6 +155,7 @@ class Person
 
     public function setEmail(?string $email): self
     {
+        $this->initialized['email'] = true;
         $this->email = $email;
 
         return $this;
@@ -161,6 +174,7 @@ class Person
      */
     public function setLogin(?string $login): self
     {
+        $this->initialized['login'] = true;
         $this->login = $login;
 
         return $this;
@@ -179,6 +193,7 @@ class Person
      */
     public function setAdmin(?bool $admin): self
     {
+        $this->initialized['admin'] = true;
         $this->admin = $admin;
 
         return $this;
@@ -197,6 +212,7 @@ class Person
      */
     public function setArchived(?bool $archived): self
     {
+        $this->initialized['archived'] = true;
         $this->archived = $archived;
 
         return $this;
@@ -215,6 +231,7 @@ class Person
      */
     public function setSubscribed(?bool $subscribed): self
     {
+        $this->initialized['subscribed'] = true;
         $this->subscribed = $subscribed;
 
         return $this;
@@ -233,13 +250,14 @@ class Person
      */
     public function setAvatarUrl(?string $avatarUrl): self
     {
+        $this->initialized['avatarUrl'] = true;
         $this->avatarUrl = $avatarUrl;
 
         return $this;
     }
 
     /**
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getRoles(): ?array
     {
@@ -247,10 +265,11 @@ class Person
     }
 
     /**
-     * @param string[]|null $roles
+     * @param list<string>|null $roles
      */
     public function setRoles(?array $roles): self
     {
+        $this->initialized['roles'] = true;
         $this->roles = $roles;
 
         return $this;
@@ -269,6 +288,7 @@ class Person
      */
     public function setUpdatedAt(?\DateTime $updatedAt): self
     {
+        $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -287,6 +307,7 @@ class Person
      */
     public function setUpdatedById(?int $updatedById): self
     {
+        $this->initialized['updatedById'] = true;
         $this->updatedById = $updatedById;
 
         return $this;
@@ -305,6 +326,7 @@ class Person
      */
     public function setHarvestUserId(?int $harvestUserId): self
     {
+        $this->initialized['harvestUserId'] = true;
         $this->harvestUserId = $harvestUserId;
 
         return $this;
@@ -323,6 +345,7 @@ class Person
      */
     public function setWeeklyCapacity(?int $weeklyCapacity): self
     {
+        $this->initialized['weeklyCapacity'] = true;
         $this->weeklyCapacity = $weeklyCapacity;
 
         return $this;
@@ -335,6 +358,7 @@ class Person
 
     public function setWorkingDays(?PersonWorkingDays $workingDays): self
     {
+        $this->initialized['workingDays'] = true;
         $this->workingDays = $workingDays;
 
         return $this;
@@ -347,6 +371,7 @@ class Person
 
     public function setColorBlind(?bool $colorBlind): self
     {
+        $this->initialized['colorBlind'] = true;
         $this->colorBlind = $colorBlind;
 
         return $this;
@@ -359,6 +384,7 @@ class Person
 
     public function setPersonalFeedTokenId(?int $personalFeedTokenId): self
     {
+        $this->initialized['personalFeedTokenId'] = true;
         $this->personalFeedTokenId = $personalFeedTokenId;
 
         return $this;

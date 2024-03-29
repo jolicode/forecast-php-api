@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class SubscriptionSubscriptionCard
+class SubscriptionSubscriptionCard extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var string|null
      */
@@ -30,6 +34,11 @@ class SubscriptionSubscriptionCard
      */
     protected $expiryYear;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getBrand(): ?string
     {
         return $this->brand;
@@ -37,6 +46,7 @@ class SubscriptionSubscriptionCard
 
     public function setBrand(?string $brand): self
     {
+        $this->initialized['brand'] = true;
         $this->brand = $brand;
 
         return $this;
@@ -49,6 +59,7 @@ class SubscriptionSubscriptionCard
 
     public function setLastFour(?string $lastFour): self
     {
+        $this->initialized['lastFour'] = true;
         $this->lastFour = $lastFour;
 
         return $this;
@@ -61,6 +72,7 @@ class SubscriptionSubscriptionCard
 
     public function setExpiryMonth(?int $expiryMonth): self
     {
+        $this->initialized['expiryMonth'] = true;
         $this->expiryMonth = $expiryMonth;
 
         return $this;
@@ -73,6 +85,7 @@ class SubscriptionSubscriptionCard
 
     public function setExpiryYear(?int $expiryYear): self
     {
+        $this->initialized['expiryYear'] = true;
         $this->expiryYear = $expiryYear;
 
         return $this;

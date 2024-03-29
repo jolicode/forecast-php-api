@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class User
+class User extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var UserCurrentUser|null
      */
     protected $currentUser;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getCurrentUser(): ?UserCurrentUser
     {
@@ -25,6 +34,7 @@ class User
 
     public function setCurrentUser(?UserCurrentUser $currentUser): self
     {
+        $this->initialized['currentUser'] = true;
         $this->currentUser = $currentUser;
 
         return $this;

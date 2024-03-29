@@ -13,6 +13,8 @@ namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
+use JoliCode\Forecast\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,89 +22,200 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use CheckArray;
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' === $type;
-    }
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
 
-    public function supportsNormalization($data, $format = null): bool
-    {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' === \get_class($data);
-    }
-
-    /**
-     * @param mixed      $data
-     * @param mixed      $class
-     * @param mixed|null $format
-     *
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' === $type;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' === $data::class;
         }
-        $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSet();
-        if (null === $data || false === \is_array($data)) {
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSet();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('assignment_ids', $data) && null !== $data['assignment_ids']) {
+                $values = [];
+                foreach ($data['assignment_ids'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setAssignmentIds($values);
+                unset($data['assignment_ids']);
+            } elseif (\array_key_exists('assignment_ids', $data) && null === $data['assignment_ids']) {
+                $object->setAssignmentIds(null);
+            }
+            if (\array_key_exists('first_start_date', $data) && null !== $data['first_start_date']) {
+                $object->setFirstStartDate(\DateTime::createFromFormat('Y-m-d', $data['first_start_date'])->setTime(0, 0, 0));
+                unset($data['first_start_date']);
+            } elseif (\array_key_exists('first_start_date', $data) && null === $data['first_start_date']) {
+                $object->setFirstStartDate(null);
+            }
+            if (\array_key_exists('id', $data) && null !== $data['id']) {
+                $object->setId($data['id']);
+                unset($data['id']);
+            } elseif (\array_key_exists('id', $data) && null === $data['id']) {
+                $object->setId(null);
+            }
+            if (\array_key_exists('last_end_date', $data) && null !== $data['last_end_date']) {
+                $object->setLastEndDate(\DateTime::createFromFormat('Y-m-d', $data['last_end_date'])->setTime(0, 0, 0));
+                unset($data['last_end_date']);
+            } elseif (\array_key_exists('last_end_date', $data) && null === $data['last_end_date']) {
+                $object->setLastEndDate(null);
+            }
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
             return $object;
         }
-        if (\array_key_exists('assignment_ids', $data) && null !== $data['assignment_ids']) {
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
             $values = [];
-            foreach ($data['assignment_ids'] as $value) {
+            foreach ($object->getAssignmentIds() as $value) {
                 $values[] = $value;
             }
-            $object->setAssignmentIds($values);
-        } elseif (\array_key_exists('assignment_ids', $data) && null === $data['assignment_ids']) {
-            $object->setAssignmentIds(null);
-        }
-        if (\array_key_exists('first_start_date', $data) && null !== $data['first_start_date']) {
-            $object->setFirstStartDate(\DateTime::createFromFormat('Y-m-d', $data['first_start_date'])->setTime(0, 0, 0));
-        } elseif (\array_key_exists('first_start_date', $data) && null === $data['first_start_date']) {
-            $object->setFirstStartDate(null);
-        }
-        if (\array_key_exists('id', $data) && null !== $data['id']) {
-            $object->setId($data['id']);
-        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
-            $object->setId(null);
-        }
-        if (\array_key_exists('last_end_date', $data) && null !== $data['last_end_date']) {
-            $object->setLastEndDate(\DateTime::createFromFormat('Y-m-d', $data['last_end_date'])->setTime(0, 0, 0));
-        } elseif (\array_key_exists('last_end_date', $data) && null === $data['last_end_date']) {
-            $object->setLastEndDate(null);
+            $data['assignment_ids'] = $values;
+            $data['first_start_date'] = $object->getFirstStartDate()->format('Y-m-d');
+            if ($object->isInitialized('id') && null !== $object->getId()) {
+                $data['id'] = $object->getId();
+            }
+            $data['last_end_date'] = $object->getLastEndDate()->format('Y-m-d');
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
         }
 
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' => false];
+        }
     }
-
-    /**
-     * @param mixed      $object
-     * @param mixed|null $format
-     *
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+} else {
+    class RepeatedAssignmentSetNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = [];
-        $values = [];
-        foreach ($object->getAssignmentIds() as $value) {
-            $values[] = $value;
-        }
-        $data['assignment_ids'] = $values;
-        $data['first_start_date'] = $object->getFirstStartDate()->format('Y-m-d');
-        if (null !== $object->getId()) {
-            $data['id'] = $object->getId();
-        }
-        $data['last_end_date'] = $object->getLastEndDate()->format('Y-m-d');
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
 
-        return $data;
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' === $data::class;
+        }
+
+        /**
+         * @param mixed|null $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\RepeatedAssignmentSet();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('assignment_ids', $data) && null !== $data['assignment_ids']) {
+                $values = [];
+                foreach ($data['assignment_ids'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setAssignmentIds($values);
+                unset($data['assignment_ids']);
+            } elseif (\array_key_exists('assignment_ids', $data) && null === $data['assignment_ids']) {
+                $object->setAssignmentIds(null);
+            }
+            if (\array_key_exists('first_start_date', $data) && null !== $data['first_start_date']) {
+                $object->setFirstStartDate(\DateTime::createFromFormat('Y-m-d', $data['first_start_date'])->setTime(0, 0, 0));
+                unset($data['first_start_date']);
+            } elseif (\array_key_exists('first_start_date', $data) && null === $data['first_start_date']) {
+                $object->setFirstStartDate(null);
+            }
+            if (\array_key_exists('id', $data) && null !== $data['id']) {
+                $object->setId($data['id']);
+                unset($data['id']);
+            } elseif (\array_key_exists('id', $data) && null === $data['id']) {
+                $object->setId(null);
+            }
+            if (\array_key_exists('last_end_date', $data) && null !== $data['last_end_date']) {
+                $object->setLastEndDate(\DateTime::createFromFormat('Y-m-d', $data['last_end_date'])->setTime(0, 0, 0));
+                unset($data['last_end_date']);
+            } elseif (\array_key_exists('last_end_date', $data) && null === $data['last_end_date']) {
+                $object->setLastEndDate(null);
+            }
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
+            return $object;
+        }
+
+        /**
+         * @param mixed|null $format
+         *
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            $values = [];
+            foreach ($object->getAssignmentIds() as $value) {
+                $values[] = $value;
+            }
+            $data['assignment_ids'] = $values;
+            $data['first_start_date'] = $object->getFirstStartDate()->format('Y-m-d');
+            if ($object->isInitialized('id') && null !== $object->getId()) {
+                $data['id'] = $object->getId();
+            }
+            $data['last_end_date'] = $object->getLastEndDate()->format('Y-m-d');
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\RepeatedAssignmentSet' => false];
+        }
     }
 }

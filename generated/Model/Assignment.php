@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Assignment
+class Assignment extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * should the assignement be also active on days off?
      *
@@ -86,6 +90,11 @@ class Assignment
      */
     protected $updatedById;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
      * should the assignement be also active on days off?
      */
@@ -99,6 +108,7 @@ class Assignment
      */
     public function setActiveOnDaysOff(?bool $activeOnDaysOff): self
     {
+        $this->initialized['activeOnDaysOff'] = true;
         $this->activeOnDaysOff = $activeOnDaysOff;
 
         return $this;
@@ -117,6 +127,7 @@ class Assignment
      */
     public function setAllocation(?int $allocation): self
     {
+        $this->initialized['allocation'] = true;
         $this->allocation = $allocation;
 
         return $this;
@@ -135,6 +146,7 @@ class Assignment
      */
     public function setEndDate(?\DateTime $endDate): self
     {
+        $this->initialized['endDate'] = true;
         $this->endDate = $endDate;
 
         return $this;
@@ -153,6 +165,7 @@ class Assignment
      */
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -171,6 +184,7 @@ class Assignment
      */
     public function setNotes(?string $notes): self
     {
+        $this->initialized['notes'] = true;
         $this->notes = $notes;
 
         return $this;
@@ -189,6 +203,7 @@ class Assignment
      */
     public function setPersonId(?int $personId): self
     {
+        $this->initialized['personId'] = true;
         $this->personId = $personId;
 
         return $this;
@@ -207,6 +222,7 @@ class Assignment
      */
     public function setPlaceholderId(?int $placeholderId): self
     {
+        $this->initialized['placeholderId'] = true;
         $this->placeholderId = $placeholderId;
 
         return $this;
@@ -225,6 +241,7 @@ class Assignment
      */
     public function setProjectId(?int $projectId): self
     {
+        $this->initialized['projectId'] = true;
         $this->projectId = $projectId;
 
         return $this;
@@ -243,6 +260,7 @@ class Assignment
      */
     public function setRepeatedAssignmentSetId(?int $repeatedAssignmentSetId): self
     {
+        $this->initialized['repeatedAssignmentSetId'] = true;
         $this->repeatedAssignmentSetId = $repeatedAssignmentSetId;
 
         return $this;
@@ -261,6 +279,7 @@ class Assignment
      */
     public function setStartDate(?\DateTime $startDate): self
     {
+        $this->initialized['startDate'] = true;
         $this->startDate = $startDate;
 
         return $this;
@@ -279,6 +298,7 @@ class Assignment
      */
     public function setUpdatedAt(?\DateTime $updatedAt): self
     {
+        $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -297,6 +317,7 @@ class Assignment
      */
     public function setUpdatedById(?int $updatedById): self
     {
+        $this->initialized['updatedById'] = true;
         $this->updatedById = $updatedById;
 
         return $this;

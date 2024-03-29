@@ -11,16 +11,25 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class UserCurrentUser
+class UserCurrentUser extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var int|null
      */
     protected $id;
     /**
-     * @var int[]|null
+     * @var list<int>|null
      */
     protected $accountIds;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getId(): ?int
     {
@@ -29,13 +38,14 @@ class UserCurrentUser
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
     }
 
     /**
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getAccountIds(): ?array
     {
@@ -43,10 +53,11 @@ class UserCurrentUser
     }
 
     /**
-     * @param int[]|null $accountIds
+     * @param list<int>|null $accountIds
      */
     public function setAccountIds(?array $accountIds): self
     {
+        $this->initialized['accountIds'] = true;
         $this->accountIds = $accountIds;
 
         return $this;

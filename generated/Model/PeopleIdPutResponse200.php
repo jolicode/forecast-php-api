@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class PeopleIdPutResponse200
+class PeopleIdPutResponse200 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var Person|null
      */
     protected $person;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getPerson(): ?Person
     {
@@ -25,6 +34,7 @@ class PeopleIdPutResponse200
 
     public function setPerson(?Person $person): self
     {
+        $this->initialized['person'] = true;
         $this->person = $person;
 
         return $this;

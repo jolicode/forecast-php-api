@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class PlaceholderBodyPlaceholder
+class PlaceholderBodyPlaceholder extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var bool|null
      */
@@ -22,9 +26,14 @@ class PlaceholderBodyPlaceholder
      */
     protected $name;
     /**
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $roles;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getArchived(): ?bool
     {
@@ -33,6 +42,7 @@ class PlaceholderBodyPlaceholder
 
     public function setArchived(?bool $archived): self
     {
+        $this->initialized['archived'] = true;
         $this->archived = $archived;
 
         return $this;
@@ -45,13 +55,14 @@ class PlaceholderBodyPlaceholder
 
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getRoles(): ?array
     {
@@ -59,10 +70,11 @@ class PlaceholderBodyPlaceholder
     }
 
     /**
-     * @param string[]|null $roles
+     * @param list<string>|null $roles
      */
     public function setRoles(?array $roles): self
     {
+        $this->initialized['roles'] = true;
         $this->roles = $roles;
 
         return $this;

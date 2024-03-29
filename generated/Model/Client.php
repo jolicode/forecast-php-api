@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Client
+class Client extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * Is this client archived?
      *
@@ -50,6 +54,11 @@ class Client
      */
     protected $updatedById;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Is this client archived?
      */
@@ -63,6 +72,7 @@ class Client
      */
     public function setArchived(?bool $archived): self
     {
+        $this->initialized['archived'] = true;
         $this->archived = $archived;
 
         return $this;
@@ -81,6 +91,7 @@ class Client
      */
     public function setHarvestId(?int $harvestId): self
     {
+        $this->initialized['harvestId'] = true;
         $this->harvestId = $harvestId;
 
         return $this;
@@ -99,6 +110,7 @@ class Client
      */
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -117,6 +129,7 @@ class Client
      */
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -135,6 +148,7 @@ class Client
      */
     public function setUpdatedAt(?\DateTime $updatedAt): self
     {
+        $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -153,6 +167,7 @@ class Client
      */
     public function setUpdatedById(?int $updatedById): self
     {
+        $this->initialized['updatedById'] = true;
         $this->updatedById = $updatedById;
 
         return $this;

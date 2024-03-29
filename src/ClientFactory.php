@@ -19,7 +19,7 @@ use Psr\Http\Client\ClientInterface;
 
 class ClientFactory
 {
-    public static function create(string $token, string $accountId, ClientInterface $httpClient = null): Client
+    public static function create(string $token, string $accountId, ?ClientInterface $httpClient = null): Client
     {
         return Client::create($httpClient, [
             new HeaderAppendPlugin([

@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class SubscriptionSubscriptionAddress
+class SubscriptionSubscriptionAddress extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var string|null
      */
@@ -38,6 +42,11 @@ class SubscriptionSubscriptionAddress
      */
     protected $country;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getLine1(): ?string
     {
         return $this->line1;
@@ -45,6 +54,7 @@ class SubscriptionSubscriptionAddress
 
     public function setLine1(?string $line1): self
     {
+        $this->initialized['line1'] = true;
         $this->line1 = $line1;
 
         return $this;
@@ -57,6 +67,7 @@ class SubscriptionSubscriptionAddress
 
     public function setLine2(?string $line2): self
     {
+        $this->initialized['line2'] = true;
         $this->line2 = $line2;
 
         return $this;
@@ -69,6 +80,7 @@ class SubscriptionSubscriptionAddress
 
     public function setCity(?string $city): self
     {
+        $this->initialized['city'] = true;
         $this->city = $city;
 
         return $this;
@@ -81,6 +93,7 @@ class SubscriptionSubscriptionAddress
 
     public function setState(?string $state): self
     {
+        $this->initialized['state'] = true;
         $this->state = $state;
 
         return $this;
@@ -93,6 +106,7 @@ class SubscriptionSubscriptionAddress
 
     public function setPostalCode(?string $postalCode): self
     {
+        $this->initialized['postalCode'] = true;
         $this->postalCode = $postalCode;
 
         return $this;
@@ -105,6 +119,7 @@ class SubscriptionSubscriptionAddress
 
     public function setCountry(?string $country): self
     {
+        $this->initialized['country'] = true;
         $this->country = $country;
 
         return $this;

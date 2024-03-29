@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class FutureScheduledHour
+class FutureScheduledHour extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * Number of hours allocated.
      *
@@ -38,6 +42,11 @@ class FutureScheduledHour
      */
     protected $projectId;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Number of hours allocated.
      */
@@ -51,6 +60,7 @@ class FutureScheduledHour
      */
     public function setAllocation(?int $allocation): self
     {
+        $this->initialized['allocation'] = true;
         $this->allocation = $allocation;
 
         return $this;
@@ -69,6 +79,7 @@ class FutureScheduledHour
      */
     public function setPersonId(?int $personId): self
     {
+        $this->initialized['personId'] = true;
         $this->personId = $personId;
 
         return $this;
@@ -87,6 +98,7 @@ class FutureScheduledHour
      */
     public function setPlaceholderId(?int $placeholderId): self
     {
+        $this->initialized['placeholderId'] = true;
         $this->placeholderId = $placeholderId;
 
         return $this;
@@ -105,6 +117,7 @@ class FutureScheduledHour
      */
     public function setProjectId(?int $projectId): self
     {
+        $this->initialized['projectId'] = true;
         $this->projectId = $projectId;
 
         return $this;

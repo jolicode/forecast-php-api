@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Placeholders
+class Placeholders extends \ArrayObject
 {
     /**
-     * @var Placeholder[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<Placeholder>|null
      */
     protected $placeholders;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return Placeholder[]|null
+     * @return list<Placeholder>|null
      */
     public function getPlaceholders(): ?array
     {
@@ -27,10 +36,11 @@ class Placeholders
     }
 
     /**
-     * @param Placeholder[]|null $placeholders
+     * @param list<Placeholder>|null $placeholders
      */
     public function setPlaceholders(?array $placeholders): self
     {
+        $this->initialized['placeholders'] = true;
         $this->placeholders = $placeholders;
 
         return $this;

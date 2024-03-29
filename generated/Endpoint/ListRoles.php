@@ -41,12 +41,12 @@ class ListRoles extends \JoliCode\Forecast\Api\Runtime\Client\BaseEndpoint imple
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \JoliCode\Forecast\Api\Model\Roles|\JoliCode\Forecast\Api\Model\Error|null
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
         if ((null === $contentType) === false && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\Roles', 'json');
         }

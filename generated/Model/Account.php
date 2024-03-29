@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Account
+class Account extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var AccountAccount|null
      */
     protected $account;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getAccount(): ?AccountAccount
     {
@@ -25,6 +34,7 @@ class Account
 
     public function setAccount(?AccountAccount $account): self
     {
+        $this->initialized['account'] = true;
         $this->account = $account;
 
         return $this;

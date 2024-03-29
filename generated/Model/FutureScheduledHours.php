@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class FutureScheduledHours
+class FutureScheduledHours extends \ArrayObject
 {
     /**
-     * @var FutureScheduledHour[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<FutureScheduledHour>|null
      */
     protected $futureScheduledHours;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return FutureScheduledHour[]|null
+     * @return list<FutureScheduledHour>|null
      */
     public function getFutureScheduledHours(): ?array
     {
@@ -27,10 +36,11 @@ class FutureScheduledHours
     }
 
     /**
-     * @param FutureScheduledHour[]|null $futureScheduledHours
+     * @param list<FutureScheduledHour>|null $futureScheduledHours
      */
     public function setFutureScheduledHours(?array $futureScheduledHours): self
     {
+        $this->initialized['futureScheduledHours'] = true;
         $this->futureScheduledHours = $futureScheduledHours;
 
         return $this;

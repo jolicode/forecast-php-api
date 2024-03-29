@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class AssignmentsPostResponse201
+class AssignmentsPostResponse201 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var Assignment|null
      */
     protected $assignment;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getAssignment(): ?Assignment
     {
@@ -25,6 +34,7 @@ class AssignmentsPostResponse201
 
     public function setAssignment(?Assignment $assignment): self
     {
+        $this->initialized['assignment'] = true;
         $this->assignment = $assignment;
 
         return $this;

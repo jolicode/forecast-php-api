@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Subscription
+class Subscription extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var SubscriptionSubscription|null
      */
     protected $subscription;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getSubscription(): ?SubscriptionSubscription
     {
@@ -25,6 +34,7 @@ class Subscription
 
     public function setSubscription(?SubscriptionSubscription $subscription): self
     {
+        $this->initialized['subscription'] = true;
         $this->subscription = $subscription;
 
         return $this;
