@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class PlaceholdersIdPutResponse200
+class PlaceholdersIdPutResponse200 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var Placeholder|null
      */
     protected $placeholder;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getPlaceholder(): ?Placeholder
     {
@@ -25,6 +34,7 @@ class PlaceholdersIdPutResponse200
 
     public function setPlaceholder(?Placeholder $placeholder): self
     {
+        $this->initialized['placeholder'] = true;
         $this->placeholder = $placeholder;
 
         return $this;

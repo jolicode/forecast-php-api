@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class RemainingBudgetedHour
+class RemainingBudgetedHour extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var string|null
      */
@@ -34,6 +38,11 @@ class RemainingBudgetedHour
      */
     protected $responseCode;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getBudgetBy(): ?string
     {
         return $this->budgetBy;
@@ -41,6 +50,7 @@ class RemainingBudgetedHour
 
     public function setBudgetBy(?string $budgetBy): self
     {
+        $this->initialized['budgetBy'] = true;
         $this->budgetBy = $budgetBy;
 
         return $this;
@@ -53,6 +63,7 @@ class RemainingBudgetedHour
 
     public function setBudgetIsMonthly(?bool $budgetIsMonthly): self
     {
+        $this->initialized['budgetIsMonthly'] = true;
         $this->budgetIsMonthly = $budgetIsMonthly;
 
         return $this;
@@ -65,6 +76,7 @@ class RemainingBudgetedHour
 
     public function setHours(?int $hours): self
     {
+        $this->initialized['hours'] = true;
         $this->hours = $hours;
 
         return $this;
@@ -77,6 +89,7 @@ class RemainingBudgetedHour
 
     public function setProjectId(?int $projectId): self
     {
+        $this->initialized['projectId'] = true;
         $this->projectId = $projectId;
 
         return $this;
@@ -89,6 +102,7 @@ class RemainingBudgetedHour
 
     public function setResponseCode(?int $responseCode): self
     {
+        $this->initialized['responseCode'] = true;
         $this->responseCode = $responseCode;
 
         return $this;

@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class RoleBody
+class RoleBody extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var RoleBodyRole|null
      */
     protected $role;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getRole(): ?RoleBodyRole
     {
@@ -25,6 +34,7 @@ class RoleBody
 
     public function setRole(?RoleBodyRole $role): self
     {
+        $this->initialized['role'] = true;
         $this->role = $role;
 
         return $this;

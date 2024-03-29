@@ -11,10 +11,14 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class RepeatedAssignmentSet
+class RepeatedAssignmentSet extends \ArrayObject
 {
     /**
-     * @var int[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<int>|null
      */
     protected $assignmentIds;
     /**
@@ -30,8 +34,13 @@ class RepeatedAssignmentSet
      */
     protected $lastEndDate;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getAssignmentIds(): ?array
     {
@@ -39,10 +48,11 @@ class RepeatedAssignmentSet
     }
 
     /**
-     * @param int[]|null $assignmentIds
+     * @param list<int>|null $assignmentIds
      */
     public function setAssignmentIds(?array $assignmentIds): self
     {
+        $this->initialized['assignmentIds'] = true;
         $this->assignmentIds = $assignmentIds;
 
         return $this;
@@ -55,6 +65,7 @@ class RepeatedAssignmentSet
 
     public function setFirstStartDate(?\DateTime $firstStartDate): self
     {
+        $this->initialized['firstStartDate'] = true;
         $this->firstStartDate = $firstStartDate;
 
         return $this;
@@ -67,6 +78,7 @@ class RepeatedAssignmentSet
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -79,6 +91,7 @@ class RepeatedAssignmentSet
 
     public function setLastEndDate(?\DateTime $lastEndDate): self
     {
+        $this->initialized['lastEndDate'] = true;
         $this->lastEndDate = $lastEndDate;
 
         return $this;

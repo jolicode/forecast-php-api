@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class PersonWorkingDays
+class PersonWorkingDays extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var bool|null
      */
@@ -42,6 +46,11 @@ class PersonWorkingDays
      */
     protected $sunday;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getMonday(): ?bool
     {
         return $this->monday;
@@ -49,6 +58,7 @@ class PersonWorkingDays
 
     public function setMonday(?bool $monday): self
     {
+        $this->initialized['monday'] = true;
         $this->monday = $monday;
 
         return $this;
@@ -61,6 +71,7 @@ class PersonWorkingDays
 
     public function setTuesday(?bool $tuesday): self
     {
+        $this->initialized['tuesday'] = true;
         $this->tuesday = $tuesday;
 
         return $this;
@@ -73,6 +84,7 @@ class PersonWorkingDays
 
     public function setWednesday(?bool $wednesday): self
     {
+        $this->initialized['wednesday'] = true;
         $this->wednesday = $wednesday;
 
         return $this;
@@ -85,6 +97,7 @@ class PersonWorkingDays
 
     public function setThursday(?bool $thursday): self
     {
+        $this->initialized['thursday'] = true;
         $this->thursday = $thursday;
 
         return $this;
@@ -97,6 +110,7 @@ class PersonWorkingDays
 
     public function setFriday(?bool $friday): self
     {
+        $this->initialized['friday'] = true;
         $this->friday = $friday;
 
         return $this;
@@ -109,6 +123,7 @@ class PersonWorkingDays
 
     public function setSaturday(?bool $saturday): self
     {
+        $this->initialized['saturday'] = true;
         $this->saturday = $saturday;
 
         return $this;
@@ -121,6 +136,7 @@ class PersonWorkingDays
 
     public function setSunday(?bool $sunday): self
     {
+        $this->initialized['sunday'] = true;
         $this->sunday = $sunday;
 
         return $this;

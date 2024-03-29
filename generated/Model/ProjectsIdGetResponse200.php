@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class ProjectsIdGetResponse200
+class ProjectsIdGetResponse200 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var Project|null
      */
     protected $project;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getProject(): ?Project
     {
@@ -25,6 +34,7 @@ class ProjectsIdGetResponse200
 
     public function setProject(?Project $project): self
     {
+        $this->initialized['project'] = true;
         $this->project = $project;
 
         return $this;

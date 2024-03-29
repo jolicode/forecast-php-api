@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class UserConnection
+class UserConnection extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var int|null
      */
@@ -26,6 +30,11 @@ class UserConnection
      */
     protected $personId;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -33,6 +42,7 @@ class UserConnection
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -45,6 +55,7 @@ class UserConnection
 
     public function setLastActiveAt(?\DateTime $lastActiveAt): self
     {
+        $this->initialized['lastActiveAt'] = true;
         $this->lastActiveAt = $lastActiveAt;
 
         return $this;
@@ -57,6 +68,7 @@ class UserConnection
 
     public function setPersonId(?int $personId): self
     {
+        $this->initialized['personId'] = true;
         $this->personId = $personId;
 
         return $this;

@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class RemainingBudgetedHours
+class RemainingBudgetedHours extends \ArrayObject
 {
     /**
-     * @var RemainingBudgetedHour[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<RemainingBudgetedHour>|null
      */
     protected $remainingBudgetedHours;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return RemainingBudgetedHour[]|null
+     * @return list<RemainingBudgetedHour>|null
      */
     public function getRemainingBudgetedHours(): ?array
     {
@@ -27,10 +36,11 @@ class RemainingBudgetedHours
     }
 
     /**
-     * @param RemainingBudgetedHour[]|null $remainingBudgetedHours
+     * @param list<RemainingBudgetedHour>|null $remainingBudgetedHours
      */
     public function setRemainingBudgetedHours(?array $remainingBudgetedHours): self
     {
+        $this->initialized['remainingBudgetedHours'] = true;
         $this->remainingBudgetedHours = $remainingBudgetedHours;
 
         return $this;

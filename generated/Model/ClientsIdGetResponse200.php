@@ -11,12 +11,21 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class ClientsIdGetResponse200
+class ClientsIdGetResponse200 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var Client|null
      */
     protected $client;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getClient(): ?Client
     {
@@ -25,6 +34,7 @@ class ClientsIdGetResponse200
 
     public function setClient(?Client $client): self
     {
+        $this->initialized['client'] = true;
         $this->client = $client;
 
         return $this;

@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Role
+class Role extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var int|null
      */
@@ -22,17 +26,22 @@ class Role
      */
     protected $name;
     /**
-     * @var int[]|null
+     * @var list<int>|null
      */
     protected $placeholderIds;
     /**
-     * @var int[]|null
+     * @var list<int>|null
      */
     protected $personIds;
     /**
      * @var int|null
      */
     protected $harvestRoleId;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getId(): ?int
     {
@@ -41,6 +50,7 @@ class Role
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -53,13 +63,14 @@ class Role
 
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getPlaceholderIds(): ?array
     {
@@ -67,17 +78,18 @@ class Role
     }
 
     /**
-     * @param int[]|null $placeholderIds
+     * @param list<int>|null $placeholderIds
      */
     public function setPlaceholderIds(?array $placeholderIds): self
     {
+        $this->initialized['placeholderIds'] = true;
         $this->placeholderIds = $placeholderIds;
 
         return $this;
     }
 
     /**
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getPersonIds(): ?array
     {
@@ -85,10 +97,11 @@ class Role
     }
 
     /**
-     * @param int[]|null $personIds
+     * @param list<int>|null $personIds
      */
     public function setPersonIds(?array $personIds): self
     {
+        $this->initialized['personIds'] = true;
         $this->personIds = $personIds;
 
         return $this;
@@ -101,6 +114,7 @@ class Role
 
     public function setHarvestRoleId(?int $harvestRoleId): self
     {
+        $this->initialized['harvestRoleId'] = true;
         $this->harvestRoleId = $harvestRoleId;
 
         return $this;

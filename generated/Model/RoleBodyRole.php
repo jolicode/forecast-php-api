@@ -11,16 +11,25 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class RoleBodyRole
+class RoleBodyRole extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var string|null
      */
     protected $name;
     /**
-     * @var int[]|null
+     * @var list<int>|null
      */
     protected $personIds;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     public function getName(): ?string
     {
@@ -29,13 +38,14 @@ class RoleBodyRole
 
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getPersonIds(): ?array
     {
@@ -43,10 +53,11 @@ class RoleBodyRole
     }
 
     /**
-     * @param int[]|null $personIds
+     * @param list<int>|null $personIds
      */
     public function setPersonIds(?array $personIds): self
     {
+        $this->initialized['personIds'] = true;
         $this->personIds = $personIds;
 
         return $this;

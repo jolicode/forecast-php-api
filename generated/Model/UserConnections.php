@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class UserConnections
+class UserConnections extends \ArrayObject
 {
     /**
-     * @var UserConnection[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<UserConnection>|null
      */
     protected $userConnections;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return UserConnection[]|null
+     * @return list<UserConnection>|null
      */
     public function getUserConnections(): ?array
     {
@@ -27,10 +36,11 @@ class UserConnections
     }
 
     /**
-     * @param UserConnection[]|null $userConnections
+     * @param list<UserConnection>|null $userConnections
      */
     public function setUserConnections(?array $userConnections): self
     {
+        $this->initialized['userConnections'] = true;
         $this->userConnections = $userConnections;
 
         return $this;

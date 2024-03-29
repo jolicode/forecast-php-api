@@ -13,6 +13,8 @@ namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
+use JoliCode\Forecast\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,69 +22,154 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use CheckArray;
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\Projects' === $type;
-    }
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
 
-    public function supportsNormalization($data, $format = null): bool
-    {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Projects' === \get_class($data);
-    }
-
-    /**
-     * @param mixed      $data
-     * @param mixed      $class
-     * @param mixed|null $format
-     *
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\Projects' === $type;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Projects' === $data::class;
         }
-        $object = new \JoliCode\Forecast\Api\Model\Projects();
-        if (null === $data || false === \is_array($data)) {
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\Projects();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('projects', $data) && null !== $data['projects']) {
+                $values = [];
+                foreach ($data['projects'] as $value) {
+                    $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context);
+                }
+                $object->setProjects($values);
+                unset($data['projects']);
+            } elseif (\array_key_exists('projects', $data) && null === $data['projects']) {
+                $object->setProjects(null);
+            }
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
             return $object;
         }
-        if (\array_key_exists('projects', $data) && null !== $data['projects']) {
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
             $values = [];
-            foreach ($data['projects'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context);
+            foreach ($object->getProjects() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $object->setProjects($values);
-        } elseif (\array_key_exists('projects', $data) && null === $data['projects']) {
-            $object->setProjects(null);
+            $data['projects'] = $values;
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
         }
 
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\Projects' => false];
+        }
     }
-
-    /**
-     * @param mixed      $object
-     * @param mixed|null $format
-     *
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+} else {
+    class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = [];
-        $values = [];
-        foreach ($object->getProjects() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
-        }
-        $data['projects'] = $values;
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
 
-        return $data;
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\Projects' === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Projects' === $data::class;
+        }
+
+        /**
+         * @param mixed|null $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\Projects();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('projects', $data) && null !== $data['projects']) {
+                $values = [];
+                foreach ($data['projects'] as $value) {
+                    $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Forecast\\Api\\Model\\Project', 'json', $context);
+                }
+                $object->setProjects($values);
+                unset($data['projects']);
+            } elseif (\array_key_exists('projects', $data) && null === $data['projects']) {
+                $object->setProjects(null);
+            }
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
+            return $object;
+        }
+
+        /**
+         * @param mixed|null $format
+         *
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            $values = [];
+            foreach ($object->getProjects() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $data['projects'] = $values;
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\Projects' => false];
+        }
     }
 }

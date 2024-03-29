@@ -17,15 +17,19 @@
         }
     },
     "require": {
-        "php": ">=7.4",
-        "jane-php/open-api-runtime": "^7.1",
+        "php": ">=8.1",
+        "jane-php/open-api-runtime": "^7.6",
         "php-http/client-implementation": "*",
         "php-http/client-common": "^1.9 || ^2.0"
     },
     "require-dev": {
-        "jane-php/open-api-3": "^7.1",
-        "symfony/http-client": "^5.4 || ^6.0",
-        "nyholm/psr7": "^1.3",
-        "friendsofphp/php-cs-fixer": "^3.2"
+        "jane-php/open-api-3": "^7.6",
+        "symfony/http-client": "^5.4 || ^6.0|| ^7.0",
+        "nyholm/psr7": "^1.6"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }

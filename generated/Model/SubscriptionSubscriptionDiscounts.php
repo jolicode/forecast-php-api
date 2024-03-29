@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class SubscriptionSubscriptionDiscounts
+class SubscriptionSubscriptionDiscounts extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var int|null
      */
@@ -22,6 +26,11 @@ class SubscriptionSubscriptionDiscounts
      */
     protected $yearlyPercentage;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getMonthlyPercentage(): ?int
     {
         return $this->monthlyPercentage;
@@ -29,6 +38,7 @@ class SubscriptionSubscriptionDiscounts
 
     public function setMonthlyPercentage(?int $monthlyPercentage): self
     {
+        $this->initialized['monthlyPercentage'] = true;
         $this->monthlyPercentage = $monthlyPercentage;
 
         return $this;
@@ -41,6 +51,7 @@ class SubscriptionSubscriptionDiscounts
 
     public function setYearlyPercentage(?int $yearlyPercentage): self
     {
+        $this->initialized['yearlyPercentage'] = true;
         $this->yearlyPercentage = $yearlyPercentage;
 
         return $this;

@@ -13,6 +13,8 @@ namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
+use JoliCode\Forecast\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,91 +22,206 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class RemainingBudgetedHourNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use CheckArray;
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class RemainingBudgetedHourNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' === $type;
-    }
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
 
-    public function supportsNormalization($data, $format = null): bool
-    {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' === \get_class($data);
-    }
-
-    /**
-     * @param mixed      $data
-     * @param mixed      $class
-     * @param mixed|null $format
-     *
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' === $type;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' === $data::class;
         }
-        $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
-        if (null === $data || false === \is_array($data)) {
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('budget_by', $data) && null !== $data['budget_by']) {
+                $object->setBudgetBy($data['budget_by']);
+                unset($data['budget_by']);
+            } elseif (\array_key_exists('budget_by', $data) && null === $data['budget_by']) {
+                $object->setBudgetBy(null);
+            }
+            if (\array_key_exists('budget_is_monthly', $data) && null !== $data['budget_is_monthly']) {
+                $object->setBudgetIsMonthly($data['budget_is_monthly']);
+                unset($data['budget_is_monthly']);
+            } elseif (\array_key_exists('budget_is_monthly', $data) && null === $data['budget_is_monthly']) {
+                $object->setBudgetIsMonthly(null);
+            }
+            if (\array_key_exists('hours', $data) && null !== $data['hours']) {
+                $object->setHours($data['hours']);
+                unset($data['hours']);
+            } elseif (\array_key_exists('hours', $data) && null === $data['hours']) {
+                $object->setHours(null);
+            }
+            if (\array_key_exists('project_id', $data) && null !== $data['project_id']) {
+                $object->setProjectId($data['project_id']);
+                unset($data['project_id']);
+            } elseif (\array_key_exists('project_id', $data) && null === $data['project_id']) {
+                $object->setProjectId(null);
+            }
+            if (\array_key_exists('response_code', $data) && null !== $data['response_code']) {
+                $object->setResponseCode($data['response_code']);
+                unset($data['response_code']);
+            } elseif (\array_key_exists('response_code', $data) && null === $data['response_code']) {
+                $object->setResponseCode(null);
+            }
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
             return $object;
         }
-        if (\array_key_exists('budget_by', $data) && null !== $data['budget_by']) {
-            $object->setBudgetBy($data['budget_by']);
-        } elseif (\array_key_exists('budget_by', $data) && null === $data['budget_by']) {
-            $object->setBudgetBy(null);
-        }
-        if (\array_key_exists('budget_is_monthly', $data) && null !== $data['budget_is_monthly']) {
-            $object->setBudgetIsMonthly($data['budget_is_monthly']);
-        } elseif (\array_key_exists('budget_is_monthly', $data) && null === $data['budget_is_monthly']) {
-            $object->setBudgetIsMonthly(null);
-        }
-        if (\array_key_exists('hours', $data) && null !== $data['hours']) {
-            $object->setHours($data['hours']);
-        } elseif (\array_key_exists('hours', $data) && null === $data['hours']) {
-            $object->setHours(null);
-        }
-        if (\array_key_exists('project_id', $data) && null !== $data['project_id']) {
-            $object->setProjectId($data['project_id']);
-        } elseif (\array_key_exists('project_id', $data) && null === $data['project_id']) {
-            $object->setProjectId(null);
-        }
-        if (\array_key_exists('response_code', $data) && null !== $data['response_code']) {
-            $object->setResponseCode($data['response_code']);
-        } elseif (\array_key_exists('response_code', $data) && null === $data['response_code']) {
-            $object->setResponseCode(null);
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('budgetBy') && null !== $object->getBudgetBy()) {
+                $data['budget_by'] = $object->getBudgetBy();
+            }
+            if ($object->isInitialized('budgetIsMonthly') && null !== $object->getBudgetIsMonthly()) {
+                $data['budget_is_monthly'] = $object->getBudgetIsMonthly();
+            }
+            $data['hours'] = $object->getHours();
+            $data['project_id'] = $object->getProjectId();
+            if ($object->isInitialized('responseCode') && null !== $object->getResponseCode()) {
+                $data['response_code'] = $object->getResponseCode();
+            }
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' => false];
+        }
     }
-
-    /**
-     * @param mixed      $object
-     * @param mixed|null $format
-     *
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+} else {
+    class RemainingBudgetedHourNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = [];
-        if (null !== $object->getBudgetBy()) {
-            $data['budget_by'] = $object->getBudgetBy();
-        }
-        if (null !== $object->getBudgetIsMonthly()) {
-            $data['budget_is_monthly'] = $object->getBudgetIsMonthly();
-        }
-        $data['hours'] = $object->getHours();
-        $data['project_id'] = $object->getProjectId();
-        if (null !== $object->getResponseCode()) {
-            $data['response_code'] = $object->getResponseCode();
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
+
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' === $type;
         }
 
-        return $data;
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' === $data::class;
+        }
+
+        /**
+         * @param mixed|null $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\RemainingBudgetedHour();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('budget_by', $data) && null !== $data['budget_by']) {
+                $object->setBudgetBy($data['budget_by']);
+                unset($data['budget_by']);
+            } elseif (\array_key_exists('budget_by', $data) && null === $data['budget_by']) {
+                $object->setBudgetBy(null);
+            }
+            if (\array_key_exists('budget_is_monthly', $data) && null !== $data['budget_is_monthly']) {
+                $object->setBudgetIsMonthly($data['budget_is_monthly']);
+                unset($data['budget_is_monthly']);
+            } elseif (\array_key_exists('budget_is_monthly', $data) && null === $data['budget_is_monthly']) {
+                $object->setBudgetIsMonthly(null);
+            }
+            if (\array_key_exists('hours', $data) && null !== $data['hours']) {
+                $object->setHours($data['hours']);
+                unset($data['hours']);
+            } elseif (\array_key_exists('hours', $data) && null === $data['hours']) {
+                $object->setHours(null);
+            }
+            if (\array_key_exists('project_id', $data) && null !== $data['project_id']) {
+                $object->setProjectId($data['project_id']);
+                unset($data['project_id']);
+            } elseif (\array_key_exists('project_id', $data) && null === $data['project_id']) {
+                $object->setProjectId(null);
+            }
+            if (\array_key_exists('response_code', $data) && null !== $data['response_code']) {
+                $object->setResponseCode($data['response_code']);
+                unset($data['response_code']);
+            } elseif (\array_key_exists('response_code', $data) && null === $data['response_code']) {
+                $object->setResponseCode(null);
+            }
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        /**
+         * @param mixed|null $format
+         *
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('budgetBy') && null !== $object->getBudgetBy()) {
+                $data['budget_by'] = $object->getBudgetBy();
+            }
+            if ($object->isInitialized('budgetIsMonthly') && null !== $object->getBudgetIsMonthly()) {
+                $data['budget_is_monthly'] = $object->getBudgetIsMonthly();
+            }
+            $data['hours'] = $object->getHours();
+            $data['project_id'] = $object->getProjectId();
+            if ($object->isInitialized('responseCode') && null !== $object->getResponseCode()) {
+                $data['response_code'] = $object->getResponseCode();
+            }
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\RemainingBudgetedHour' => false];
+        }
     }
 }

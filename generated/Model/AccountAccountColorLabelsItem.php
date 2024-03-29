@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class AccountAccountColorLabelsItem
+class AccountAccountColorLabelsItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * Name of the color.
      *
@@ -25,6 +29,11 @@ class AccountAccountColorLabelsItem
      * @var string|null
      */
     protected $label;
+
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
 
     /**
      * Name of the color.
@@ -39,6 +48,7 @@ class AccountAccountColorLabelsItem
      */
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -57,6 +67,7 @@ class AccountAccountColorLabelsItem
      */
     public function setLabel(?string $label): self
     {
+        $this->initialized['label'] = true;
         $this->label = $label;
 
         return $this;

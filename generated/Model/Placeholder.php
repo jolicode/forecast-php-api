@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Placeholder
+class Placeholder extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * @var bool|null
      */
@@ -26,7 +30,7 @@ class Placeholder
      */
     protected $name;
     /**
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $roles;
     /**
@@ -42,6 +46,11 @@ class Placeholder
      */
     protected $updatedById;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     public function getArchived(): ?bool
     {
         return $this->archived;
@@ -49,6 +58,7 @@ class Placeholder
 
     public function setArchived(?bool $archived): self
     {
+        $this->initialized['archived'] = true;
         $this->archived = $archived;
 
         return $this;
@@ -61,6 +71,7 @@ class Placeholder
 
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -73,13 +84,14 @@ class Placeholder
 
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getRoles(): ?array
     {
@@ -87,10 +99,11 @@ class Placeholder
     }
 
     /**
-     * @param string[]|null $roles
+     * @param list<string>|null $roles
      */
     public function setRoles(?array $roles): self
     {
+        $this->initialized['roles'] = true;
         $this->roles = $roles;
 
         return $this;
@@ -109,6 +122,7 @@ class Placeholder
      */
     public function setUpdatedAt(?\DateTime $updatedAt): self
     {
+        $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -127,6 +141,7 @@ class Placeholder
      */
     public function setUpdatedById(?int $updatedById): self
     {
+        $this->initialized['updatedById'] = true;
         $this->updatedById = $updatedById;
 
         return $this;

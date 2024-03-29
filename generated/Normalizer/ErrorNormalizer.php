@@ -13,6 +13,8 @@ namespace JoliCode\Forecast\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Forecast\Api\Runtime\Normalizer\CheckArray;
+use JoliCode\Forecast\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,71 +22,158 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use CheckArray;
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return 'JoliCode\\Forecast\\Api\\Model\\Error' === $type;
-    }
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
 
-    public function supportsNormalization($data, $format = null): bool
-    {
-        return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Error' === \get_class($data);
-    }
-
-    /**
-     * @param mixed      $data
-     * @param mixed      $class
-     * @param mixed|null $format
-     *
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\Error' === $type;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Error' === $data::class;
         }
-        $object = new \JoliCode\Forecast\Api\Model\Error();
-        if (null === $data || false === \is_array($data)) {
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\Error();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('errors', $data) && null !== $data['errors']) {
+                $values = [];
+                foreach ($data['errors'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setErrors($values);
+                unset($data['errors']);
+            } elseif (\array_key_exists('errors', $data) && null === $data['errors']) {
+                $object->setErrors(null);
+            }
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
             return $object;
         }
-        if (\array_key_exists('errors', $data) && null !== $data['errors']) {
-            $values = [];
-            foreach ($data['errors'] as $value) {
-                $values[] = $value;
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('errors') && null !== $object->getErrors()) {
+                $values = [];
+                foreach ($object->getErrors() as $value) {
+                    $values[] = $value;
+                }
+                $data['errors'] = $values;
             }
-            $object->setErrors($values);
-        } elseif (\array_key_exists('errors', $data) && null === $data['errors']) {
-            $object->setErrors(null);
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
         }
 
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\Error' => false];
+        }
     }
-
-    /**
-     * @param mixed      $object
-     * @param mixed|null $format
-     *
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+} else {
+    class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = [];
-        if (null !== $object->getErrors()) {
-            $values = [];
-            foreach ($object->getErrors() as $value) {
-                $values[] = $value;
-            }
-            $data['errors'] = $values;
+        use CheckArray;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use ValidatorTrait;
+
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return 'JoliCode\\Forecast\\Api\\Model\\Error' === $type;
         }
 
-        return $data;
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return \is_object($data) && 'JoliCode\\Forecast\\Api\\Model\\Error' === $data::class;
+        }
+
+        /**
+         * @param mixed|null $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \JoliCode\Forecast\Api\Model\Error();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('errors', $data) && null !== $data['errors']) {
+                $values = [];
+                foreach ($data['errors'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setErrors($values);
+                unset($data['errors']);
+            } elseif (\array_key_exists('errors', $data) && null === $data['errors']) {
+                $object->setErrors(null);
+            }
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
+            return $object;
+        }
+
+        /**
+         * @param mixed|null $format
+         *
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('errors') && null !== $object->getErrors()) {
+                $values = [];
+                foreach ($object->getErrors() as $value) {
+                    $values[] = $value;
+                }
+                $data['errors'] = $values;
+            }
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return ['JoliCode\\Forecast\\Api\\Model\\Error' => false];
+        }
     }
 }

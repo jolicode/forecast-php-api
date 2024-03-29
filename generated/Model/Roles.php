@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Roles
+class Roles extends \ArrayObject
 {
     /**
-     * @var Role[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<Role>|null
      */
     protected $roles;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return Role[]|null
+     * @return list<Role>|null
      */
     public function getRoles(): ?array
     {
@@ -27,10 +36,11 @@ class Roles
     }
 
     /**
-     * @param Role[]|null $roles
+     * @param list<Role>|null $roles
      */
     public function setRoles(?array $roles): self
     {
+        $this->initialized['roles'] = true;
         $this->roles = $roles;
 
         return $this;

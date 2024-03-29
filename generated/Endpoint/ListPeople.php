@@ -20,8 +20,8 @@ class ListPeople extends \JoliCode\Forecast\Api\Runtime\Client\BaseEndpoint impl
      *
      * @param array $queryParameters {
      *
-     *     @var string $state Pass "active" to only return active users. Any other value also returns archived users.
-     * }
+     * @var string $state Pass "active" to only return active users. Any other value also returns archived users.
+     *             }
      */
     public function __construct(array $queryParameters = [])
     {
@@ -59,18 +59,18 @@ class ListPeople extends \JoliCode\Forecast\Api\Runtime\Client\BaseEndpoint impl
         $optionsResolver->setDefined(['state']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('state', ['string']);
+        $optionsResolver->addAllowedTypes('state', ['string']);
 
         return $optionsResolver;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \JoliCode\Forecast\Api\Model\People|\JoliCode\Forecast\Api\Model\Error|null
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
         if ((null === $contentType) === false && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, 'JoliCode\\Forecast\\Api\\Model\\People', 'json');
         }

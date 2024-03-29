@@ -11,15 +11,24 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class Projects
+class Projects extends \ArrayObject
 {
     /**
-     * @var Project[]|null
+     * @var array
+     */
+    protected $initialized = [];
+    /**
+     * @var list<Project>|null
      */
     protected $projects;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
-     * @return Project[]|null
+     * @return list<Project>|null
      */
     public function getProjects(): ?array
     {
@@ -27,10 +36,11 @@ class Projects
     }
 
     /**
-     * @param Project[]|null $projects
+     * @param list<Project>|null $projects
      */
     public function setProjects(?array $projects): self
     {
+        $this->initialized['projects'] = true;
         $this->projects = $projects;
 
         return $this;

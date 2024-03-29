@@ -11,8 +11,12 @@
 
 namespace JoliCode\Forecast\Api\Model;
 
-class AccountAccount
+class AccountAccount extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
     /**
      * Id of the account.
      *
@@ -34,7 +38,7 @@ class AccountAccount
     /**
      * Available color labels.
      *
-     * @var AccountAccountColorLabelsItem[]|null
+     * @var list<AccountAccountColorLabelsItem>|null
      */
     protected $colorLabels;
     /**
@@ -62,6 +66,11 @@ class AccountAccount
      */
     protected $createdAt;
 
+    public function isInitialized($property): bool
+    {
+        return \array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Id of the account.
      */
@@ -75,6 +84,7 @@ class AccountAccount
      */
     public function setId(?int $id): self
     {
+        $this->initialized['id'] = true;
         $this->id = $id;
 
         return $this;
@@ -93,6 +103,7 @@ class AccountAccount
      */
     public function setName(?string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -111,6 +122,7 @@ class AccountAccount
      */
     public function setWeeklyCapacity(?int $weeklyCapacity): self
     {
+        $this->initialized['weeklyCapacity'] = true;
         $this->weeklyCapacity = $weeklyCapacity;
 
         return $this;
@@ -119,7 +131,7 @@ class AccountAccount
     /**
      * Available color labels.
      *
-     * @return AccountAccountColorLabelsItem[]|null
+     * @return list<AccountAccountColorLabelsItem>|null
      */
     public function getColorLabels(): ?array
     {
@@ -129,10 +141,11 @@ class AccountAccount
     /**
      * Available color labels.
      *
-     * @param AccountAccountColorLabelsItem[]|null $colorLabels
+     * @param list<AccountAccountColorLabelsItem>|null $colorLabels
      */
     public function setColorLabels(?array $colorLabels): self
     {
+        $this->initialized['colorLabels'] = true;
         $this->colorLabels = $colorLabels;
 
         return $this;
@@ -151,6 +164,7 @@ class AccountAccount
      */
     public function setHarvestSubdomain(?string $harvestSubdomain): self
     {
+        $this->initialized['harvestSubdomain'] = true;
         $this->harvestSubdomain = $harvestSubdomain;
 
         return $this;
@@ -169,6 +183,7 @@ class AccountAccount
      */
     public function setHarvestName(?string $harvestName): self
     {
+        $this->initialized['harvestName'] = true;
         $this->harvestName = $harvestName;
 
         return $this;
@@ -187,6 +202,7 @@ class AccountAccount
      */
     public function setWeekendsEnabled(?bool $weekendsEnabled): self
     {
+        $this->initialized['weekendsEnabled'] = true;
         $this->weekendsEnabled = $weekendsEnabled;
 
         return $this;
@@ -205,6 +221,7 @@ class AccountAccount
      */
     public function setCreatedAt(?\DateTime $createdAt): self
     {
+        $this->initialized['createdAt'] = true;
         $this->createdAt = $createdAt;
 
         return $this;
