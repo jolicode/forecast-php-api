@@ -14,6 +14,7 @@ namespace qa;
 use Castor\Attribute\AsOption;
 use Castor\Attribute\AsTask;
 
+use function Castor\exit_code;
 use function Castor\run;
 
 #[AsTask(description: 'Fix CS', aliases: ['cs'])]
@@ -27,7 +28,7 @@ function cs(
         $command[] = '--dry-run';
     }
 
-    return run($command, allowFailure: true)->getExitCode();
+    return exit_code($command);
 }
 
 #[AsTask(description: 'Update php-cs-fixer')]

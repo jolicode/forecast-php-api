@@ -1,5 +1,11 @@
 # Changes between versions
 
+## 7.1.0 (2026-09-19) - final release
+
+ * **this project is deprecated and no longer maintained** - see [why](README.md#why-this-project-is-no-longer-maintained)
+ * flag the package as `abandoned` in `composer.json`
+ * deprecate `JoliCode\Forecast\ClientFactory`, which now triggers a deprecation notice
+
 ## 7.0.0 (2024-03-29)
 
  * upgrade to `janephp/open-api` 7.6
